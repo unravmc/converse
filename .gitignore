@@ -1,0 +1,33 @@
+# Netbeans excludes
+/nbproject/private
+/dist
+/build
+manifest.mf
+dependency-reduced-pom.xml
+
+# converse
+src/main/resources/build.properties
+
+# Eclipse excludes
+.project
+.classpath
+/bin
+/.settings
+
+# IntelliJ excludes
+*.iml
+*.ipr
+*.iws
+/.idea
+
+# Maven excludes
+/target
+
+# OS generated files
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+src/test/

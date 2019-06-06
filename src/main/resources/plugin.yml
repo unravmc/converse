@@ -1,0 +1,6 @@
+name: ${project.name}
+version: ${project.version}
+description: Plugin for NovelMC
+author: Telesphoreo
+main: net.novelmc.Converse
+api-version: 1.14

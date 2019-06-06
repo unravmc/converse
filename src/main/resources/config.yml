@@ -1,0 +1,9 @@
+#
+# Converse Configuration File
+#
+
+# Can a user appeal from a ban?
+canappeal: true
+
+# URL where players should appeal their bans
+banurl: https://novelmc.net
