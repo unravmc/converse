@@ -4,3 +4,11 @@ description: Plugin for NovelMC
 author: Telesphoreo
 main: net.novelmc.Converse
 api-version: 1.14
+commands:
+  converse:
+    usage: /<command>
+    description: Converse
+  staff:
+    usage: /<command> <add <player> <rank> | remove <player>>
+    description: Manage admins
+    aliases: [saconfig]

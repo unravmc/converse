@@ -2,10 +2,16 @@ package net.novelmc;
 
 import java.io.InputStream;
 import java.util.Properties;
+import me.lucko.luckperms.api.LuckPermsApi;
+import net.novelmc.bridge.LuckPermsBridge;
+import net.novelmc.commands.ConverseCommand;
+import net.novelmc.commands.StaffCommand;
 import net.novelmc.util.Config;
 import org.bstats.bukkit.Metrics;
+import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Converse extends JavaPlugin
@@ -27,10 +33,30 @@ public class Converse extends JavaPlugin
         build.load(this);
         new Metrics(this);
         Config.loadConfigs();
+        getLuckPermsAPI();
+        registerCommands();
     }
+
+    public static LuckPermsApi getLuckPermsAPI()
+    {
+        RegisteredServiceProvider<LuckPermsApi> provider = Bukkit.getServicesManager().getRegistration(LuckPermsApi.class);
+        if (provider != null)
+        {
+            return provider.getProvider();
+        }
+        return null;
+    }
+
 
     public void onDisable()
     {
+    }
+
+    private void registerCommands()
+    {
+        getCommand("converse").setExecutor(new ConverseCommand());
+        getCommand("converse").setTabCompleter(new ConverseCommand());
+        getCommand("staff").setExecutor(new StaffCommand());
     }
 
     public static class BuildProperties

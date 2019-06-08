@@ -14,5 +14,4 @@ public class Ips
     {
         return event.getAddress().getHostAddress().trim();
     }
-
 }
