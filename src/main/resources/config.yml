@@ -7,3 +7,17 @@ canappeal: true
 
 # URL where players should appeal their bans
 banurl: https://novelmc.net
+
+# Permissions Configuration
+permissions:
+  # What is the Moderator group name?
+  moderator: mod
+
+  # What is the Senior Moderator group name?
+  senior_moderator: seniormod
+
+  # What is the Developer group name?
+  developer: dev
+
+  # What is the Manager group name?
+  manager: manager

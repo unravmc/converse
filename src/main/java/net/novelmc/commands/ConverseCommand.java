@@ -3,7 +3,7 @@ package net.novelmc.commands;
 import java.util.Collections;
 import java.util.List;
 import net.novelmc.Converse;
-import net.novelmc.permissions.Permissions;
+import net.novelmc.bridge.LuckPermsBridge;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -16,16 +16,11 @@ public class ConverseCommand implements CommandExecutor, TabCompleter
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args)
     {
-        if (!sender.hasPermission("converse.converse"))
-        {
-            sender.sendMessage(Messages.NO_PERMISSION);
-            return true;
-        }
-
         if (args.length == 0)
         {
             Converse.BuildProperties build = Converse.build;
-            sender.sendMessage(ChatColor.GOLD + "Converse");
+            sender.sendMessage(ChatColor.GOLD + "Converse is a plugin by which the NovelMC server manages operator " +
+                    "permissions, in-game functions, and staff member tools.");
             sender.sendMessage(ChatColor.GOLD + String.format("Version "
                             + ChatColor.BLUE + "%s.%s.%s",
                     build.version,
@@ -41,14 +36,23 @@ public class ConverseCommand implements CommandExecutor, TabCompleter
         }
         if (args[0].equalsIgnoreCase("debug"))
         {
-            Permissions.informIfMod(sender, ((Player)sender).getUniqueId());
+            if (!sender.hasPermission("converse.debug"))
+            {
+                sender.sendMessage(Messages.NO_PERMISSION);
+                return true;
+            }
+            LuckPermsBridge.informIfMod(sender, ((Player)sender).getUniqueId());
         }
         return true;
     }
 
     @Override
-    public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] strings)
+    public List<String> onTabComplete(CommandSender sender, Command command, String s, String[] strings)
     {
-        return Collections.singletonList("debug");
+        if (sender.hasPermission("converse.debug"))
+        {
+            return Collections.singletonList("debug");
+        }
+        return null;
     }
 }

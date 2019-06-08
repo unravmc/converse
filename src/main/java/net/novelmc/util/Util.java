@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class Util
@@ -18,7 +19,12 @@ public class Util
         return players;
     }
 
-    public static void action(Player sender, String message)
+    public static void action(Player player, String message)
+    {
+        Bukkit.broadcastMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "[" + player.getName() + ": " + message + "]");
+    }
+
+    public static void action(CommandSender sender, String message)
     {
         Bukkit.broadcastMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "[" + sender.getName() + ": " + message + "]");
     }

@@ -3,7 +3,6 @@ package net.novelmc;
 import java.io.InputStream;
 import java.util.Properties;
 import me.lucko.luckperms.api.LuckPermsApi;
-import net.novelmc.bridge.LuckPermsBridge;
 import net.novelmc.commands.ConverseCommand;
 import net.novelmc.commands.StaffCommand;
 import net.novelmc.util.Config;
