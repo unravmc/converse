@@ -11,6 +11,8 @@ import org.bukkit.event.player.PlayerLoginEvent;
 
 public class BanListener implements Listener
 {
+
+    // cleanup
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerLogin(PlayerLoginEvent event)
     {

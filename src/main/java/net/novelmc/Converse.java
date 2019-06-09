@@ -6,6 +6,7 @@ import me.lucko.luckperms.api.LuckPermsApi;
 import net.novelmc.commands.ConverseCommand;
 import net.novelmc.commands.StaffCommand;
 import net.novelmc.util.Config;
+import net.novelmc.util.Updater;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
@@ -49,6 +50,15 @@ public class Converse extends JavaPlugin
 
     public void onDisable()
     {
+        try
+        {
+            Updater updater = new Updater(this);
+            updater.update();
+        }
+        catch (NoClassDefFoundError ex)
+        {
+            plugin.getLogger().info("There was an error checking for an update");
+        }
     }
 
     private void registerCommands()

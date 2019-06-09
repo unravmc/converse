@@ -41,7 +41,11 @@ public class ConverseCommand implements CommandExecutor, TabCompleter
                 sender.sendMessage(Messages.NO_PERMISSION);
                 return true;
             }
-            LuckPermsBridge.informIfMod(sender, ((Player)sender).getUniqueId());
+            if (LuckPermsBridge.isPlayerInGroup((Player)sender, Converse.config.getString("permissions.moderator")))
+            {
+                sender.sendMessage("gay");
+                return true;
+            }
         }
         return true;
     }

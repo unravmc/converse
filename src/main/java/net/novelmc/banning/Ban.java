@@ -103,7 +103,7 @@ public class Ban
     {
         try
         {
-            Converse.bans.save("admins.yml");
+            Converse.bans.save("bans.yml");
         }
         catch (IOException ex)
         {

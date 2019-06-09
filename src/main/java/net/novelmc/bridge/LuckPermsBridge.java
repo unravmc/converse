@@ -32,25 +32,28 @@ public class LuckPermsBridge
         return null;
     }
 
-    public static CompletableFuture<Boolean> isModerator(UUID who)
+    public static boolean isModerator(UUID player)
     {
-        return api.getUserManager().loadUser(who)
-                .thenApplyAsync(user -> user.getPrimaryGroup().equalsIgnoreCase("mod"));
+        User user = api.getUserManager().getUser(player);
+        return user.getPrimaryGroup().equalsIgnoreCase(Converse.plugin.getConfig().getString("permissions.moderator"));
     }
 
-    public static void informIfMod(CommandSender sender, UUID who)
+    public static boolean isSeniorModerator(UUID player)
     {
-        isModerator(who).thenAcceptAsync(result ->
-        {
-            if (result)
-            {
-                sender.sendMessage("Yes! That player is a moderator!");
-            }
-            else
-            {
-                sender.sendMessage("No, that player isn't a moderator.");
-            }
-        });
+        User user = api.getUserManager().getUser(player);
+        return user.getPrimaryGroup().equalsIgnoreCase(Converse.plugin.getConfig().getString("permissions.senior_moderator"));
+    }
+
+    public static boolean isDeveloper(UUID player)
+    {
+        User user = api.getUserManager().getUser(player);
+        return user.getPrimaryGroup().equalsIgnoreCase(Converse.plugin.getConfig().getString("permissions.developer"));
+    }
+
+    public static boolean isExecutive(UUID player)
+    {
+        User user = api.getUserManager().getUser(player);
+        return user.getPrimaryGroup().equalsIgnoreCase(Converse.plugin.getConfig().getString("permissions.executive"));
     }
 
     public static void set(UUID uuid, String group)

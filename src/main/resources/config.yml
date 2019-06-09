@@ -19,5 +19,5 @@ permissions:
   # What is the Developer group name?
   developer: dev
 
-  # What is the Manager group name?
-  manager: manager
+  # What is the Executive group name?
+  executive: executive
