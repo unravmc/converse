@@ -14,7 +14,7 @@ permissions:
   senior_moderator: seniormod
 
   # What is the Developer group name?
-  developer: dev
+  developer: developer
 
   # What is the Executive group name?
   executive: executive

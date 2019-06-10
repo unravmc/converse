@@ -4,41 +4,51 @@ import java.io.File;
 import java.io.IOException;
 import net.novelmc.Converse;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-public class Config
+public class Config extends YamlConfiguration
 {
+    private static Converse plugin;
+    private static Config config;
     public static final String CONFIG_FILENAME = "config.yml";
-    public static File config = new File(Bukkit.getServer().getPluginManager().getPlugin(Converse.plugin.getName()).getDataFolder(), CONFIG_FILENAME);
+    public static File file = new File(Bukkit.getServer().getPluginManager().getPlugin(Converse.plugin.getName()).getDataFolder(), CONFIG_FILENAME);
 
-    public static YamlConfiguration getConfig()
+    public Config(Converse plugin)
     {
-        return YamlConfiguration.loadConfiguration(config);
-    }
-
-    public static void reloadConfig(FileConfiguration configuration)
-    {
-        try
+        Converse.plugin = plugin;
+        if (!file.exists())
         {
-            configuration.load(config);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
+            saveDefault();
         }
     }
 
-    public static YamlConfiguration save()
+    public void load()
     {
         try
         {
-            getConfig().save(config);
+            super.load(file);
         }
-        catch (IOException e)
+        catch (IOException | InvalidConfigurationException ex)
         {
-            e.printStackTrace();
+            ex.printStackTrace();
         }
-        return null;
+    }
+
+    public void save()
+    {
+        try
+        {
+            super.save(file);
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void saveDefault()
+    {
+        plugin.saveResource(CONFIG_FILENAME, false);
     }
 }

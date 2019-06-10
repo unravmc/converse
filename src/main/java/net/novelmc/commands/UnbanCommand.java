@@ -1,5 +1,10 @@
 package net.novelmc.commands;
 
+import net.novelmc.banning.Ban;
+import net.novelmc.util.Util;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -19,6 +24,19 @@ public class UnbanCommand implements CommandExecutor
         {
             return false;
         }
+
+        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
+
+        if (Ban.removeBan(offlinePlayer))
+        {
+            Util.action(sender, "Unbanning " + offlinePlayer.getName());
+            return true;
+        }
+        else
+        {
+            sender.sendMessage(ChatColor.GRAY + "Converse could not find a ban under that name.");
+        }
+
         return true;
     }
 }

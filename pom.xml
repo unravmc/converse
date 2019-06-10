@@ -32,11 +32,6 @@
             <id>CodeMC</id>
             <url>https://repo.codemc.org/repository/maven-public</url>
         </repository>
-
-        <repository>
-            <id>Essentials</id>
-            <url>https://ci.ender.zone/plugin/repository/everything/</url>
-        </repository>
     </repositories>
 
     <dependencies>
@@ -58,13 +53,6 @@
             <groupId>me.lucko.luckperms</groupId>
             <artifactId>luckperms-api</artifactId>
             <version>4.4</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>net.ess3</groupId>
-            <artifactId>EssentialsX</artifactId>
-            <version>2.16.1</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

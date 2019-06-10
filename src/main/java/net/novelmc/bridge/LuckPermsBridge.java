@@ -16,31 +16,31 @@ public class LuckPermsBridge
     public static boolean isModerator(UUID player)
     {
         User user = api.getUserManager().getUser(player);
-        return user.getPrimaryGroup().equalsIgnoreCase(Converse.plugin.getConfig().getString("permissions.moderator"));
+        return user.getPrimaryGroup().equalsIgnoreCase(Converse.plugin.config.getString("permissions.moderator"));
     }
 
     public static boolean isSeniorModerator(UUID player)
     {
         User user = api.getUserManager().getUser(player);
-        return user.getPrimaryGroup().equalsIgnoreCase(Converse.plugin.getConfig().getString("permissions.senior_moderator"));
+        return user.getPrimaryGroup().equalsIgnoreCase(Converse.plugin.config.getString("permissions.senior_moderator"));
     }
 
     public static boolean isDeveloper(UUID player)
     {
         User user = api.getUserManager().getUser(player);
-        return user.getPrimaryGroup().equalsIgnoreCase(Converse.plugin.getConfig().getString("permissions.developer"));
+        return user.getPrimaryGroup().equalsIgnoreCase(Converse.plugin.config.getString("permissions.developer"));
     }
 
     public static boolean isExecutive(UUID player)
     {
         User user = api.getUserManager().getUser(player);
-        return user.getPrimaryGroup().equalsIgnoreCase(Converse.plugin.getConfig().getString("permissions.executive"));
+        return user.getPrimaryGroup().equalsIgnoreCase(Converse.plugin.config.getString("permissions.executive"));
     }
 
     public static boolean isArchitect(UUID player)
     {
         User user = api.getUserManager().getUser(player);
-        return user.getPrimaryGroup().equalsIgnoreCase(Converse.plugin.getConfig().getString("permissions.architect"));
+        return user.getPrimaryGroup().equalsIgnoreCase(Converse.plugin.config.getString("permissions.architect"));
     }
 
     public static String displayRank(UUID player)

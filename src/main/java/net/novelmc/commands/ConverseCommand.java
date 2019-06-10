@@ -1,13 +1,10 @@
 package net.novelmc.commands;
 
 import net.novelmc.Converse;
-import net.novelmc.config.BanConfig;
-import net.novelmc.config.Config;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.YamlConfiguration;
 
 public class ConverseCommand implements CommandExecutor
 {
@@ -43,15 +40,15 @@ public class ConverseCommand implements CommandExecutor
                     sender.sendMessage(Messages.NO_PERMISSION);
                     return true;
                 }
-                sender.sendMessage(Config.getConfig().getString("banurl"));
-                Config.getConfig().set("banurl", "https://novelmc.net");
-                Config.save();
-                YamlConfiguration.loadConfiguration(Config.config);
-                sender.sendMessage(Config.getConfig().getString("banurl"));
-                BanConfig.getConfig().createSection("test");
-                BanConfig.save();
-                YamlConfiguration.loadConfiguration(BanConfig.config);
-                if (BanConfig.getConfig().isConfigurationSection("test"))
+                sender.sendMessage(Converse.plugin.config.getString("banurl"));
+                Converse.plugin.config.set("banurl", "https://novelmc.net");
+                Converse.plugin.config.save();
+                Converse.plugin.config.load();
+                sender.sendMessage(Converse.plugin.config.getString("banurl"));
+                Converse.plugin.banConfig.createSection("test");
+                Converse.plugin.banConfig.save();
+                Converse.plugin.banConfig.load();
+                if (Converse.plugin.banConfig.isConfigurationSection("test"))
                 {
                     sender.sendMessage("it worked");
                     return true;
@@ -65,6 +62,10 @@ public class ConverseCommand implements CommandExecutor
                     sender.sendMessage(Messages.NO_PERMISSION);
                     return true;
                 }
+                Converse.plugin.config.save();
+                Converse.plugin.banConfig.save();
+                Converse.plugin.config.load();
+                Converse.plugin.banConfig.load();
                 sender.sendMessage(ChatColor.GRAY + "The Converse configuration file has been reloaded.");
                 return true;
             }

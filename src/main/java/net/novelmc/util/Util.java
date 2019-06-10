@@ -35,6 +35,11 @@ public class Util
         Bukkit.broadcastMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "[" + sender + ": " + message + "]");
     }
 
+    public static String colorize(String string)
+    {
+        return ChatColor.translateAlternateColorCodes('&', string);
+    }
+
 
     public static void adminchat(CommandSender sender, String message)
     {

@@ -24,11 +24,15 @@ public class Converse extends JavaPlugin
     public static Converse plugin;
     public static final BuildProperties build = new BuildProperties();
     public static Server server;
+    public Config config;
+    public BanConfig banConfig;
 
     public void onLoad()
     {
         plugin = this;
         server = plugin.getServer();
+        config = new Config(plugin);
+        banConfig = new BanConfig(plugin);
     }
 
     public void onEnable()
@@ -63,8 +67,8 @@ public class Converse extends JavaPlugin
         {
             plugin.getLogger().info("There was an error checking for an update");
         }
-        Config.save();
-        BanConfig.save();
+        config.save();
+        banConfig.save();
     }
 
     private void registerCommands()
@@ -84,8 +88,8 @@ public class Converse extends JavaPlugin
 
     public void loadConfigs()
     {
-        Config.getConfig();
-        BanConfig.getConfig();
+        config.load();
+        banConfig.load();
     }
 
     public static class BuildProperties

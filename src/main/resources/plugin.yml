@@ -3,7 +3,7 @@ version: ${project.version}
 description: Plugin for NovelMC
 author: Telesphoreo
 main: net.novelmc.Converse
-depend: [LuckPerms, Essentials]
+depend: [LuckPerms]
 softdepend: [CoreProtect]
 api-version: 1.14
 commands:

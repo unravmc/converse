@@ -1,7 +1,5 @@
 package net.novelmc.banning;
 
-import org.bukkit.BanList;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -14,11 +12,9 @@ public class BanListener implements Listener
     public void onPlayerLogin(PlayerLoginEvent event)
     {
         Player player = event.getPlayer();
-        player.sendMessage("this works");
-        if (player.isBanned())
+        if (Ban.isBanned(player))
         {
-            String reason = Bukkit.getBanList(BanList.Type.NAME).getBanEntry(player.getName()).getReason();
-            event.disallow(PlayerLoginEvent.Result.KICK_OTHER, Ban.constructBanMessage(reason, Ban.getBanID(player)));
+            event.disallow(PlayerLoginEvent.Result.KICK_OTHER, Ban.constructBanMessage(Ban.getReason(player), Ban.getBanID(player)));
         }
     }
 }
