@@ -14,7 +14,7 @@ public class Ban
     {
         final StringBuilder banMessage = new StringBuilder(ChatColor.BLUE + "" + ChatColor.BOLD
                 + "Novel");
-        banMessage.append(ChatColor.WHITE + "" + ChatColor.GOLD + "MC\n");
+        banMessage.append(ChatColor.WHITE + "" + ChatColor.BOLD + "MC\n");
         banMessage.append(ChatColor.DARK_RED + "You are banned from this server!\n");
         if (!(reason.length() == 0))
         {
