@@ -3,14 +3,19 @@ package net.novelmc;
 import java.io.InputStream;
 import java.util.Properties;
 import me.lucko.luckperms.api.LuckPermsApi;
+import net.novelmc.banning.BanListener;
+import net.novelmc.commands.AdminchatCommand;
+import net.novelmc.commands.BanCommand;
 import net.novelmc.commands.ConverseCommand;
 import net.novelmc.commands.StaffCommand;
-import net.novelmc.util.Config;
+import net.novelmc.commands.UnbanCommand;
+import net.novelmc.config.BanConfig;
+import net.novelmc.config.Config;
+import net.novelmc.listeners.StaffListener;
 import net.novelmc.util.Updater;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,8 +24,6 @@ public class Converse extends JavaPlugin
     public static Converse plugin;
     public static final BuildProperties build = new BuildProperties();
     public static Server server;
-    public static YamlConfiguration config;
-    public static YamlConfiguration bans = Config.getConfig(Config.ConfigFile.BANS);
 
     public void onLoad()
     {
@@ -32,9 +35,10 @@ public class Converse extends JavaPlugin
     {
         build.load(this);
         new Metrics(this);
-        Config.loadConfigs();
         getLuckPermsAPI();
+        loadConfigs();
         registerCommands();
+        registerListeners();
     }
 
     public static LuckPermsApi getLuckPermsAPI()
@@ -59,13 +63,29 @@ public class Converse extends JavaPlugin
         {
             plugin.getLogger().info("There was an error checking for an update");
         }
+        Config.save();
+        BanConfig.save();
     }
 
     private void registerCommands()
     {
+        getCommand("adminchat").setExecutor(new AdminchatCommand());
+        getCommand("ban").setExecutor(new BanCommand());
         getCommand("converse").setExecutor(new ConverseCommand());
-        getCommand("converse").setTabCompleter(new ConverseCommand());
         getCommand("staff").setExecutor(new StaffCommand());
+        getCommand("unban").setExecutor(new UnbanCommand());
+    }
+
+    private void registerListeners()
+    {
+        plugin.getServer().getPluginManager().registerEvents(new BanListener(), this);
+        plugin.getServer().getPluginManager().registerEvents(new StaffListener(), this);
+    }
+
+    public void loadConfigs()
+    {
+        Config.getConfig();
+        BanConfig.getConfig();
     }
 
     public static class BuildProperties

@@ -46,7 +46,6 @@ public class StaffCommand implements CommandExecutor
                     return true;
                 }
 
-                // TODO: make it so that you cant move yourself to a higher rank
                 if (args[2].equalsIgnoreCase("moderator") || args[2].equalsIgnoreCase("mod"))
                 {
                     LuckPermsBridge.set(player.getUniqueId(), Converse.plugin.getConfig().getString("permissions.moderator"));
@@ -55,7 +54,7 @@ public class StaffCommand implements CommandExecutor
                 }
                 else if (args[2].equalsIgnoreCase("seniormod") || args[2].equalsIgnoreCase("srmod"))
                 {
-                    if (LuckPermsBridge.isModerator(player.getUniqueId()))
+                    if (!sender.hasPermission("converse.staff.add.seniormod"))
                     {
                         sender.sendMessage(Messages.NO_PERMISSION);
                         return true;
@@ -66,12 +65,7 @@ public class StaffCommand implements CommandExecutor
                 }
                 else if (args[2].equalsIgnoreCase("developer") || args[2].equalsIgnoreCase("dev"))
                 {
-                    if (LuckPermsBridge.isModerator(player.getUniqueId()))
-                    {
-                        sender.sendMessage(Messages.NO_PERMISSION);
-                        return true;
-                    }
-                    if (LuckPermsBridge.isSeniorModerator(player.getUniqueId()))
+                    if (!sender.hasPermission("converse.staff.add.developer"))
                     {
                         sender.sendMessage(Messages.NO_PERMISSION);
                         return true;
@@ -82,17 +76,7 @@ public class StaffCommand implements CommandExecutor
                 }
                 else if (args[2].equalsIgnoreCase("executive") || args[2].equalsIgnoreCase("exec"))
                 {
-                    if (LuckPermsBridge.isModerator(player.getUniqueId()))
-                    {
-                        sender.sendMessage(Messages.NO_PERMISSION);
-                        return true;
-                    }
-                    if (LuckPermsBridge.isSeniorModerator(player.getUniqueId()))
-                    {
-                        sender.sendMessage(Messages.NO_PERMISSION);
-                        return true;
-                    }
-                    if (LuckPermsBridge.isDeveloper(player.getUniqueId()))
+                    if (!sender.hasPermission("converse.staff.add.executive"))
                     {
                         sender.sendMessage(Messages.NO_PERMISSION);
                         return true;
@@ -100,7 +84,19 @@ public class StaffCommand implements CommandExecutor
                     LuckPermsBridge.set(player.getUniqueId(), Converse.plugin.getConfig().getString("permissions.executive"));
                     Util.action(sender, "Adding " + player.getName() + " to Executive");
                     return true;
-                } else
+                }
+                else if (args[2].equalsIgnoreCase("architect") || args[2].equalsIgnoreCase("arch"))
+                {
+                    if (!sender.hasPermission("converse.staff.add.architect"))
+                    {
+                        sender.sendMessage(Messages.NO_PERMISSION);
+                        return true;
+                    }
+                    LuckPermsBridge.set(player.getUniqueId(), Converse.plugin.getConfig().getString("permissions.architect"));
+                    Util.action(sender, "Adding " + player.getName() + " to Architect");
+                    return true;
+                }
+                else
                 {
                     sender.sendMessage(ChatColor.RED + "Please enter a valid rank!");
                     return true;
@@ -108,6 +104,12 @@ public class StaffCommand implements CommandExecutor
             }
             case "remove":
             {
+                if (!sender.hasPermission("converse.staff.remove"))
+                {
+                    sender.sendMessage(Messages.NO_PERMISSION);
+                    return true;
+                }
+
                 if (args.length < 2)
                 {
                     return false;
@@ -121,7 +123,6 @@ public class StaffCommand implements CommandExecutor
                     return true;
                 }
 
-                // TODO: make sure you cant remove someone higher than you
                 LuckPermsBridge.set(player.getUniqueId(), "op");
                 Util.action(sender, "Removing " + player.getName() + " from staff");
                 return true;

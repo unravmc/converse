@@ -1,136 +1,59 @@
 package net.novelmc.banning;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import net.novelmc.Converse;
-import net.novelmc.util.Ips;
+import net.novelmc.config.BanConfig;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 public class Ban
 {
     public static Converse plugin = Converse.plugin;
 
-    public void initiateBan(Player player, CommandSender sender)
+    public static String constructBanMessage(String reason, String banID)
     {
-        try
+        final StringBuilder banMessage = new StringBuilder(ChatColor.BLUE + "" + ChatColor.BOLD
+                + "Novel");
+        banMessage.append(ChatColor.WHITE + "" + ChatColor.GOLD + "MC\n");
+        banMessage.append(ChatColor.DARK_RED + "You are banned from this server!\n");
+        if (!(reason.length() == 0))
         {
-            FileWriter stream = new FileWriter(Converse.bans.toString());
-            BufferedWriter out = new BufferedWriter(stream);
-            Converse.bans.set(Ips.getIp(player).replace(".", "-"), Ips.getIp(player).replace(".", "-"));
-            Converse.bans.set(Ips.getIp(player).replace(".", "-") + ".username", player.getName());
-            Converse.bans.set(Ips.getIp(player).replace(".", "-") + ".banned-by", sender.getName());
-            out.newLine();
+            banMessage.append(ChatColor.DARK_GRAY + "Reason: " + ChatColor.GRAY + reason + "\n");
         }
-        catch (IOException ex)
-        {
-            ex.printStackTrace();
-        }
+        banMessage.append(ChatColor.DARK_GRAY + "More info: " + ChatColor.GRAY + "https://novelmc.net/appeal\n");
+        banMessage.append(ChatColor.DARK_GRAY + "Ban ID: " + ChatColor.GRAY + "#" + banID);
+        return banMessage.toString();
     }
 
-    public void initiateBanIP(String ip, CommandSender sender, String user)
+    public static void addBan(Player player, CommandSender sender, String banID, String reason, String type) throws IOException, InvalidConfigurationException
     {
-        try
-        {
-            FileWriter stream = new FileWriter(Converse.bans.toString());
-            BufferedWriter out = new BufferedWriter(stream);
-            Converse.bans.set(ip, ip);
-            Converse.bans.set(ip + ".username", user);
-            Converse.bans.set(ip + ".banned-by", sender.getName());
-            out.newLine();
-        }
-        catch (IOException ex)
-        {
-            ex.printStackTrace();
-        }
+        BanConfig.getConfig().createSection(player.getUniqueId().toString());
+        BanConfig.getConfig().set(player.getUniqueId().toString() + ".player", player.getName());
+        BanConfig.getConfig().set(player.getUniqueId().toString() + ".ip", player.getAddress().getHostName());
+        BanConfig.getConfig().set(player.getUniqueId().toString() + ".type", type);
+        BanConfig.getConfig().set(player.getUniqueId().toString() + ".by", sender.getName());
+        BanConfig.getConfig().set(player.getUniqueId().toString() + ".reason", reason);
+        BanConfig.getConfig().set(player.getUniqueId().toString() + ".id", banID);
+        BanConfig.save();
+        YamlConfiguration.loadConfiguration(BanConfig.config);
+
     }
 
-    public void initiateBanIP(String ip, CommandSender sender, String user, String reason)
+    public static String getReason(Player player)
     {
-        try
-        {
-            FileWriter stream = new FileWriter(Converse.bans.toString());
-            BufferedWriter out = new BufferedWriter(stream);
-            Converse.bans.set(ip, ip);
-            Converse.bans.set(ip + ".username", user);
-            Converse.bans.set(ip + ".banned-by", sender.getName());
-            Converse.bans.set(ip + ".reason", reason);
-            out.newLine();
-        }
-        catch (IOException ex)
-        {
-            ex.printStackTrace();
-        }
+        return BanConfig.getConfig().get(player.getUniqueId().toString() + ".reason").toString();
     }
 
-    public void initiateOfflineUserBan(String ip, CommandSender sender, String args)
+    public static String getBanID(Player player)
     {
-        try
-        {
-            FileWriter stream = new FileWriter(Converse.bans.toString());
-            BufferedWriter out = new BufferedWriter(stream);
-            Converse.bans.set(ip, ip);
-            Converse.bans.set(ip + ".username", args);
-            Converse.bans.set(ip + ".banned-by", sender.getName());
-            out.newLine();
-        }
-        catch (IOException ex)
-        {
-            ex.printStackTrace();
-        }
+        return BanConfig.getConfig().get(player.getUniqueId().toString() + ".id").toString();
     }
 
-    public void initiateOfflineUserBan(String ip, CommandSender sender, String args, String reason)
+    public static boolean isBanned(Player player)
     {
-        try
-        {
-            FileWriter stream = new FileWriter(Converse.bans.toString());
-            BufferedWriter out = new BufferedWriter(stream);
-            Converse.bans.set(ip, ip);
-            Converse.bans.set(ip + ".username", args);
-            Converse.bans.set(ip + ".banned-by", sender.getName());
-            Converse.bans.set(ip + ".reason", reason);
-            out.newLine();
-        }
-        catch (IOException ex)
-        {
-            ex.printStackTrace();
-        }
-    }
-
-    public void save()
-    {
-        try
-        {
-            Converse.bans.save("bans.yml");
-        }
-        catch (IOException ex)
-        {
-            ex.printStackTrace();
-        }
-    }
-
-    public void initiateBan(Player player, CommandSender sender, String reason)
-    {
-        try
-        {
-            FileWriter stream = new FileWriter(Converse.bans.toString());
-            BufferedWriter out = new BufferedWriter(stream);
-            Converse.bans.set(Ips.getIp(player).replace(".", "-"), Ips.getIp(player).replace(".", "-"));
-            Converse.bans.set(Ips.getIp(player).replace(".", "-") + ".username", player.getName());
-            Converse.bans.set(Ips.getIp(player).replace(".", "-") + ".banned-by", sender.getName());
-            Converse.bans.set(Ips.getIp(player).replace(".", "-") + ".reason", reason);
-            out.newLine();
-        }
-        catch (IOException ex)
-        {
-            ex.printStackTrace();
-        }
-    }
-
-    public void initiateUnban(String args)
-    {
-        Converse.bans.set(args, null);
+        return BanConfig.getConfig().isConfigurationSection(player.getUniqueId().toString());
     }
 }

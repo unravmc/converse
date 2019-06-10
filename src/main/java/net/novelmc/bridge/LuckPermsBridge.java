@@ -1,6 +1,5 @@
 package net.novelmc.bridge;
 
-import java.util.Collection;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import me.lucko.luckperms.api.LuckPermsApi;
@@ -8,29 +7,11 @@ import me.lucko.luckperms.api.Node;
 import me.lucko.luckperms.api.User;
 import me.lucko.luckperms.api.manager.UserManager;
 import net.novelmc.Converse;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
+import org.bukkit.ChatColor;
 
 public class LuckPermsBridge
 {
     private static LuckPermsApi api = Converse.getLuckPermsAPI();
-
-    public static boolean isPlayerInGroup(Player player, String group)
-    {
-        return player.hasPermission("group." + group);
-    }
-
-    public static String getPlayerGroup(Player player, Collection<String> possibleGroups)
-    {
-        for (String group : possibleGroups)
-        {
-            if (player.hasPermission("group." + group))
-            {
-                return group;
-            }
-        }
-        return null;
-    }
 
     public static boolean isModerator(UUID player)
     {
@@ -54,6 +35,33 @@ public class LuckPermsBridge
     {
         User user = api.getUserManager().getUser(player);
         return user.getPrimaryGroup().equalsIgnoreCase(Converse.plugin.getConfig().getString("permissions.executive"));
+    }
+
+    public static boolean isArchitect(UUID player)
+    {
+        User user = api.getUserManager().getUser(player);
+        return user.getPrimaryGroup().equalsIgnoreCase(Converse.plugin.getConfig().getString("permissions.architect"));
+    }
+
+    public static String displayRank(UUID player)
+    {
+        if (isModerator(player))
+        {
+            return ChatColor.BLUE + "" + ChatColor.BOLD + "MOD";
+        }
+        if (isSeniorModerator(player))
+        {
+            return ChatColor.GOLD + "" + ChatColor.BOLD + "SRMOD";
+        }
+        if (isDeveloper(player))
+        {
+            return ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "DEV";
+        }
+        if (isExecutive(player))
+        {
+            return ChatColor.RED + "" + ChatColor.BOLD + "EXEC";
+        }
+        return ChatColor.GREEN + "" + ChatColor.BOLD + "OP";
     }
 
     public static void set(UUID uuid, String group)

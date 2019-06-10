@@ -1,17 +1,15 @@
 package net.novelmc.commands;
 
-import java.util.Collections;
-import java.util.List;
 import net.novelmc.Converse;
-import net.novelmc.bridge.LuckPermsBridge;
+import net.novelmc.config.BanConfig;
+import net.novelmc.config.Config;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
-import org.bukkit.entity.Player;
+import org.bukkit.configuration.file.YamlConfiguration;
 
-public class ConverseCommand implements CommandExecutor, TabCompleter
+public class ConverseCommand implements CommandExecutor
 {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args)
@@ -34,29 +32,44 @@ public class ConverseCommand implements CommandExecutor, TabCompleter
             sender.sendMessage(ChatColor.GREEN + "Visit " + ChatColor.AQUA + "https://github.com/novelmc/converse" + ChatColor.GREEN + " for more information");
             return true;
         }
-        if (args[0].equalsIgnoreCase("debug"))
+        switch (args[0].toLowerCase())
         {
-            if (!sender.hasPermission("converse.debug"))
-            {
-                sender.sendMessage(Messages.NO_PERMISSION);
-                return true;
-            }
-            if (LuckPermsBridge.isPlayerInGroup((Player)sender, Converse.config.getString("permissions.moderator")))
-            {
-                sender.sendMessage("gay");
-                return true;
-            }
-        }
-        return true;
-    }
 
-    @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String s, String[] strings)
-    {
-        if (sender.hasPermission("converse.debug"))
-        {
-            return Collections.singletonList("debug");
+
+            case "debug":
+            {
+                if (!sender.hasPermission("converse.debug"))
+                {
+                    sender.sendMessage(Messages.NO_PERMISSION);
+                    return true;
+                }
+                sender.sendMessage(Config.getConfig().getString("banurl"));
+                Config.getConfig().set("banurl", "https://novelmc.net");
+                Config.save();
+                YamlConfiguration.loadConfiguration(Config.config);
+                sender.sendMessage(Config.getConfig().getString("banurl"));
+                BanConfig.getConfig().createSection("test");
+                BanConfig.save();
+                YamlConfiguration.loadConfiguration(BanConfig.config);
+                if (BanConfig.getConfig().isConfigurationSection("test"))
+                {
+                    sender.sendMessage("it worked");
+                    return true;
+                }
+                return true;
+            }
+            case "reload":
+            {
+                if (!sender.hasPermission("converse.reload"))
+                {
+                    sender.sendMessage(Messages.NO_PERMISSION);
+                    return true;
+                }
+                sender.sendMessage(ChatColor.GRAY + "The Converse configuration file has been reloaded.");
+                return true;
+            }
+            default:
+                return false;
         }
-        return null;
     }
 }
