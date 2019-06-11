@@ -12,21 +12,25 @@ commands:
     description: Talk privately with other admins
     aliases: [ac, o]
   ban:
-    usage: /<command> <player | IP> [reason]
+    usage: /<command> <player> [reason]
     description: Bans a player
-    aliases: [gtfo, banip]
+    aliases: [gtfo, banip, eban, ebanip]
   converse:
     usage: /<command> [reload | debug]
     description: Show information about Converse
+  flatworld:
+    usage: /<command>
+    description: Teleport to the flatworld
+    aliases: [flatlands]
   staff:
     usage: /<command> <add <player> <rank> | remove <player>>
     description: Manage admins
     aliases: [saconfig]
+  staffworld:
+    usage: /<command>
+    description: Teleport to the staffworld
+    aliases: [adminworld]
   unban:
-    usage: /<command> <player | IP>
+    usage: /<command> <player>
     description: Unbans a player
-    aliases: [pardon, unbanip]
-permissions:
-  converse.*:
-    default: op
-    description: If the player has OP give them everything
+    aliases: [pardon, unbanip, eunban, eunbanip]

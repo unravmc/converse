@@ -7,11 +7,14 @@ import net.novelmc.banning.BanListener;
 import net.novelmc.commands.AdminchatCommand;
 import net.novelmc.commands.BanCommand;
 import net.novelmc.commands.ConverseCommand;
+import net.novelmc.commands.FlatworldCommand;
 import net.novelmc.commands.StaffCommand;
+import net.novelmc.commands.StaffworldCommand;
 import net.novelmc.commands.UnbanCommand;
 import net.novelmc.config.BanConfig;
 import net.novelmc.config.Config;
 import net.novelmc.listeners.StaffListener;
+import net.novelmc.listeners.WorldListener;
 import net.novelmc.util.Updater;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
@@ -65,7 +68,7 @@ public class Converse extends JavaPlugin
         }
         catch (NoClassDefFoundError ex)
         {
-            plugin.getLogger().info("There was an error checking for an update");
+            getLogger().info("There was an error checking for an update");
         }
         config.save();
         banConfig.save();
@@ -76,14 +79,17 @@ public class Converse extends JavaPlugin
         getCommand("adminchat").setExecutor(new AdminchatCommand());
         getCommand("ban").setExecutor(new BanCommand());
         getCommand("converse").setExecutor(new ConverseCommand());
+        getCommand("flatworld").setExecutor(new FlatworldCommand());
         getCommand("staff").setExecutor(new StaffCommand());
+        getCommand("staffworld").setExecutor(new StaffworldCommand());
         getCommand("unban").setExecutor(new UnbanCommand());
     }
 
     private void registerListeners()
     {
-        plugin.getServer().getPluginManager().registerEvents(new BanListener(), this);
-        plugin.getServer().getPluginManager().registerEvents(new StaffListener(), this);
+        getServer().getPluginManager().registerEvents(new BanListener(), this);
+        getServer().getPluginManager().registerEvents(new StaffListener(), this);
+        getServer().getPluginManager().registerEvents(new WorldListener(), this);
     }
 
     public void loadConfigs()

@@ -20,62 +20,62 @@ public class Ban
         {
             banMessage.append(ChatColor.DARK_GRAY + "Reason: " + ChatColor.GRAY + reason + "\n");
         }
-        banMessage.append(ChatColor.DARK_GRAY + "More info: " + ChatColor.GRAY + Converse.plugin.config.getString("banurl") + "\n");
+        banMessage.append(ChatColor.DARK_GRAY + "More info: " + ChatColor.GRAY + plugin.config.getString("banurl") + "\n");
         banMessage.append(ChatColor.DARK_GRAY + "Ban ID: " + ChatColor.GRAY + "#" + banID);
         return banMessage.toString();
     }
 
     public static void addBan(Player player, CommandSender sender, String banID, String reason, String type)
     {
-        Converse.plugin.banConfig.createSection(player.getUniqueId().toString());
-        Converse.plugin.banConfig.set(player.getUniqueId().toString() + ".player", player.getName());
-        Converse.plugin.banConfig.set(player.getUniqueId().toString() + ".ip", player.getAddress().getHostString());
-        Converse.plugin.banConfig.set(player.getUniqueId().toString() + ".type", type);
-        Converse.plugin.banConfig.set(player.getUniqueId().toString() + ".by", sender.getName());
-        Converse.plugin.banConfig.set(player.getUniqueId().toString() + ".reason", reason);
-        Converse.plugin.banConfig.set(player.getUniqueId().toString() + ".id", banID);
-        Converse.plugin.banConfig.save();
-        Converse.plugin.banConfig.load();
+        plugin.banConfig.createSection(player.getUniqueId().toString());
+        plugin.banConfig.set(player.getUniqueId().toString() + ".player", player.getName());
+        plugin.banConfig.set(player.getUniqueId().toString() + ".ip", player.getAddress().getHostString());
+        plugin.banConfig.set(player.getUniqueId().toString() + ".type", type);
+        plugin.banConfig.set(player.getUniqueId().toString() + ".by", sender.getName());
+        plugin.banConfig.set(player.getUniqueId().toString() + ".reason", reason);
+        plugin.banConfig.set(player.getUniqueId().toString() + ".id", banID);
+        plugin.banConfig.save();
+        plugin.banConfig.load();
     }
 
     public static void addBan(OfflinePlayer player, CommandSender sender, String banID, String reason, String type)
     {
-        Converse.plugin.banConfig.createSection(player.getUniqueId().toString());
-        Converse.plugin.banConfig.set(player.getUniqueId().toString() + ".player", player.getName());
+        plugin.banConfig.createSection(player.getUniqueId().toString());
+        plugin.banConfig.set(player.getUniqueId().toString() + ".player", player.getName());
         if (player.hasPlayedBefore())
         {
-            Converse.plugin.banConfig.set(player.getUniqueId().toString() + ".ip", player.getPlayer().getAddress().getHostString());
+            plugin.banConfig.set(player.getUniqueId().toString() + ".ip", player.getPlayer().getAddress().getHostString());
         }
-        Converse.plugin.banConfig.set(player.getUniqueId().toString() + ".type", type);
-        Converse.plugin.banConfig.set(player.getUniqueId().toString() + ".by", sender.getName());
-        Converse.plugin.banConfig.set(player.getUniqueId().toString() + ".reason", reason);
-        Converse.plugin.banConfig.set(player.getUniqueId().toString() + ".id", banID);
-        Converse.plugin.banConfig.save();
-        Converse.plugin.banConfig.load();
+        plugin.banConfig.set(player.getUniqueId().toString() + ".type", type);
+        plugin.banConfig.set(player.getUniqueId().toString() + ".by", sender.getName());
+        plugin.banConfig.set(player.getUniqueId().toString() + ".reason", reason);
+        plugin.banConfig.set(player.getUniqueId().toString() + ".id", banID);
+        plugin.banConfig.save();
+        plugin.banConfig.load();
     }
 
     public static String getReason(Player player)
     {
-        return Converse.plugin.banConfig.get(player.getUniqueId().toString() + ".reason").toString();
+        return plugin.banConfig.get(player.getUniqueId().toString() + ".reason").toString();
     }
 
     public static String getBanID(Player player)
     {
-        return Converse.plugin.banConfig.get(player.getUniqueId().toString() + ".id").toString();
+        return plugin.banConfig.get(player.getUniqueId().toString() + ".id").toString();
     }
 
     public static boolean isBanned(Player player)
     {
-        return Converse.plugin.banConfig.isConfigurationSection(player.getUniqueId().toString());
+        return plugin.banConfig.isConfigurationSection(player.getUniqueId().toString());
     }
 
     public static boolean removeBan(OfflinePlayer player)
     {
-        if (Converse.plugin.banConfig.isConfigurationSection(player.getUniqueId().toString()))
+        if (plugin.banConfig.isConfigurationSection(player.getUniqueId().toString()))
         {
-            Converse.plugin.banConfig.set(player.getUniqueId().toString(), null);
-            Converse.plugin.banConfig.save();
-            Converse.plugin.banConfig.load();
+            plugin.banConfig.set(player.getUniqueId().toString(), null);
+            plugin.banConfig.save();
+            plugin.banConfig.load();
             return true;
         }
         return false;
