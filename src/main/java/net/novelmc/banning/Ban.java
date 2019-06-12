@@ -80,4 +80,16 @@ public class Ban
         }
         return false;
     }
+
+    public static boolean removeBan(Player player)
+    {
+        if (plugin.banConfig.isConfigurationSection(player.getUniqueId().toString()))
+        {
+            plugin.banConfig.set(player.getUniqueId().toString(), null);
+            plugin.banConfig.save();
+            plugin.banConfig.load();
+            return true;
+        }
+        return false;
+    }
 }

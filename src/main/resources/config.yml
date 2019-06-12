@@ -5,8 +5,14 @@
 # URL where players should appeal their bans
 banurl: https://novelmc.net/appeal
 
+# What mode is the server in?
+mode: default
+
 # Permissions Configuration
 permissions:
+  # What is the OP group name?
+  op: default
+
   # What is the Moderator group name?
   moderator: mod
 

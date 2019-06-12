@@ -123,7 +123,7 @@ public class StaffCommand implements CommandExecutor
                     return true;
                 }
 
-                LuckPermsBridge.set(player.getUniqueId(), "op");
+                LuckPermsBridge.set(player.getUniqueId(), Converse.plugin.config.getString("permissions.op"));
                 Util.action(sender, "Removing " + player.getName() + " from staff");
                 return true;
             }

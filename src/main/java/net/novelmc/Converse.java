@@ -8,11 +8,13 @@ import net.novelmc.commands.AdminchatCommand;
 import net.novelmc.commands.BanCommand;
 import net.novelmc.commands.ConverseCommand;
 import net.novelmc.commands.FlatworldCommand;
+import net.novelmc.commands.ModeCommand;
 import net.novelmc.commands.StaffCommand;
 import net.novelmc.commands.StaffworldCommand;
 import net.novelmc.commands.UnbanCommand;
 import net.novelmc.config.BanConfig;
 import net.novelmc.config.Config;
+import net.novelmc.listeners.ModeListener;
 import net.novelmc.listeners.StaffListener;
 import net.novelmc.listeners.WorldListener;
 import net.novelmc.util.Updater;
@@ -80,6 +82,7 @@ public class Converse extends JavaPlugin
         getCommand("ban").setExecutor(new BanCommand());
         getCommand("converse").setExecutor(new ConverseCommand());
         getCommand("flatworld").setExecutor(new FlatworldCommand());
+        getCommand("mode").setExecutor(new ModeCommand());
         getCommand("staff").setExecutor(new StaffCommand());
         getCommand("staffworld").setExecutor(new StaffworldCommand());
         getCommand("unban").setExecutor(new UnbanCommand());
@@ -88,6 +91,7 @@ public class Converse extends JavaPlugin
     private void registerListeners()
     {
         getServer().getPluginManager().registerEvents(new BanListener(), this);
+        getServer().getPluginManager().registerEvents(new ModeListener(), this);
         getServer().getPluginManager().registerEvents(new StaffListener(), this);
         getServer().getPluginManager().registerEvents(new WorldListener(), this);
     }

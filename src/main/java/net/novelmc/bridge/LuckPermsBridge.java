@@ -43,6 +43,11 @@ public class LuckPermsBridge
         return user.getPrimaryGroup().equalsIgnoreCase(Converse.plugin.config.getString("permissions.architect"));
     }
 
+    public static boolean isStaff(UUID player)
+    {
+        return isModerator(player) || isSeniorModerator(player) || isDeveloper(player) || isExecutive(player);
+    }
+
     public static String displayRank(UUID player)
     {
         if (isModerator(player))

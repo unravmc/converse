@@ -22,6 +22,8 @@ commands:
     usage: /<command>
     description: Teleport to the flatworld
     aliases: [flatlands]
+  mode:
+    usage: /<command>
   staff:
     usage: /<command> <add <player> <rank> | remove <player>>
     description: Manage admins

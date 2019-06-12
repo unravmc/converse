@@ -14,6 +14,10 @@ public class BanListener implements Listener
         Player player = event.getPlayer();
         if (Ban.isBanned(player))
         {
+            if (player.hasPermission("converse.ban.bypass"))
+            {
+                return;
+            }
             event.disallow(PlayerLoginEvent.Result.KICK_OTHER, Ban.constructBanMessage(Ban.getReason(player), Ban.getBanID(player)));
         }
     }
