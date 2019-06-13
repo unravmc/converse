@@ -48,8 +48,8 @@ public class StaffCommand implements CommandExecutor
 
                 if (args[2].equalsIgnoreCase("moderator") || args[2].equalsIgnoreCase("mod"))
                 {
-                    LuckPermsBridge.set(player.getUniqueId(), Converse.plugin.config.getString("permissions.moderator"));
-                    Util.action(sender, "Adding " + player.getName() + " to Moderator");
+                    LuckPermsBridge.set(player.getUniqueId(), Converse.plugin.config.getString("permissions.mod"));
+                    Util.action(sender, "Adding " + player.getName() + " to Mod");
                     return true;
                 }
                 else if (args[2].equalsIgnoreCase("seniormod") || args[2].equalsIgnoreCase("srmod"))
@@ -59,8 +59,8 @@ public class StaffCommand implements CommandExecutor
                         sender.sendMessage(Messages.NO_PERMISSION);
                         return true;
                     }
-                    LuckPermsBridge.set(player.getUniqueId(), Converse.plugin.config.getString("permissions.senior_moderator"));
-                    Util.action(sender, "Adding " + player.getName() + " to Senior Moderator");
+                    LuckPermsBridge.set(player.getUniqueId(), Converse.plugin.config.getString("permissions.senior_mod"));
+                    Util.action(sender, "Adding " + player.getName() + " to Senior Mod");
                     return true;
                 }
                 else if (args[2].equalsIgnoreCase("developer") || args[2].equalsIgnoreCase("dev"))
