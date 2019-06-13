@@ -1,4 +1,4 @@
-package net.novelmc.banning;
+package net.novelmc.permban;
 
 import net.novelmc.Converse;
 import org.bukkit.ChatColor;
@@ -6,7 +6,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Ban
+public class Permban
 {
     public static Converse plugin = Converse.plugin;
 
@@ -15,13 +15,13 @@ public class Ban
         final StringBuilder banMessage = new StringBuilder(ChatColor.BLUE + "" + ChatColor.BOLD
                 + "NOVEL");
         banMessage.append(ChatColor.WHITE + "" + ChatColor.BOLD + "MC\n");
-        banMessage.append(ChatColor.RED + "You are banned from this server!\n");
+        banMessage.append(ChatColor.RED + "You are permanently banned from this server!\n");
         if (!(reason.length() == 0))
         {
             banMessage.append(ChatColor.DARK_GRAY + "Reason: " + ChatColor.GRAY + reason + "\n");
         }
         banMessage.append(ChatColor.DARK_GRAY + "More Info: " + ChatColor.GRAY + plugin.config.getString("banurl") + "\n");
-        banMessage.append(ChatColor.DARK_GRAY + "Ban ID: " + ChatColor.GRAY + "#" + banID);
+        banMessage.append(ChatColor.DARK_GRAY + "Permban ID: " + ChatColor.GRAY + "#" + banID);
         return banMessage.toString();
     }
 

@@ -8,6 +8,7 @@ import me.lucko.luckperms.api.User;
 import me.lucko.luckperms.api.manager.UserManager;
 import net.novelmc.Converse;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
 public class LuckPermsBridge
 {
@@ -48,24 +49,34 @@ public class LuckPermsBridge
         return isModerator(player) || isSeniorModerator(player) || isDeveloper(player) || isExecutive(player);
     }
 
-    public static String displayRank(UUID player)
+    public static String displayRank(Player player)
     {
-        if (isModerator(player))
+        if (player == null)
         {
-            return ChatColor.BLUE + "" + ChatColor.BOLD + "MOD";
+            return ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "CONSOLE";
         }
-        if (isSeniorModerator(player))
+
+        if (isModerator(player.getUniqueId()))
         {
-            return ChatColor.GOLD + "" + ChatColor.BOLD + "SRMOD";
+            return ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "MOD";
         }
-        if (isDeveloper(player))
+        if (isSeniorModerator(player.getUniqueId()))
+        {
+            return ChatColor.GOLD + "" + ChatColor.BOLD + "SRM";
+        }
+        if (isDeveloper(player.getUniqueId()))
         {
             return ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "DEV";
         }
-        if (isExecutive(player))
+        if (isExecutive(player.getUniqueId()))
         {
             return ChatColor.RED + "" + ChatColor.BOLD + "EXEC";
         }
+        if (isArchitect(player.getUniqueId()))
+        {
+            return ChatColor.BLUE + "" + ChatColor.BOLD + "ART";
+        }
+
         return ChatColor.GREEN + "" + ChatColor.BOLD + "OP";
     }
 

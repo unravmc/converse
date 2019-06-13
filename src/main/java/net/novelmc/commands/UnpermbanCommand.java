@@ -1,6 +1,6 @@
 package net.novelmc.commands;
 
-import net.novelmc.banning.Ban;
+import net.novelmc.permban.Permban;
 import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -9,7 +9,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-public class UnbanCommand implements CommandExecutor
+public class UnpermbanCommand implements CommandExecutor
 {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args)
@@ -27,7 +27,7 @@ public class UnbanCommand implements CommandExecutor
 
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
 
-        if (Ban.removeBan(offlinePlayer))
+        if (Permban.removeBan(offlinePlayer))
         {
             Util.action(sender, "Unbanning " + offlinePlayer.getName());
             return true;

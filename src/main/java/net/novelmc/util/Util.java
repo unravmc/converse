@@ -20,6 +20,11 @@ public class Util
         return players;
     }
 
+    public static void action(String message)
+    {
+        Bukkit.broadcastMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "[Converse: " + message + "]");
+    }
+
     public static void action(Player player, String message)
     {
         Bukkit.broadcastMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "[" + player.getName() + ": " + message + "]");
@@ -43,10 +48,10 @@ public class Util
 
     public static void adminchat(CommandSender sender, String message)
     {
-        Bukkit.getLogger().info("[AdminChat] " + sender.getName() + ": " + message);
-        String badAdminChatFormat = ChatColor.DARK_GRAY + "# " + LuckPermsBridge.displayRank(Bukkit.getPlayer(sender.getName()).getUniqueId())
+        String badAdminChatFormat = ChatColor.DARK_GRAY + "# " + LuckPermsBridge.displayRank(Bukkit.getPlayer(sender.getName()))
                 + ChatColor.GRAY + " " + sender.getName() + ChatColor.DARK_GRAY
                 + ": " + ChatColor.GOLD + message;
+        Bukkit.getLogger().info(badAdminChatFormat);
         for (Player player : Bukkit.getOnlinePlayers())
         {
             if (player.hasPermission("converse.adminchat"))

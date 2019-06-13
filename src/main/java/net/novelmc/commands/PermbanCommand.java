@@ -1,6 +1,6 @@
 package net.novelmc.commands;
 
-import net.novelmc.banning.Ban;
+import net.novelmc.permban.Permban;
 import net.novelmc.util.Util;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.RandomStringUtils;
@@ -12,7 +12,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class BanCommand implements CommandExecutor
+public class PermbanCommand implements CommandExecutor
 {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args)
@@ -35,7 +35,7 @@ public class BanCommand implements CommandExecutor
 
         if (player == null)
         {
-            Ban.addBan(offlinePlayer, sender, banID, reason, "username");
+            Permban.addBan(offlinePlayer, sender, banID, reason, "username");
             if (reason.length() == 0)
             {
                 Util.action(sender, "Banning " + offlinePlayer.getName());
@@ -48,8 +48,8 @@ public class BanCommand implements CommandExecutor
         }
         else
         {
-            Ban.addBan(player, sender, banID, reason, "username");
-            player.kickPlayer(Ban.constructBanMessage(reason, banID));
+            Permban.addBan(player, sender, banID, reason, "username");
+            player.kickPlayer(Permban.constructBanMessage(reason, banID));
             if (reason.length() == 0)
             {
                 Util.action(sender, "Banning " + player.getName());

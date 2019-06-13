@@ -1,10 +1,12 @@
 package net.novelmc.commands;
 
 import net.novelmc.Converse;
+import net.novelmc.bridge.LuckPermsBridge;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class ConverseCommand implements CommandExecutor
 {
@@ -40,18 +42,15 @@ public class ConverseCommand implements CommandExecutor
                     sender.sendMessage(Messages.NO_PERMISSION);
                     return true;
                 }
-                sender.sendMessage(Converse.plugin.config.getString("banurl"));
-                Converse.plugin.config.set("banurl", "https://novelmc.net");
-                Converse.plugin.config.save();
-                Converse.plugin.config.load();
-                sender.sendMessage(Converse.plugin.config.getString("banurl"));
-                Converse.plugin.banConfig.createSection("test");
-                Converse.plugin.banConfig.save();
-                Converse.plugin.banConfig.load();
-                if (Converse.plugin.banConfig.isConfigurationSection("test"))
+                Player player = (Player)sender;
+                if (LuckPermsBridge.isStaff(player.getUniqueId()))
                 {
-                    sender.sendMessage("it worked");
+                    sender.sendMessage("You are staff!");
                     return true;
+                }
+                else
+                {
+                    sender.sendMessage("You aren't staff.");
                 }
                 return true;
             }

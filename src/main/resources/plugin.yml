@@ -11,19 +11,27 @@ commands:
     usage: /<command> <message>
     description: Talk privately with other admins
     aliases: [ac, o]
-  ban:
-    usage: /<command> <player> [reason]
-    description: Bans a player
-    aliases: [gtfo, banip, eban, ebanip]
   converse:
     usage: /<command> [reload | debug]
     description: Show information about Converse
+    aliases: [tfm]
   flatworld:
     usage: /<command>
     description: Teleport to the flatworld
     aliases: [flatlands]
+  graychat:
+    usage: /<command> <player>
+    description: Makes a player talk in gray chat
   mode:
-    usage: /<command>
+    usage: /<command> [event | dev | staff | off]
+    description: Change the server mode
+  mute:
+    usage: /<command> <player | purge>
+    description: Mutes a player.
+    aliases: [stfu, emute]
+  permban:
+    usage: /<command> <player> [reason]
+    description: Permanently bans a player.
   staff:
     usage: /<command> <add <player> <rank> | remove <player>>
     description: Manage admins
@@ -32,7 +40,6 @@ commands:
     usage: /<command>
     description: Teleport to the staffworld
     aliases: [adminworld]
-  unban:
+  unpermban:
     usage: /<command> <player>
-    description: Unbans a player
-    aliases: [pardon, unbanip, eunban, eunbanip]
+    description: Unbans a permanently banned player.
