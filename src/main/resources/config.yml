@@ -13,11 +13,11 @@ permissions:
   # What is the OP group name?
   op: default
 
-  # What is the Moderator group name?
-  moderator: mod
+  # What is the Mod group name?
+  mod: mod
 
-  # What is the Senior Moderator group name?
-  senior_moderator: seniormod
+  # What is the Senior Mod group name?
+  senior_mod: seniormod
 
   # What is the Developer group name?
   developer: developer
