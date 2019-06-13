@@ -15,13 +15,13 @@ public class Ban
         final StringBuilder banMessage = new StringBuilder(ChatColor.BLUE + "" + ChatColor.BOLD
                 + "NOVEL");
         banMessage.append(ChatColor.WHITE + "" + ChatColor.BOLD + "MC\n");
-        banMessage.append(ChatColor.DARK_RED + "You are banned from this server!\n");
+        banMessage.append(ChatColor.RED + "You are banned from this server!\n");
         if (!(reason.length() == 0))
         {
-            banMessage.append(ChatColor.GRAY + "Reason: " + ChatColor.WHITE + reason + "\n");
+            banMessage.append(ChatColor.DARK_GRAY + "Reason: " + ChatColor.GRAY + reason + "\n");
         }
-        banMessage.append(ChatColor.GRAY + "More Info: " + ChatColor.WHITE + plugin.config.getString("banurl") + "\n");
-        banMessage.append(ChatColor.GRAY + "Ban ID: " + ChatColor.WHITE + "#" + banID);
+        banMessage.append(ChatColor.DARK_GRAY + "More Info: " + ChatColor.GRAY + plugin.config.getString("banurl") + "\n");
+        banMessage.append(ChatColor.DARK_GRAY + "Ban ID: " + ChatColor.GRAY + "#" + banID);
         return banMessage.toString();
     }
 
