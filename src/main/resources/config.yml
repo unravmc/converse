@@ -8,6 +8,14 @@ banurl: https://novelmc.net/appeal
 # What mode is the server in?
 mode: default
 
+# What commands should be blocked when a player is muted?
+muted_commands:
+  - msg
+  - reply
+  - tell
+  - me
+  - mail
+
 # Permissions Configuration
 permissions:
   # What is the OP group name?

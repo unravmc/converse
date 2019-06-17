@@ -25,69 +25,65 @@ public class Permban
         return banMessage.toString();
     }
 
-    public static void addBan(Player player, CommandSender sender, String banID, String reason, String type)
+    public static void addPermban(Player player, CommandSender sender, String banID, String reason, String type)
     {
-        plugin.banConfig.createSection(player.getUniqueId().toString());
-        plugin.banConfig.set(player.getUniqueId().toString() + ".player", player.getName());
-        plugin.banConfig.set(player.getUniqueId().toString() + ".ip", player.getAddress().getHostString());
-        plugin.banConfig.set(player.getUniqueId().toString() + ".type", type);
-        plugin.banConfig.set(player.getUniqueId().toString() + ".by", sender.getName());
-        plugin.banConfig.set(player.getUniqueId().toString() + ".reason", reason);
-        plugin.banConfig.set(player.getUniqueId().toString() + ".id", banID);
-        plugin.banConfig.save();
-        plugin.banConfig.load();
+        plugin.permbanConfig.createSection(player.getUniqueId().toString());
+        plugin.permbanConfig.set(player.getUniqueId().toString() + ".player", player.getName());
+        plugin.permbanConfig.set(player.getUniqueId().toString() + ".ip", player.getAddress().getHostString());
+        plugin.permbanConfig.set(player.getUniqueId().toString() + ".type", type);
+        plugin.permbanConfig.set(player.getUniqueId().toString() + ".by", sender.getName());
+        plugin.permbanConfig.set(player.getUniqueId().toString() + ".reason", reason);
+        plugin.permbanConfig.set(player.getUniqueId().toString() + ".id", banID);
+        plugin.permbanConfig.save();
+        plugin.permbanConfig.load();
     }
 
-    public static void addBan(OfflinePlayer player, CommandSender sender, String banID, String reason, String type)
+    public static void addPermban(OfflinePlayer player, CommandSender sender, String banID, String reason, String type)
     {
-        plugin.banConfig.createSection(player.getUniqueId().toString());
-        plugin.banConfig.set(player.getUniqueId().toString() + ".player", player.getName());
-        if (player.hasPlayedBefore())
-        {
-            plugin.banConfig.set(player.getUniqueId().toString() + ".ip", player.getPlayer().getAddress().getHostString());
-        }
-        plugin.banConfig.set(player.getUniqueId().toString() + ".type", type);
-        plugin.banConfig.set(player.getUniqueId().toString() + ".by", sender.getName());
-        plugin.banConfig.set(player.getUniqueId().toString() + ".reason", reason);
-        plugin.banConfig.set(player.getUniqueId().toString() + ".id", banID);
-        plugin.banConfig.save();
-        plugin.banConfig.load();
+        plugin.permbanConfig.createSection(player.getUniqueId().toString());
+        plugin.permbanConfig.set(player.getUniqueId().toString() + ".player", player.getName());
+        plugin.permbanConfig.set(player.getUniqueId().toString() + ".type", type);
+        plugin.permbanConfig.set(player.getUniqueId().toString() + ".by", sender.getName());
+        plugin.permbanConfig.set(player.getUniqueId().toString() + ".reason", reason);
+        plugin.permbanConfig.set(player.getUniqueId().toString() + ".id", banID);
+        plugin.permbanConfig.save();
+        plugin.permbanConfig.load();
     }
 
     public static String getReason(Player player)
     {
-        return plugin.banConfig.get(player.getUniqueId().toString() + ".reason").toString();
+        return plugin.permbanConfig.get(player.getUniqueId().toString() + ".reason").toString();
     }
 
     public static String getBanID(Player player)
     {
-        return plugin.banConfig.get(player.getUniqueId().toString() + ".id").toString();
+        return plugin.permbanConfig.get(player.getUniqueId().toString() + ".id").toString();
     }
 
     public static boolean isBanned(Player player)
     {
-        return plugin.banConfig.isConfigurationSection(player.getUniqueId().toString());
+        return plugin.permbanConfig.isConfigurationSection(player.getUniqueId().toString());
     }
 
-    public static boolean removeBan(OfflinePlayer player)
+    public static boolean removePermban(OfflinePlayer player)
     {
-        if (plugin.banConfig.isConfigurationSection(player.getUniqueId().toString()))
+        if (plugin.permbanConfig.isConfigurationSection(player.getUniqueId().toString()))
         {
-            plugin.banConfig.set(player.getUniqueId().toString(), null);
-            plugin.banConfig.save();
-            plugin.banConfig.load();
+            plugin.permbanConfig.set(player.getUniqueId().toString(), null);
+            plugin.permbanConfig.save();
+            plugin.permbanConfig.load();
             return true;
         }
         return false;
     }
 
-    public static boolean removeBan(Player player)
+    public static boolean removePermban(Player player)
     {
-        if (plugin.banConfig.isConfigurationSection(player.getUniqueId().toString()))
+        if (plugin.permbanConfig.isConfigurationSection(player.getUniqueId().toString()))
         {
-            plugin.banConfig.set(player.getUniqueId().toString(), null);
-            plugin.banConfig.save();
-            plugin.banConfig.load();
+            plugin.permbanConfig.set(player.getUniqueId().toString(), null);
+            plugin.permbanConfig.save();
+            plugin.permbanConfig.load();
             return true;
         }
         return false;

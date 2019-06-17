@@ -1,8 +1,6 @@
 package net.novelmc.commands;
 
 import net.novelmc.listeners.ChatListener;
-import net.novelmc.listeners.MuteListener;
-import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

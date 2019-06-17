@@ -7,16 +7,18 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-public class Config extends YamlConfiguration
+public class PermbanConfig extends YamlConfiguration
 {
+    private static PermbanConfig config;
     private static Converse plugin;
-    private static Config config;
-    public static final String CONFIG_FILENAME = "config.yml";
+    public static final String CONFIG_FILENAME = "permbans.yml";
     public static File file = new File(Bukkit.getServer().getPluginManager().getPlugin(Converse.plugin.getName()).getDataFolder(), CONFIG_FILENAME);
 
-    public Config()
+    public PermbanConfig()
     {
         Converse plugin = Converse.plugin;
+        file = new File(plugin.getDataFolder(), CONFIG_FILENAME);
+
         if (!file.exists())
         {
             saveDefault();

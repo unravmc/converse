@@ -1,7 +1,6 @@
 package net.novelmc.commands;
 
 import net.novelmc.Converse;
-import net.novelmc.bridge.LuckPermsBridge;
 import net.novelmc.listeners.ModeListener;
 import net.novelmc.util.Util;
 import org.bukkit.ChatColor;

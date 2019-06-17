@@ -5,7 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class WorldListener implements Listener
@@ -14,6 +14,7 @@ public class WorldListener implements Listener
     private World staffWorld = Bukkit.getWorld("staffworld");
     private World world = Bukkit.getWorld("world");
 
+    @EventHandler
     public void onPlayerTeleport(PlayerTeleportEvent event)
     {
         if (event.getTo().getWorld().getName().equalsIgnoreCase("staffworld"))
@@ -35,7 +36,7 @@ public class WorldListener implements Listener
     }
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event)
+    public void onPlayerJoin(PlayerLoginEvent event)
     {
         if (event.getPlayer().getLocation().getWorld().equals(staffWorld))
         {

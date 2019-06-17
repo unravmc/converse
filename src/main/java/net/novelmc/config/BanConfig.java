@@ -14,9 +14,9 @@ public class BanConfig extends YamlConfiguration
     public static final String CONFIG_FILENAME = "bans.yml";
     public static File file = new File(Bukkit.getServer().getPluginManager().getPlugin(Converse.plugin.getName()).getDataFolder(), CONFIG_FILENAME);
 
-    public BanConfig(Converse plugin)
+    public BanConfig()
     {
-        Converse.plugin = plugin;
+        Converse plugin = Converse.plugin;
         file = new File(plugin.getDataFolder(), CONFIG_FILENAME);
 
         if (!file.exists())
@@ -29,7 +29,12 @@ public class BanConfig extends YamlConfiguration
     {
         try
         {
-            super.load(file);
+            if (file.exists())
+            {
+                super.load(file);
+                return;
+            }
+            super.options.copyDefaults(true);
         }
         catch (IOException | InvalidConfigurationException ex)
         {

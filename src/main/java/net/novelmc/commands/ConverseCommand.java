@@ -63,8 +63,10 @@ public class ConverseCommand implements CommandExecutor
                 }
                 Converse.plugin.config.save();
                 Converse.plugin.banConfig.save();
+                Converse.plugin.permbanConfig.save();
                 Converse.plugin.config.load();
                 Converse.plugin.banConfig.load();
+                Converse.plugin.permbanConfig.load();
                 sender.sendMessage(ChatColor.GRAY + "The Converse configuration file has been reloaded.");
                 return true;
             }

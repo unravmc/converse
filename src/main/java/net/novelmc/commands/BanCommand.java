@@ -1,6 +1,7 @@
 package net.novelmc.commands;
 
-import net.novelmc.permban.Permban;
+import java.util.Date;
+import net.novelmc.bans.Ban;
 import net.novelmc.util.Util;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.RandomStringUtils;
@@ -12,52 +13,54 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class PermbanCommand implements CommandExecutor
+public class BanCommand implements CommandExecutor
 {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args)
     {
-        if (!sender.hasPermission("converse.permban"))
+        if (!sender.hasPermission("converse.ban"))
         {
             sender.sendMessage(Messages.NO_PERMISSION);
             return true;
         }
 
-        if (args.length == 0)
+        if (args.length < 2)
         {
             return false;
         }
 
         Player player = Bukkit.getPlayer(args[0]);
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
-        final String reason = StringUtils.join(ArrayUtils.subarray(args, 1, args.length), " ");
+        Date expires = Util.parseDateOffset(args[1]);
         String banID = RandomStringUtils.randomAlphabetic(5);
+        final String reason = StringUtils.join(ArrayUtils.subarray(args, 2, args.length), " ");
+
 
         if (player == null)
         {
-            Permban.addPermban(offlinePlayer, sender, banID, reason, "username");
+            Ban.addBan(offlinePlayer, sender, banID, reason, expires, "username");
             if (reason.length() == 0)
             {
-                Util.action(sender, "Permanently banning " + offlinePlayer.getName());
+                Util.action(sender, "Banning " + offlinePlayer.getName() + " until " + expires);
                 return true;
             }
             else
             {
-                Util.action(sender, "Permanently banning " + offlinePlayer.getName() + " with reason: " + reason);
+                Util.action(sender, "Banning " + offlinePlayer.getName() + " until " + expires + " with reason: " + reason);
             }
         }
         else
         {
-            Permban.addPermban(player, sender, banID, reason, "username");
-            player.kickPlayer(Permban.constructBanMessage(reason, banID));
+            Ban.addBan(player, sender, banID, reason, expires, "username");
+            player.kickPlayer(Ban.constructBanMessage(player, reason, banID));
             if (reason.length() == 0)
             {
-                Util.action(sender, "Permanently banning " + player.getName());
+                Util.action(sender, "Banning " + player.getName() + " until " + expires);
                 return true;
             }
             else
             {
-                Util.action(sender, "Permanently banning " + player.getName() + " with reason: " + reason);
+                Util.action(sender, "Banning " + player.getName() + " until " + expires + " with reason: " + reason);
             }
         }
         return true;

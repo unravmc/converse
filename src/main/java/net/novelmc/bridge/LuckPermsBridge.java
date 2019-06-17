@@ -23,7 +23,7 @@ public class LuckPermsBridge
     public static boolean isSeniorModerator(UUID player)
     {
         User user = api.getUserManager().getUser(player);
-        return user.getPrimaryGroup().equalsIgnoreCase(Converse.plugin.config.getString("permissions.senior_moderator"));
+        return user.getPrimaryGroup().equalsIgnoreCase(Converse.plugin.config.getString("permissions.senior_mod"));
     }
 
     public static boolean isDeveloper(UUID player)

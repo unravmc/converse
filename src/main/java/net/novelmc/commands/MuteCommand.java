@@ -1,6 +1,5 @@
 package net.novelmc.commands;
 
-import me.lucko.luckperms.LuckPerms;
 import net.novelmc.bridge.LuckPermsBridge;
 import net.novelmc.listeners.MuteListener;
 import net.novelmc.util.Util;

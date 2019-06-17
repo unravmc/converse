@@ -3,19 +3,23 @@ package net.novelmc;
 import java.io.InputStream;
 import java.util.Properties;
 import me.lucko.luckperms.api.LuckPermsApi;
-import net.novelmc.permban.PermbanListener;
 import net.novelmc.commands.AdminchatCommand;
-import net.novelmc.commands.PermbanCommand;
+import net.novelmc.commands.BanCommand;
 import net.novelmc.commands.ConverseCommand;
+import net.novelmc.commands.DbanCommand;
 import net.novelmc.commands.FlatworldCommand;
 import net.novelmc.commands.GraychatCommand;
 import net.novelmc.commands.ModeCommand;
 import net.novelmc.commands.MuteCommand;
+import net.novelmc.commands.PermbanCommand;
 import net.novelmc.commands.StaffCommand;
 import net.novelmc.commands.StaffworldCommand;
+import net.novelmc.commands.UnbanCommand;
 import net.novelmc.commands.UnpermbanCommand;
 import net.novelmc.config.BanConfig;
 import net.novelmc.config.Config;
+import net.novelmc.config.PermbanConfig;
+import net.novelmc.listeners.BanListener;
 import net.novelmc.listeners.ChatListener;
 import net.novelmc.listeners.ModeListener;
 import net.novelmc.listeners.MuteListener;
@@ -33,15 +37,17 @@ public class Converse extends JavaPlugin
     public static Converse plugin;
     public static final BuildProperties build = new BuildProperties();
     public static Server server;
-    public Config config;
     public BanConfig banConfig;
+    public Config config;
+    public PermbanConfig permbanConfig;
 
     public void onLoad()
     {
         plugin = this;
         server = plugin.getServer();
-        config = new Config(plugin);
-        banConfig = new BanConfig(plugin);
+        banConfig = new BanConfig();
+        config = new Config();
+        permbanConfig = new PermbanConfig();
     }
 
     public void onEnable()
@@ -66,7 +72,7 @@ public class Converse extends JavaPlugin
             getLogger().info("There was an error checking for an update");
         }
         config.save();
-        banConfig.save();
+        permbanConfig.save();
     }
 
     public static LuckPermsApi getLuckPermsAPI()
@@ -82,7 +88,9 @@ public class Converse extends JavaPlugin
     private void registerCommands()
     {
         getCommand("adminchat").setExecutor(new AdminchatCommand());
+        getCommand("ban").setExecutor(new BanCommand());
         getCommand("converse").setExecutor(new ConverseCommand());
+        getCommand("dban").setExecutor(new DbanCommand());
         getCommand("flatworld").setExecutor(new FlatworldCommand());
         getCommand("graychat").setExecutor(new GraychatCommand());
         getCommand("mode").setExecutor(new ModeCommand());
@@ -90,13 +98,14 @@ public class Converse extends JavaPlugin
         getCommand("permban").setExecutor(new PermbanCommand());
         getCommand("staff").setExecutor(new StaffCommand());
         getCommand("staffworld").setExecutor(new StaffworldCommand());
+        getCommand("unban").setExecutor(new UnbanCommand());
         getCommand("unpermban").setExecutor(new UnpermbanCommand());
     }
 
     private void registerListeners()
     {
         getServer().getPluginManager().registerEvents(new ChatListener(), this);
-        getServer().getPluginManager().registerEvents(new PermbanListener(), this);
+        getServer().getPluginManager().registerEvents(new BanListener(), this);
         getServer().getPluginManager().registerEvents(new ModeListener(), this);
         getServer().getPluginManager().registerEvents(new MuteListener(), this);
         getServer().getPluginManager().registerEvents(new StaffListener(), this);
@@ -105,8 +114,9 @@ public class Converse extends JavaPlugin
 
     private void loadConfigs()
     {
-        config.load();
         banConfig.load();
+        config.load();
+        permbanConfig.load();
     }
 
     public static class BuildProperties

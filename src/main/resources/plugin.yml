@@ -11,10 +11,18 @@ commands:
     usage: /<command> <message>
     description: Talk privately with other admins
     aliases: [ac, o]
+  ban:
+    usage: /<command> <player> <duration> [reason]
+    description: Temporarily bans a player
+    aliases: [eban, banip, ebanip]
   converse:
     usage: /<command> [reload | debug]
     description: Show information about Converse
     aliases: [tfm]
+  dban:
+    usage: /<command> <player> [reason]
+    description: Bans a player for a day
+    aliases: [dayban, gtfo]
   flatworld:
     usage: /<command>
     description: Teleport to the flatworld
@@ -40,6 +48,10 @@ commands:
     usage: /<command>
     description: Teleport to the staffworld
     aliases: [adminworld]
+  unban:
+    usage: /<command> <player>
+    description: Unbans a banned player.
+    aliases: [pardon, epardon]
   unpermban:
     usage: /<command> <player>
     description: Unbans a permanently banned player.
