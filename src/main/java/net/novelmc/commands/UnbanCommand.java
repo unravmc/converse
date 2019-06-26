@@ -1,6 +1,7 @@
 package net.novelmc.commands;
 
 import net.novelmc.bans.Ban;
+import net.novelmc.permban.Permban;
 import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -32,9 +33,14 @@ public class UnbanCommand implements CommandExecutor
             Util.action(sender, "Unbanning " + offlinePlayer.getName());
             return true;
         }
+        else if (Permban.removePermban(offlinePlayer))
+        {
+            Util.action(sender, "Unbanning " + offlinePlayer.getName());
+            return true;
+        }
         else
         {
-            sender.sendMessage(ChatColor.GRAY + "Converse could not find a temporary ban under that name.");
+            sender.sendMessage(ChatColor.GRAY + "Converse could not find a ban under that name.");
         }
         return true;
     }

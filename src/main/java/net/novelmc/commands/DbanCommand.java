@@ -24,7 +24,7 @@ public class DbanCommand implements CommandExecutor
             return true;
         }
 
-        if (args.length < 2)
+        if (args.length < 1)
         {
             return false;
         }
@@ -40,7 +40,7 @@ public class DbanCommand implements CommandExecutor
             Ban.addBan(offlinePlayer, sender, banID, reason, expires, "username");
             if (reason.length() == 0)
             {
-                Util.action(sender, "Banning " + player.getName());
+                Util.action(sender, "Banning " + offlinePlayer.getName());
                 return true;
             }
             else

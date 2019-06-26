@@ -1,5 +1,7 @@
 package net.novelmc;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import me.lucko.luckperms.api.LuckPermsApi;
@@ -15,10 +17,6 @@ import net.novelmc.commands.PermbanCommand;
 import net.novelmc.commands.StaffCommand;
 import net.novelmc.commands.StaffworldCommand;
 import net.novelmc.commands.UnbanCommand;
-import net.novelmc.commands.UnpermbanCommand;
-import net.novelmc.config.BanConfig;
-import net.novelmc.config.Config;
-import net.novelmc.config.PermbanConfig;
 import net.novelmc.listeners.BanListener;
 import net.novelmc.listeners.ChatListener;
 import net.novelmc.listeners.ModeListener;
@@ -37,17 +35,10 @@ public class Converse extends JavaPlugin
     public static Converse plugin;
     public static final BuildProperties build = new BuildProperties();
     public static Server server;
-    public BanConfig banConfig;
-    public Config config;
-    public PermbanConfig permbanConfig;
-
     public void onLoad()
     {
         plugin = this;
         server = plugin.getServer();
-        banConfig = new BanConfig();
-        config = new Config();
-        permbanConfig = new PermbanConfig();
     }
 
     public void onEnable()
@@ -55,13 +46,8 @@ public class Converse extends JavaPlugin
         build.load(this);
         new Metrics(this);
         getLuckPermsAPI();
-        loadConfigs();
         registerCommands();
         registerListeners();
-    }
-
-    public void onDisable()
-    {
         try
         {
             Updater updater = new Updater(this);
@@ -71,8 +57,10 @@ public class Converse extends JavaPlugin
         {
             getLogger().info("There was an error checking for an update");
         }
-        config.save();
-        permbanConfig.save();
+    }
+
+    public void onDisable()
+    {
     }
 
     public static LuckPermsApi getLuckPermsAPI()
@@ -99,7 +87,6 @@ public class Converse extends JavaPlugin
         getCommand("staff").setExecutor(new StaffCommand());
         getCommand("staffworld").setExecutor(new StaffworldCommand());
         getCommand("unban").setExecutor(new UnbanCommand());
-        getCommand("unpermban").setExecutor(new UnpermbanCommand());
     }
 
     private void registerListeners()
@@ -110,13 +97,6 @@ public class Converse extends JavaPlugin
         getServer().getPluginManager().registerEvents(new MuteListener(), this);
         getServer().getPluginManager().registerEvents(new StaffListener(), this);
         getServer().getPluginManager().registerEvents(new WorldListener(), this);
-    }
-
-    private void loadConfigs()
-    {
-        banConfig.load();
-        config.load();
-        permbanConfig.load();
     }
 
     public static class BuildProperties

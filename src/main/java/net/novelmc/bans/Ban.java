@@ -11,8 +11,8 @@ import org.bukkit.entity.Player;
 
 public class Ban
 {
-    public static Converse plugin = Converse.plugin;
     private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd \'at\' HH:mm:ss z");
+    private static Converse plugin = Converse.plugin;
 
     public static String constructBanMessage(Player player, String reason, String banID)
     {
@@ -22,10 +22,10 @@ public class Ban
         banMessage.append(ChatColor.RED + "You are temporarily banned from this server!\n");
         if (!(reason.length() == 0))
         {
-            banMessage.append(ChatColor.DARK_GRAY + "Reason: " + ChatColor.GRAY + reason + "\n");
+            banMessage.append(ChatColor.DARK_GRAY + "Reason: " + ChatColor.GRAY + getReason(player) + "\n");
         }
         banMessage.append(ChatColor.DARK_GRAY + "Until: " + ChatColor.GRAY + formatDate(player)).append("\n");
-        banMessage.append(ChatColor.DARK_GRAY + "More Info: " + ChatColor.GRAY + plugin.config.getString("banurl") + "\n");
+        banMessage.append(ChatColor.DARK_GRAY + "More Info: " + ChatColor.GRAY + plugin.getConfig().getString("banurl") + "\n");
         banMessage.append(ChatColor.DARK_GRAY + "Ban ID: " + ChatColor.GRAY + "#" + banID);
         return banMessage.toString();
     }
@@ -48,10 +48,6 @@ public class Ban
     {
         plugin.banConfig.createSection(player.getUniqueId().toString());
         plugin.banConfig.set(player.getUniqueId().toString() + ".player", player.getName());
-        if (player.hasPlayedBefore())
-        {
-            plugin.banConfig.set(player.getUniqueId().toString() + ".ip", player.getPlayer().getAddress().getHostString());
-        }
         plugin.banConfig.set(player.getUniqueId().toString() + ".type", type);
         plugin.banConfig.set(player.getUniqueId().toString() + ".by", sender.getName());
         plugin.banConfig.set(player.getUniqueId().toString() + ".reason", reason);
@@ -79,6 +75,21 @@ public class Ban
     public static String formatDate(Player player)
     {
         return simpleDateFormat.format(Util.getUnixDate(getExpireUnix(player)));
+    }
+
+    public static boolean hasExpiry(Player player)
+    {
+        return getExpireUnix(player) > 0;
+    }
+
+    public static boolean isExpired(Player player)
+    {
+        return hasExpiry(player) && getExpireUnix(player) < Util.getUnixTime();
+    }
+
+    public static boolean get(Player player)
+    {
+        return plugin.banConfig.isConfigurationSection(player.getUniqueId().toString());
     }
 
     public static boolean isBanned(Player player)

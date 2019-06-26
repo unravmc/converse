@@ -20,7 +20,7 @@ public class Permban
         {
             banMessage.append(ChatColor.DARK_GRAY + "Reason: " + ChatColor.GRAY + reason + "\n");
         }
-        banMessage.append(ChatColor.DARK_GRAY + "More Info: " + ChatColor.GRAY + plugin.config.getString("banurl") + "\n");
+        banMessage.append(ChatColor.DARK_GRAY + "More Info: " + ChatColor.GRAY + plugin.getConfig().getString("banurl") + "\n");
         banMessage.append(ChatColor.DARK_GRAY + "Permban ID: " + ChatColor.GRAY + "#" + banID);
         return banMessage.toString();
     }

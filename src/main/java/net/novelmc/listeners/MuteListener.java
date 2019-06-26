@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.novelmc.Converse;
 import net.novelmc.bridge.LuckPermsBridge;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
@@ -13,9 +14,8 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 public class MuteListener implements Listener
 {
-    Converse plugin = Converse.plugin;
     private static List<Player> muted = new ArrayList<>();
-    private final static List<String> blockedCommands = Converse.plugin.config.getStringList("muted_commands");
+    private final static List<String> blockedCommands = Converse.plugin.getConfig().getStringList("muted_commands");
 
     public static boolean isMuted(Player player)
     {
@@ -59,7 +59,7 @@ public class MuteListener implements Listener
                 command = command.substring(1);
             }
 
-            Command bukkitCommand = plugin.getServer().getPluginCommand(command);
+            Command bukkitCommand = Bukkit.getServer().getPluginCommand(command);
 
             if (bukkitCommand != null)
             {

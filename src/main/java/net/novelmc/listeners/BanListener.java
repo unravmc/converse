@@ -25,13 +25,17 @@ public class BanListener implements Listener
             event.disallow(PlayerLoginEvent.Result.KICK_OTHER, Permban.constructBanMessage(Permban.getReason(player), Permban.getBanID(player)));
         }
 
-        if (!Ban.isBanned(player))
+        if (Ban.isBanned(player))
         {
-            event.disallow(PlayerLoginEvent.Result.KICK_OTHER, Ban.constructBanMessage(player, Ban.getReason(player), Ban.getBanID(player)));
+            Ban.removeBan(player);
+            return;
         }
         else
         {
-            Ban.removeBan(player);
+            if (Ban.get(player))
+            {
+                event.disallow(PlayerLoginEvent.Result.KICK_OTHER, Ban.constructBanMessage(player, Ban.getReason(player), Ban.getBanID(player)));
+            }
         }
     }
 }

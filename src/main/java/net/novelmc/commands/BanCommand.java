@@ -35,7 +35,6 @@ public class BanCommand implements CommandExecutor
         String banID = RandomStringUtils.randomAlphabetic(5);
         final String reason = StringUtils.join(ArrayUtils.subarray(args, 2, args.length), " ");
 
-
         if (player == null)
         {
             Ban.addBan(offlinePlayer, sender, banID, reason, expires, "username");

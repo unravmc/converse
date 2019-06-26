@@ -18,7 +18,7 @@ public class ModeCommand implements CommandExecutor
             return false;
         }
 
-        String mode = Converse.plugin.config.getString("mode");
+        String mode = Converse.plugin.getConfig().getString("mode");
 
         if (args.length == 1)
         {
@@ -83,7 +83,7 @@ public class ModeCommand implements CommandExecutor
                         sender.sendMessage(ChatColor.RED + "You are already in the default mode!");
                         return true;
                     }
-                    Converse.plugin.config.set("mode", "default");
+                    Converse.plugin.getConfig().set("mode", "default");
                     Util.action(sender, "The server has re-opened to everyone.");
                     return true;
                 }

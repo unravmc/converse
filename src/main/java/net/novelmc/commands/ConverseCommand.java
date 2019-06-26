@@ -2,6 +2,7 @@ package net.novelmc.commands;
 
 import net.novelmc.Converse;
 import net.novelmc.bridge.LuckPermsBridge;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -37,6 +38,7 @@ public class ConverseCommand implements CommandExecutor
 
             case "debug":
             {
+                sender.sendMessage(Bukkit.getPluginManager().getPlugin(Converse.plugin.getDescription().getName()).getDataFolder().toString());
                 if (!sender.hasPermission("converse.debug"))
                 {
                     sender.sendMessage(Messages.NO_PERMISSION);
@@ -46,11 +48,25 @@ public class ConverseCommand implements CommandExecutor
                 if (LuckPermsBridge.isStaff(player.getUniqueId()))
                 {
                     sender.sendMessage("You are staff!");
-                    return true;
                 }
                 else
                 {
                     sender.sendMessage("You aren't staff.");
+                }
+
+                Converse.plugin.banConfig.createSection("gay");
+                Converse.plugin.banConfig.save();
+                Converse.plugin.banConfig.load();
+                if (Converse.plugin.banConfig.isConfigurationSection("gay"))
+                {
+                    sender.sendMessage("gay");
+                }
+                Converse.plugin.banConfig.set("gay", null);
+                Converse.plugin.banConfig.save();
+                Converse.plugin.banConfig.load();
+                if (!Converse.plugin.banConfig.isConfigurationSection("gay"))
+                {
+                    sender.sendMessage("success");
                 }
                 return true;
             }
@@ -61,13 +77,11 @@ public class ConverseCommand implements CommandExecutor
                     sender.sendMessage(Messages.NO_PERMISSION);
                     return true;
                 }
-                Converse.plugin.config.save();
                 Converse.plugin.banConfig.save();
-                Converse.plugin.permbanConfig.save();
-                Converse.plugin.config.load();
                 Converse.plugin.banConfig.load();
+                Converse.plugin.permbanConfig.save();
                 Converse.plugin.permbanConfig.load();
-                sender.sendMessage(ChatColor.GRAY + "The Converse configuration file has been reloaded.");
+                sender.sendMessage(ChatColor.GRAY + "All Converse files have been reloaded.");
                 return true;
             }
             default:
