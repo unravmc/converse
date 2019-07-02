@@ -1,7 +1,5 @@
 package net.novelmc;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import me.lucko.luckperms.api.LuckPermsApi;
@@ -17,6 +15,9 @@ import net.novelmc.commands.PermbanCommand;
 import net.novelmc.commands.StaffCommand;
 import net.novelmc.commands.StaffworldCommand;
 import net.novelmc.commands.UnbanCommand;
+import net.novelmc.config.BanConfig;
+import net.novelmc.config.MainConfig;
+import net.novelmc.config.PermbanConfig;
 import net.novelmc.listeners.BanListener;
 import net.novelmc.listeners.ChatListener;
 import net.novelmc.listeners.ModeListener;
@@ -35,19 +36,41 @@ public class Converse extends JavaPlugin
     public static Converse plugin;
     public static final BuildProperties build = new BuildProperties();
     public static Server server;
+    public BanConfig banConfig;
+    public MainConfig config;
+    public PermbanConfig permbanConfig;
+
     public void onLoad()
     {
         plugin = this;
         server = plugin.getServer();
+        banConfig = new BanConfig(plugin);
+        config = new MainConfig(plugin);
+        permbanConfig = new PermbanConfig(plugin);
     }
 
     public void onEnable()
     {
+        // Config
+        registerConfigs();
+        // BuildProperties
         build.load(this);
+        // Metrics
         new Metrics(this);
+        // LuckPerms
         getLuckPermsAPI();
+        // Commands
         registerCommands();
+        // Listener
         registerListeners();
+    }
+
+    public void onDisable()
+    {
+        // Unregister configs
+        unregisterConfigs();
+
+        // Updater
         try
         {
             Updater updater = new Updater(this);
@@ -57,10 +80,6 @@ public class Converse extends JavaPlugin
         {
             getLogger().info("There was an error checking for an update");
         }
-    }
-
-    public void onDisable()
-    {
     }
 
     public static LuckPermsApi getLuckPermsAPI()
@@ -97,6 +116,30 @@ public class Converse extends JavaPlugin
         getServer().getPluginManager().registerEvents(new MuteListener(), this);
         getServer().getPluginManager().registerEvents(new StaffListener(), this);
         getServer().getPluginManager().registerEvents(new WorldListener(), this);
+    }
+
+    private void registerConfigs()
+    {
+        banConfig.load();
+        config.load();
+        permbanConfig.load();
+    }
+
+    private void unregisterConfigs()
+    {
+        banConfig.save();
+        config.save();
+        permbanConfig.save();
+    }
+
+    public void reregisterConfigs()
+    {
+        banConfig.save();
+        config.save();
+        permbanConfig.save();
+        banConfig.load();
+        config.load();
+        permbanConfig.load();
     }
 
     public static class BuildProperties

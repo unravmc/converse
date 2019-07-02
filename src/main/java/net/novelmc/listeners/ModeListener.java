@@ -18,7 +18,7 @@ public class ModeListener implements Listener
 
     public static void enableEventMode()
     {
-        Converse.plugin.getConfig().set("mode", "event");
+        Converse.plugin.config.set("mode", "event");
         for (Player player : Bukkit.getOnlinePlayers())
         {
             player.setWhitelisted(true);
@@ -28,7 +28,7 @@ public class ModeListener implements Listener
 
     public static void disableEventMode()
     {
-        Converse.plugin.getConfig().set("mode", "default");
+        Converse.plugin.config.set("mode", "default");
         for (OfflinePlayer player : Bukkit.getWhitelistedPlayers())
         {
             player.setWhitelisted(false);
@@ -38,7 +38,7 @@ public class ModeListener implements Listener
 
     public static void enableDevMode()
     {
-        Converse.plugin.getConfig().set("mode", "dev");
+        Converse.plugin.config.set("mode", "dev");
         for (Player player : Bukkit.getOnlinePlayers())
         {
             if (!LuckPermsBridge.isDeveloper(player.getUniqueId()) && !LuckPermsBridge.isExecutive(player.getUniqueId()))
@@ -51,13 +51,13 @@ public class ModeListener implements Listener
 
     public static void disableDevMode()
     {
-        Converse.plugin.getConfig().set("mode", "default");
+        Converse.plugin.config.set("mode", "default");
         Util.action("The server has left developer-only mode.");
     }
 
     public static void enableStaffMode()
     {
-        Converse.plugin.getConfig().set("mode", "staff");
+        Converse.plugin.config.set("mode", "staff");
         for (Player player : Bukkit.getOnlinePlayers())
         {
             if (!LuckPermsBridge.isStaff(player.getUniqueId()))
@@ -70,7 +70,7 @@ public class ModeListener implements Listener
 
     public static void disableStaffMode()
     {
-        Converse.plugin.getConfig().set("mode", "default");
+        Converse.plugin.config.set("mode", "default");
         Util.action("The server has left staff-only mode.");
     }
 
@@ -81,7 +81,7 @@ public class ModeListener implements Listener
         UUID uuid = event.getPlayer().getUniqueId();
 
         // Event Mode
-        if (plugin.getConfig().getString("mode").equalsIgnoreCase("event")
+        if (plugin.config.getString("mode").equalsIgnoreCase("event")
                 && !player.isWhitelisted()
                 && !LuckPermsBridge.isStaff(uuid))
         {
@@ -89,7 +89,7 @@ public class ModeListener implements Listener
         }
 
         // Developer Mode
-        if (plugin.getConfig().getString("mode").equalsIgnoreCase("dev"))
+        if (plugin.config.getString("mode").equalsIgnoreCase("dev"))
         {
             if (!LuckPermsBridge.isDeveloper(uuid) || !LuckPermsBridge.isExecutive(uuid))
             {
@@ -98,7 +98,7 @@ public class ModeListener implements Listener
         }
 
         // Staff Mode
-        if (plugin.getConfig().getString("mode").equalsIgnoreCase("staff") && !LuckPermsBridge.isStaff(uuid))
+        if (plugin.config.getString("mode").equalsIgnoreCase("staff") && !LuckPermsBridge.isStaff(uuid))
         {
             event.disallow(PlayerLoginEvent.Result.KICK_OTHER, ChatColor.RED + "&cThe server is currently in staff-only mode.");
         }

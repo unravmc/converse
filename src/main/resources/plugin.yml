@@ -51,4 +51,4 @@ commands:
   unban:
     usage: /<command> <player>
     description: Unbans a banned player.
-    aliases: [pardon, epardon]
+    aliases: [pardon, epardon, unpermban]

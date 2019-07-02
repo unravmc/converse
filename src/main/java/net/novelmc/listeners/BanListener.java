@@ -15,25 +15,29 @@ public class BanListener implements Listener
     {
         Player player = event.getPlayer();
 
-        if (player.hasPermission("converse.ban.bypass"))
-        {
-            return;
-        }
-
         if (Permban.isBanned(player))
         {
+            if (player.hasPermission("converse.ban.bypass"))
+            {
+                Permban.removePermban(player);
+                return;
+            }
             event.disallow(PlayerLoginEvent.Result.KICK_OTHER, Permban.constructBanMessage(Permban.getReason(player), Permban.getBanID(player)));
         }
 
         if (Ban.isBanned(player))
         {
             Ban.removeBan(player);
-            return;
         }
         else
         {
             if (Ban.get(player))
             {
+                if (player.hasPermission("converse.ban.bypass"))
+                {
+                    Ban.removeBan(player);
+                    return;
+                }
                 event.disallow(PlayerLoginEvent.Result.KICK_OTHER, Ban.constructBanMessage(player, Ban.getReason(player), Ban.getBanID(player)));
             }
         }

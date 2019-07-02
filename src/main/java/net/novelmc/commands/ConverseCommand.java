@@ -34,17 +34,15 @@ public class ConverseCommand implements CommandExecutor
         }
         switch (args[0].toLowerCase())
         {
-
-
             case "debug":
             {
-                sender.sendMessage(Bukkit.getPluginManager().getPlugin(Converse.plugin.getDescription().getName()).getDataFolder().toString());
                 if (!sender.hasPermission("converse.debug"))
                 {
                     sender.sendMessage(Messages.NO_PERMISSION);
                     return true;
                 }
                 Player player = (Player)sender;
+                sender.sendMessage(Bukkit.getPluginManager().getPlugin(Converse.plugin.getDescription().getName()).getDataFolder().toString());
                 if (LuckPermsBridge.isStaff(player.getUniqueId()))
                 {
                     sender.sendMessage("You are staff!");
@@ -52,21 +50,6 @@ public class ConverseCommand implements CommandExecutor
                 else
                 {
                     sender.sendMessage("You aren't staff.");
-                }
-
-                Converse.plugin.banConfig.createSection("gay");
-                Converse.plugin.banConfig.save();
-                Converse.plugin.banConfig.load();
-                if (Converse.plugin.banConfig.isConfigurationSection("gay"))
-                {
-                    sender.sendMessage("gay");
-                }
-                Converse.plugin.banConfig.set("gay", null);
-                Converse.plugin.banConfig.save();
-                Converse.plugin.banConfig.load();
-                if (!Converse.plugin.banConfig.isConfigurationSection("gay"))
-                {
-                    sender.sendMessage("success");
                 }
                 return true;
             }
@@ -77,10 +60,7 @@ public class ConverseCommand implements CommandExecutor
                     sender.sendMessage(Messages.NO_PERMISSION);
                     return true;
                 }
-                Converse.plugin.banConfig.save();
-                Converse.plugin.banConfig.load();
-                Converse.plugin.permbanConfig.save();
-                Converse.plugin.permbanConfig.load();
+                Converse.plugin.reregisterConfigs();
                 sender.sendMessage(ChatColor.GRAY + "All Converse files have been reloaded.");
                 return true;
             }

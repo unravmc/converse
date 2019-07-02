@@ -15,7 +15,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 public class MuteListener implements Listener
 {
     private static List<Player> muted = new ArrayList<>();
-    private final static List<String> blockedCommands = Converse.plugin.getConfig().getStringList("muted_commands");
+    private final static List<String> blockedCommands = Converse.plugin.config.getStringList("muted_commands");
 
     public static boolean isMuted(Player player)
     {

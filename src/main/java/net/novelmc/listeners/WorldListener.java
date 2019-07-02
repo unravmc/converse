@@ -5,8 +5,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class WorldListener implements Listener
 {
@@ -15,22 +15,15 @@ public class WorldListener implements Listener
     private World world = Bukkit.getWorld("world");
 
     @EventHandler
-    public void onPlayerTeleport(PlayerTeleportEvent event)
+    public void PlayerChangedWorldEvent(PlayerChangedWorldEvent event)
     {
-        if (event.getTo().getWorld().getName().equalsIgnoreCase("staffworld"))
+        if (event.getPlayer().getWorld() == staffWorld)
         {
-            if (staffWorld == null)
+            if (!event.getPlayer().hasPermission("converse.staffworld"))
             {
+                event.getPlayer().sendMessage(ChatColor.GRAY + "Sorry, but you cannot access the staff world.");
+                event.getPlayer().teleport(world.getSpawnLocation());
                 return;
-            }
-            else
-            {
-                if (!event.getPlayer().hasPermission("converse.staffworld"))
-                {
-                    event.getPlayer().sendMessage(ChatColor.GRAY + "That player is in the staff world. " +
-                            "You are not allowed to access the staff world.");
-                    event.setCancelled(true);
-                }
             }
         }
     }
@@ -38,7 +31,11 @@ public class WorldListener implements Listener
     @EventHandler
     public void onPlayerJoin(PlayerLoginEvent event)
     {
-        if (event.getPlayer().getLocation().getWorld().equals(staffWorld))
+        if (staffWorld == null)
+        {
+            return;
+        }
+        if (event.getPlayer().getLocation().getWorld().getName().equals(staffWorld.toString()))
         {
             if (!event.getPlayer().hasPermission("converse.staffworld"))
             {
