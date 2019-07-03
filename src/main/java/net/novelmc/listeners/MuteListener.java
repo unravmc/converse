@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import net.novelmc.Converse;
 import net.novelmc.bridge.LuckPermsBridge;
+import net.novelmc.util.ConverseBase;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 public class MuteListener implements Listener
 {
@@ -42,14 +45,16 @@ public class MuteListener implements Listener
         muted.clear();
     }
 
-    @EventHandler
-    public void onPlayerChat(AsyncPlayerChatEvent event)
+    @EventHandler(priority = EventPriority.LOW)
+    public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event)
     {
         Player player = event.getPlayer();
+
         if (LuckPermsBridge.isStaff(player.getUniqueId()))
         {
             return;
         }
+
         if (isMuted(player))
         {
             String command = event.getMessage().split(" ")[0].toLowerCase();
@@ -70,9 +75,20 @@ public class MuteListener implements Listener
             {
                 player.sendMessage(ChatColor.RED + "You cannot use that command while you are muted.");
                 event.setCancelled(true);
-                return;
             }
+        }
+    }
 
+    @EventHandler
+    public void onPlayerChat(AsyncPlayerChatEvent event)
+    {
+        Player player = event.getPlayer();
+        if (LuckPermsBridge.isStaff(player.getUniqueId()))
+        {
+            return;
+        }
+        if (isMuted(player))
+        {
             player.sendMessage(ChatColor.RED + "You are currently muted and cannot chat.");
             event.setCancelled(true);
         }
