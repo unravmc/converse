@@ -49,7 +49,7 @@ public class Updater
                 return;
             }
 
-            if (plugin.getDescription().getVersion().endsWith("Beta"))
+            if (plugin.getDescription().getVersion().endsWith("-SNAPSHOT"))
             {
                 plugin.getLogger().info("You are running a beta release, not checking for updates.");
                 return;

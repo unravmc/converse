@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.server.ServerListPingEvent;
 
 public class ModeListener implements Listener
 {
@@ -100,7 +101,36 @@ public class ModeListener implements Listener
         // Staff Mode
         if (plugin.config.getString("mode").equalsIgnoreCase("staff") && !LuckPermsBridge.isStaff(uuid))
         {
-            event.disallow(PlayerLoginEvent.Result.KICK_OTHER, ChatColor.RED + "&cThe server is currently in staff-only mode.");
+            event.disallow(PlayerLoginEvent.Result.KICK_OTHER, ChatColor.RED + "The server is currently in staff-only mode.");
+        }
+    }
+
+    @EventHandler
+    public void onServerPing(ServerListPingEvent event)
+    {
+        if (plugin.config.getString("mode").equalsIgnoreCase("default"))
+        {
+            return;
+        }
+
+        // Event Mode
+        if (plugin.config.getString("mode").equalsIgnoreCase("event"))
+        {
+            event.setMotd(ChatColor.RED + "The server is currently in event mode.");
+            return;
+        }
+
+        // Developer Mode
+        if (plugin.config.getString("mode").equalsIgnoreCase("dev"))
+        {
+            event.setMotd(ChatColor.RED + "The server is currently in development mode.");
+            return;
+        }
+
+        // Staff Mode
+        if (plugin.config.getString("mode").equalsIgnoreCase("staff"))
+        {
+            event.setMotd(ChatColor.RED + "The server is currently in staff mode.");
         }
     }
 }
