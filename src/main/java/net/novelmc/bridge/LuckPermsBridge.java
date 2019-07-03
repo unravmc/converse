@@ -81,6 +81,37 @@ public class LuckPermsBridge
         return ChatColor.GREEN + "" + ChatColor.BOLD + "OP";
     }
 
+    public static ChatColor displayRankColor(Player player)
+    {
+        if (player == null)
+        {
+            return ChatColor.DARK_AQUA;
+        }
+
+        if (isModerator(player.getUniqueId()))
+        {
+            return ChatColor.DARK_GREEN;
+        }
+        if (isSeniorModerator(player.getUniqueId()))
+        {
+            return ChatColor.GOLD;
+        }
+        if (isDeveloper(player.getUniqueId()))
+        {
+            return ChatColor.DARK_PURPLE;
+        }
+        if (isExecutive(player.getUniqueId()))
+        {
+            return ChatColor.RED;
+        }
+        if (isArchitect(player.getUniqueId()))
+        {
+            return ChatColor.BLUE;
+        }
+
+        return ChatColor.RESET;
+    }
+
     public static void set(UUID uuid, String group)
     {
         UserManager userManager = api.getUserManager();
@@ -96,6 +127,32 @@ public class LuckPermsBridge
             }
             user.unsetPermission(oldGroup);
             user.setPermission(newGroup);
+            userManager.saveUser(user);
+        });
+    }
+
+    public static void allowStaffWorld(UUID uuid)
+    {
+        UserManager userManager = api.getUserManager();
+        CompletableFuture<User> userFuture = userManager.loadUser(uuid);
+
+        userFuture.thenAcceptAsync(user ->
+        {
+            Node permission = api.buildNode("multiverse.access.staffworld").build();
+            user.setPermission(permission);
+            userManager.saveUser(user);
+        });
+    }
+
+    public static void disallowStaffWorld(UUID uuid)
+    {
+        UserManager userManager = api.getUserManager();
+        CompletableFuture<User> userFuture = userManager.loadUser(uuid);
+
+        userFuture.thenAcceptAsync(user ->
+        {
+            Node permission = api.buildNode("multiverse.access.staffworld").build();
+            user.unsetPermission(permission);
             userManager.saveUser(user);
         });
     }

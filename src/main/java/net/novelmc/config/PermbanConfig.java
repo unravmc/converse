@@ -1,9 +1,8 @@
 package net.novelmc.config;
 
+import java.io.File;
 import net.novelmc.Converse;
 import org.bukkit.configuration.file.YamlConfiguration;
-
-import java.io.File;
 
 public class PermbanConfig extends YamlConfiguration
 {

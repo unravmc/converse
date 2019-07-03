@@ -1,5 +1,7 @@
 package net.novelmc.commands;
 
+import net.novelmc.bridge.LuckPermsBridge;
+import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -22,14 +24,69 @@ public class StaffworldCommand implements CommandExecutor
         World staffworld = Bukkit.getWorld("staffworld");
         if (staffworld == null)
         {
-            sender.sendMessage("The staffworld could not be found. Please contact an administrator for assistance.");
+            sender.sendMessage(ChatColor.RED + "The staffworld could not be found. Please contact an administrator for assistance.");
             return true;
         }
         else
         {
             Player player = (Player)sender;
-            sender.sendMessage(ChatColor.GRAY + "Teleporting to staffworld...");
-            player.teleport(staffworld.getSpawnLocation());
+
+            if (args.length == 0)
+            {
+                sender.sendMessage(ChatColor.GRAY + "Teleporting to staffworld...");
+                player.teleport(staffworld.getSpawnLocation());
+                return true;
+            }
+            else
+            {
+                switch (args[0].toLowerCase())
+                {
+                    case "add":
+                    {
+                        if (args.length > 2)
+                        {
+                            return false;
+                        }
+                        Player sPlayer = Bukkit.getPlayer(args[1]);
+                        if (sPlayer == null)
+                        {
+                            sender.sendMessage(Messages.PLAYER_NOT_FOUND);
+                            return true;
+                        }
+                        if (LuckPermsBridge.isStaff(sPlayer.getUniqueId()) ||
+                        LuckPermsBridge.isArchitect(sPlayer.getUniqueId()))
+                        {
+                            sender.sendMessage(ChatColor.RED + "That player already has access");
+                            return true;
+                        }
+                        LuckPermsBridge.allowStaffWorld(sPlayer.getUniqueId());
+                        Util.action(sender, "Adding " + sPlayer.getName() + " to the staff world");
+                        return true;
+                    }
+                    case "remove":
+                    {
+                        if (args.length > 2)
+                        {
+                            return false;
+                        }
+                        Player sPlayer = Bukkit.getPlayer(args[1]);
+                        if (sPlayer == null)
+                        {
+                            sender.sendMessage(Messages.PLAYER_NOT_FOUND);
+                            return true;
+                        }
+                        if (LuckPermsBridge.isStaff(sPlayer.getUniqueId()) ||
+                                LuckPermsBridge.isArchitect(sPlayer.getUniqueId()))
+                        {
+                            sender.sendMessage(ChatColor.RED + "You cannot remove access from that player.");
+                            return true;
+                        }
+                        LuckPermsBridge.disallowStaffWorld(sPlayer.getUniqueId());
+                        Util.action(sender, "Removing " + sPlayer.getName() + " from the staff world");
+                        return true;
+                    }
+                }
+            }
         }
         return true;
     }

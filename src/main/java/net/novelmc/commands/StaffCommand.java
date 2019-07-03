@@ -3,7 +3,6 @@ package net.novelmc.commands;
 import me.lucko.luckperms.api.LuckPermsApi;
 import net.novelmc.Converse;
 import net.novelmc.bridge.LuckPermsBridge;
-import net.novelmc.listeners.StaffListener;
 import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

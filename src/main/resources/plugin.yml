@@ -40,6 +40,9 @@ commands:
   permban:
     usage: /<command> <player> [reason]
     description: Permanently bans a player.
+  plotworld:
+    usage: /<command>
+    description: Teleport to the plotworld
   staff:
     usage: /<command> <add <player> <rank> | remove <player>>
     description: Manage admins

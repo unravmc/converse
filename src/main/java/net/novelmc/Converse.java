@@ -12,6 +12,7 @@ import net.novelmc.commands.GraychatCommand;
 import net.novelmc.commands.ModeCommand;
 import net.novelmc.commands.MuteCommand;
 import net.novelmc.commands.PermbanCommand;
+import net.novelmc.commands.PlotworldCommand;
 import net.novelmc.commands.StaffCommand;
 import net.novelmc.commands.StaffworldCommand;
 import net.novelmc.commands.UnbanCommand;
@@ -103,6 +104,7 @@ public class Converse extends JavaPlugin
         getCommand("mode").setExecutor(new ModeCommand());
         getCommand("mute").setExecutor(new MuteCommand());
         getCommand("permban").setExecutor(new PermbanCommand());
+        getCommand("plotworld").setExecutor(new PlotworldCommand());
         getCommand("staff").setExecutor(new StaffCommand());
         getCommand("staffworld").setExecutor(new StaffworldCommand());
         getCommand("unban").setExecutor(new UnbanCommand());
