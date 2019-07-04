@@ -32,9 +32,25 @@ public class BanCommand extends ConverseBase implements CommandExecutor
 
         Player player = Bukkit.getPlayer(args[0]);
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
-        Date expires = Util.parseDateOffset(args[1]);
+        Date expires;
         String banID = RandomStringUtils.randomAlphabetic(5);
         final String reason = StringUtils.join(ArrayUtils.subarray(args, 2, args.length), " ");
+
+        try
+        {
+            Util.parseDateOffset(args[1]);
+        }
+        catch (NumberFormatException ex)
+        {
+            sender.sendMessage(ChatColor.DARK_RED + "You know what? I hate you. You're the kind of person " +
+                    "who just wants to break things. Stop. It took me a ridiculous amount of time to stop " +
+                    "idiots like you from entering something above 999999999. Here's the fucking stacktrace since you " +
+                    "seem to love breaking stuff:");
+            sender.sendMessage(ex.toString());
+            return true;
+        }
+
+        expires = Util.parseDateOffset(args[1]);
 
         if (expires == null || !(expires instanceof Date))
         {
