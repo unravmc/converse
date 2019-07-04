@@ -60,13 +60,6 @@ public class Converse extends JavaPlugin
         banConfig = new BanConfig(plugin);
         config = new MainConfig(plugin);
         permbanConfig = new PermbanConfig(plugin);
-        // Banning
-        ban = new Ban(this);
-        permban = new Permban(this);
-        // LuckPerms
-        lp = new LuckPermsBridge(this);
-        // Listeners
-        ml = new ModeListener(this);
     }
 
     public void onEnable()
@@ -83,6 +76,11 @@ public class Converse extends JavaPlugin
         registerCommands();
         // Listener
         registerListeners();
+        // Banning
+        ban = new Ban(this);
+        permban = new Permban(this);
+        // LuckPerms
+        lp = new LuckPermsBridge(this);
     }
 
     public void onDisable()
@@ -133,6 +131,7 @@ public class Converse extends JavaPlugin
     {
         getServer().getPluginManager().registerEvents(new ChatListener(), this);
         getServer().getPluginManager().registerEvents(new BanListener(), this);
+        ml = new ModeListener(this);
         getServer().getPluginManager().registerEvents(new MuteListener(), this);
         getServer().getPluginManager().registerEvents(new StaffListener(), this);
         getServer().getPluginManager().registerEvents(new WorldListener(), this);
