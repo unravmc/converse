@@ -1,6 +1,6 @@
 package net.novelmc.commands;
 
-import net.novelmc.permban.Permban;
+import net.novelmc.util.ConverseBase;
 import net.novelmc.util.Util;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.RandomStringUtils;
@@ -12,7 +12,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class PermbanCommand implements CommandExecutor
+public class PermbanCommand extends ConverseBase implements CommandExecutor
 {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args)
@@ -35,7 +35,7 @@ public class PermbanCommand implements CommandExecutor
 
         if (player == null)
         {
-            Permban.addPermban(offlinePlayer, sender, banID, reason, "username");
+            plugin.permban.addPermban(offlinePlayer, sender, banID, reason, "username");
             if (reason.length() == 0)
             {
                 Util.action(sender, "Permanently banning " + offlinePlayer.getName());
@@ -48,8 +48,8 @@ public class PermbanCommand implements CommandExecutor
         }
         else
         {
-            Permban.addPermban(player, sender, banID, reason, "username");
-            player.kickPlayer(Permban.constructBanMessage(reason, banID));
+            plugin.permban.addPermban(player, sender, banID, reason, "username");
+            player.kickPlayer(plugin.permban.constructBanMessage(reason, banID));
             if (reason.length() == 0)
             {
                 Util.action(sender, "Permanently banning " + player.getName());

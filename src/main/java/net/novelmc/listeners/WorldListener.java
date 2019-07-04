@@ -2,12 +2,12 @@ package net.novelmc.listeners;
 
 import me.lucko.luckperms.api.LuckPermsApi;
 import net.novelmc.Converse;
-import net.novelmc.bridge.LuckPermsBridge;
+import net.novelmc.util.ConverseBase;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-public class WorldListener implements Listener
+public class WorldListener extends ConverseBase implements Listener
 {
     private static LuckPermsApi api = Converse.getLuckPermsAPI();
 
@@ -15,10 +15,10 @@ public class WorldListener implements Listener
     public void onPlayerQuit(PlayerQuitEvent event)
     {
         if (event.getPlayer().hasPermission("multiverse.access.staffworld") &&
-                !LuckPermsBridge.isStaff(event.getPlayer().getUniqueId()) ||
-                !LuckPermsBridge.isArchitect(event.getPlayer().getUniqueId()))
+                !plugin.lp.isStaff(event.getPlayer().getUniqueId()) ||
+                !plugin.lp.isArchitect(event.getPlayer().getUniqueId()))
         {
-            LuckPermsBridge.disallowStaffWorld(event.getPlayer().getUniqueId());
+            plugin.lp.disallowStaffWorld(event.getPlayer().getUniqueId());
         }
     }
 }

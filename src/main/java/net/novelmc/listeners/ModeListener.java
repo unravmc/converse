@@ -2,7 +2,7 @@ package net.novelmc.listeners;
 
 import java.util.UUID;
 import net.novelmc.Converse;
-import net.novelmc.bridge.LuckPermsBridge;
+import net.novelmc.util.ConverseBase;
 import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -13,13 +13,19 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.server.ServerListPingEvent;
 
-public class ModeListener implements Listener
+public class ModeListener extends ConverseBase implements Listener
 {
-    private Converse plugin = Converse.plugin;
+    private Converse plugin;
 
-    public static void enableEventMode()
+    public ModeListener(Converse plugin)
     {
-        Converse.plugin.config.set("mode", "event");
+        this.plugin = plugin;
+        Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
+    }
+
+    public void enableEventMode()
+    {
+        plugin.config.set("mode", "event");
         for (Player player : Bukkit.getOnlinePlayers())
         {
             player.setWhitelisted(true);
@@ -27,9 +33,9 @@ public class ModeListener implements Listener
         Util.action("The server has entered event mode, all online players have been whitelisted.");
     }
 
-    public static void disableEventMode()
+    public void disableEventMode()
     {
-        Converse.plugin.config.set("mode", "default");
+        plugin.config.set("mode", "default");
         for (OfflinePlayer player : Bukkit.getWhitelistedPlayers())
         {
             player.setWhitelisted(false);
@@ -37,12 +43,12 @@ public class ModeListener implements Listener
         Util.action("The server has left event mode.");
     }
 
-    public static void enableDevMode()
+    public void enableDevMode()
     {
-        Converse.plugin.config.set("mode", "dev");
+        plugin.config.set("mode", "dev");
         for (Player player : Bukkit.getOnlinePlayers())
         {
-            if (!LuckPermsBridge.isDeveloper(player.getUniqueId()) && !LuckPermsBridge.isExecutive(player.getUniqueId()))
+            if (!plugin.lp.isDeveloper(player.getUniqueId()) && !plugin.lp.isExecutive(player.getUniqueId()))
             {
                 player.kickPlayer("The server has entered developer only mode.");
             }
@@ -50,18 +56,18 @@ public class ModeListener implements Listener
         Util.action("The server has entered developer-mode.");
     }
 
-    public static void disableDevMode()
+    public void disableDevMode()
     {
-        Converse.plugin.config.set("mode", "default");
+        plugin.config.set("mode", "default");
         Util.action("The server has left developer-only mode.");
     }
 
-    public static void enableStaffMode()
+    public void enableStaffMode()
     {
-        Converse.plugin.config.set("mode", "staff");
+        plugin.config.set("mode", "staff");
         for (Player player : Bukkit.getOnlinePlayers())
         {
-            if (!LuckPermsBridge.isStaff(player.getUniqueId()))
+            if (!plugin.lp.isStaff(player.getUniqueId()))
             {
                 player.kickPlayer("The server has entered staff-only mode.");
             }
@@ -69,9 +75,9 @@ public class ModeListener implements Listener
         Util.action("The server has entered staff-only mode.");
     }
 
-    public static void disableStaffMode()
+    public void disableStaffMode()
     {
-        Converse.plugin.config.set("mode", "default");
+        plugin.config.set("mode", "default");
         Util.action("The server has left staff-only mode.");
     }
 
@@ -84,7 +90,7 @@ public class ModeListener implements Listener
         // Event Mode
         if (plugin.config.getString("mode").equalsIgnoreCase("event")
                 && !player.isWhitelisted()
-                && !LuckPermsBridge.isStaff(uuid))
+                && !plugin.lp.isStaff(uuid))
         {
             event.disallow(PlayerLoginEvent.Result.KICK_OTHER, ChatColor.RED + "The server is currently in event mode.");
         }
@@ -92,14 +98,14 @@ public class ModeListener implements Listener
         // Developer Mode
         if (plugin.config.getString("mode").equalsIgnoreCase("dev"))
         {
-            if (!LuckPermsBridge.isDeveloper(uuid) || !LuckPermsBridge.isExecutive(uuid))
+            if (!plugin.lp.isDeveloper(uuid) || !plugin.lp.isExecutive(uuid))
             {
                 event.disallow(PlayerLoginEvent.Result.KICK_OTHER, ChatColor.RED + "The server is currently in developer only mode.");
             }
         }
 
         // Staff Mode
-        if (plugin.config.getString("mode").equalsIgnoreCase("staff") && !LuckPermsBridge.isStaff(uuid))
+        if (plugin.config.getString("mode").equalsIgnoreCase("staff") && !plugin.lp.isStaff(uuid))
         {
             event.disallow(PlayerLoginEvent.Result.KICK_OTHER, ChatColor.RED + "The server is currently in staff-only mode.");
         }

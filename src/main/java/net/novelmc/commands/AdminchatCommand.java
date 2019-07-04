@@ -9,6 +9,8 @@ import org.bukkit.command.CommandSender;
 
 public class AdminchatCommand implements CommandExecutor
 {
+    Util util = new Util();
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args)
     {
@@ -23,7 +25,7 @@ public class AdminchatCommand implements CommandExecutor
             sender.sendMessage(ChatColor.GRAY + "Please enter a message.");
             return true;
         }
-        Util.adminchat(sender, message);
+        util.adminchat(sender, message);
         return true;
     }
 }

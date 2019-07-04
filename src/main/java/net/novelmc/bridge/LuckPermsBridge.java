@@ -12,45 +12,51 @@ import org.bukkit.entity.Player;
 
 public class LuckPermsBridge
 {
-    private static LuckPermsApi api = Converse.getLuckPermsAPI();
-    public static Converse plugin = Converse.plugin;
+    private LuckPermsApi api = Converse.getLuckPermsAPI();
 
-    public static boolean isModerator(UUID player)
+    private Converse plugin;
+
+    public LuckPermsBridge(Converse plugin)
+    {
+        this.plugin = plugin;
+    }
+
+    public boolean isModerator(UUID player)
     {
         User user = api.getUserManager().getUser(player);
         return user.getPrimaryGroup().equalsIgnoreCase(plugin.config.getString("permissions.mod"));
     }
 
-    public static boolean isSeniorModerator(UUID player)
+    public boolean isSeniorModerator(UUID player)
     {
         User user = api.getUserManager().getUser(player);
         return user.getPrimaryGroup().equalsIgnoreCase(plugin.config.getString("permissions.senior_mod"));
     }
 
-    public static boolean isDeveloper(UUID player)
+    public boolean isDeveloper(UUID player)
     {
         User user = api.getUserManager().getUser(player);
         return user.getPrimaryGroup().equalsIgnoreCase(plugin.config.getString("permissions.developer"));
     }
 
-    public static boolean isExecutive(UUID player)
+    public boolean isExecutive(UUID player)
     {
         User user = api.getUserManager().getUser(player);
         return user.getPrimaryGroup().equalsIgnoreCase(plugin.config.getString("permissions.executive"));
     }
 
-    public static boolean isArchitect(UUID player)
+    public boolean isArchitect(UUID player)
     {
         User user = api.getUserManager().getUser(player);
         return user.getPrimaryGroup().equalsIgnoreCase(plugin.config.getString("permissions.architect"));
     }
 
-    public static boolean isStaff(UUID player)
+    public boolean isStaff(UUID player)
     {
         return isModerator(player) || isSeniorModerator(player) || isDeveloper(player) || isExecutive(player);
     }
 
-    public static String displayRank(Player player)
+    public String displayRank(Player player)
     {
         if (player == null)
         {
@@ -81,7 +87,7 @@ public class LuckPermsBridge
         return ChatColor.GREEN + "" + ChatColor.BOLD + "OP";
     }
 
-    public static ChatColor displayRankColor(Player player)
+    public ChatColor displayRankColor(Player player)
     {
         if (player == null)
         {
@@ -112,7 +118,7 @@ public class LuckPermsBridge
         return ChatColor.RESET;
     }
 
-    public static void set(UUID uuid, String group)
+    public void set(UUID uuid, String group)
     {
         UserManager userManager = api.getUserManager();
         CompletableFuture<User> userFuture = userManager.loadUser(uuid);
@@ -131,7 +137,7 @@ public class LuckPermsBridge
         });
     }
 
-    public static void allowStaffWorld(UUID uuid)
+    public void allowStaffWorld(UUID uuid)
     {
         UserManager userManager = api.getUserManager();
         CompletableFuture<User> userFuture = userManager.loadUser(uuid);
@@ -144,7 +150,7 @@ public class LuckPermsBridge
         });
     }
 
-    public static void disallowStaffWorld(UUID uuid)
+    public void disallowStaffWorld(UUID uuid)
     {
         UserManager userManager = api.getUserManager();
         CompletableFuture<User> userFuture = userManager.loadUser(uuid);

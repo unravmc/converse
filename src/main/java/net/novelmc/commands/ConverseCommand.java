@@ -1,7 +1,7 @@
 package net.novelmc.commands;
 
 import net.novelmc.Converse;
-import net.novelmc.bridge.LuckPermsBridge;
+import net.novelmc.util.ConverseBase;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -9,7 +9,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class ConverseCommand implements CommandExecutor
+public class ConverseCommand extends ConverseBase implements CommandExecutor
 {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args)
@@ -43,7 +43,7 @@ public class ConverseCommand implements CommandExecutor
                 }
                 Player player = (Player)sender;
                 sender.sendMessage(Bukkit.getPluginManager().getPlugin(Converse.plugin.getDescription().getName()).getDataFolder().toString());
-                if (LuckPermsBridge.isStaff(player.getUniqueId()))
+                if (plugin.lp.isStaff(player.getUniqueId()))
                 {
                     sender.sendMessage("You are staff!");
                 }

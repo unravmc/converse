@@ -1,13 +1,13 @@
 package net.novelmc.listeners;
 
 import java.util.UUID;
-import net.novelmc.bridge.LuckPermsBridge;
+import net.novelmc.util.ConverseBase;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public class StaffListener implements Listener
+public class StaffListener extends ConverseBase implements Listener
 {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event)
@@ -18,9 +18,9 @@ public class StaffListener implements Listener
     private void changeTabColor(Player player)
     {
         UUID uuid = player.getUniqueId();
-        if (LuckPermsBridge.isStaff(uuid))
+        if (plugin.lp.isStaff(uuid))
         {
-            player.setPlayerListName(LuckPermsBridge.displayRankColor(player) + player.getName());
+            player.setPlayerListName(plugin.lp.displayRankColor(player) + player.getName());
         }
     }
 }

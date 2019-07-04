@@ -1,14 +1,14 @@
 package net.novelmc.commands;
 
 import net.novelmc.Converse;
-import net.novelmc.listeners.ModeListener;
+import net.novelmc.util.ConverseBase;
 import net.novelmc.util.Util;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-public class ModeCommand implements CommandExecutor
+public class ModeCommand extends ConverseBase implements CommandExecutor
 {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args)
@@ -33,11 +33,11 @@ public class ModeCommand implements CommandExecutor
                     }
                     if (mode.equalsIgnoreCase("dev"))
                     {
-                        ModeListener.disableDevMode();
+                        plugin.ml.disableDevMode();
                     }
                     else
                     {
-                        ModeListener.enableDevMode();
+                        plugin.ml.enableDevMode();
                     }
                     return true;
                 }
@@ -50,12 +50,12 @@ public class ModeCommand implements CommandExecutor
                     }
                     if (mode.equalsIgnoreCase("event"))
                     {
-                        ModeListener.disableEventMode();
+                        plugin.ml.disableEventMode();
                         return true;
                     }
                     else
                     {
-                        ModeListener.enableEventMode();
+                        plugin.ml.enableEventMode();
                         return true;
                     }
                 }
@@ -68,11 +68,11 @@ public class ModeCommand implements CommandExecutor
                     }
                     if (mode.equalsIgnoreCase("staff"))
                     {
-                        ModeListener.disableStaffMode();
+                        plugin.ml.disableStaffMode();
                     }
                     else
                     {
-                        ModeListener.enableStaffMode();
+                        plugin.ml.enableStaffMode();
                     }
                     return true;
                 }
@@ -91,12 +91,12 @@ public class ModeCommand implements CommandExecutor
                     return false;
             }
         }
-        sender.sendMessage(Util.colorize("&7Server Modes&8:"));
-        sender.sendMessage(Util.colorize("&8<-> &5&ldev&r&8: &7Plugin testing for leadership and devs."));
-        sender.sendMessage(Util.colorize("&8<-> &4&lstaff&r&8: &7Staff-only mode."));
-        sender.sendMessage(Util.colorize("&8<-> &9&levent&r&8: &7Event mode."));
-        sender.sendMessage(Util.colorize("&8<-> &7&loff&r&8: &7Normal mode functionality."));
-        sender.sendMessage(Util.colorize("&8<-> &7The server is currently running in " + mode + " mode."));
+        sender.sendMessage(ChatColor.BLUE + "Available server modes:");
+        sender.sendMessage(ChatColor.GOLD + " - Dev mode: Plugin testing for leadership and developers.");
+        sender.sendMessage(ChatColor.GOLD + " - Staff mode: Staff only mode.");
+        sender.sendMessage(ChatColor.GOLD + " - Event mode: Whitelist all online players and close the server.");
+        sender.sendMessage(ChatColor.GOLD + " - Default mode: Normal server functionality.");
+        sender.sendMessage(ChatColor.BLUE + "The server is currently running in " + mode + " mode.");
         return true;
     }
 }

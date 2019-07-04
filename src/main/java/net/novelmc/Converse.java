@@ -3,6 +3,8 @@ package net.novelmc;
 import java.io.InputStream;
 import java.util.Properties;
 import me.lucko.luckperms.api.LuckPermsApi;
+import net.novelmc.bans.Ban;
+import net.novelmc.bridge.LuckPermsBridge;
 import net.novelmc.commands.AdminchatCommand;
 import net.novelmc.commands.BanCommand;
 import net.novelmc.commands.ConverseCommand;
@@ -25,6 +27,7 @@ import net.novelmc.listeners.ModeListener;
 import net.novelmc.listeners.MuteListener;
 import net.novelmc.listeners.StaffListener;
 import net.novelmc.listeners.WorldListener;
+import net.novelmc.permban.Permban;
 import net.novelmc.util.Updater;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
@@ -37,17 +40,33 @@ public class Converse extends JavaPlugin
     public static Converse plugin;
     public static final BuildProperties build = new BuildProperties();
     public static Server server;
+    // Configs
     public BanConfig banConfig;
     public MainConfig config;
     public PermbanConfig permbanConfig;
+    // Banning
+    public Ban ban;
+    public Permban permban;
+    // LuckPerms
+    public LuckPermsBridge lp;
+    // Listeners
+    public ModeListener ml;
 
     public void onLoad()
     {
         plugin = this;
         server = plugin.getServer();
+        // Config
         banConfig = new BanConfig(plugin);
         config = new MainConfig(plugin);
         permbanConfig = new PermbanConfig(plugin);
+        // Banning
+        ban = new Ban(this);
+        permban = new Permban(this);
+        // LuckPerms
+        lp = new LuckPermsBridge(this);
+        // Listeners
+        ml = new ModeListener(this);
     }
 
     public void onEnable()
@@ -114,7 +133,6 @@ public class Converse extends JavaPlugin
     {
         getServer().getPluginManager().registerEvents(new ChatListener(), this);
         getServer().getPluginManager().registerEvents(new BanListener(), this);
-        getServer().getPluginManager().registerEvents(new ModeListener(), this);
         getServer().getPluginManager().registerEvents(new MuteListener(), this);
         getServer().getPluginManager().registerEvents(new StaffListener(), this);
         getServer().getPluginManager().registerEvents(new WorldListener(), this);

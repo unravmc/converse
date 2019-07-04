@@ -1,7 +1,7 @@
 package net.novelmc.commands;
 
-import net.novelmc.bridge.LuckPermsBridge;
 import net.novelmc.listeners.MuteListener;
+import net.novelmc.util.ConverseBase;
 import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -10,7 +10,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class MuteCommand implements CommandExecutor
+public class MuteCommand extends ConverseBase implements CommandExecutor
 {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args)
@@ -42,7 +42,7 @@ public class MuteCommand implements CommandExecutor
             return true;
         }
 
-        if (LuckPermsBridge.isStaff(player.getUniqueId()))
+        if (plugin.lp.isStaff(player.getUniqueId()))
         {
             sender.sendMessage(ChatColor.RED + "You cannot mute admins.");
             return true;

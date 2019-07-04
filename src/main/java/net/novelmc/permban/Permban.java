@@ -1,16 +1,22 @@
 package net.novelmc.permban;
 
 import net.novelmc.Converse;
+import net.novelmc.util.ConverseBase;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Permban
+public class Permban extends ConverseBase
 {
-    public static Converse plugin = Converse.plugin;
+    private Converse plugin;
 
-    public static String constructBanMessage(String reason, String banID)
+    public Permban(Converse plugin)
+    {
+        this.plugin = plugin;
+    }
+
+    public String constructBanMessage(String reason, String banID)
     {
         final StringBuilder banMessage = new StringBuilder(ChatColor.BLUE + "" + ChatColor.BOLD
                 + "NOVEL");
@@ -25,7 +31,7 @@ public class Permban
         return banMessage.toString();
     }
 
-    public static void addPermban(Player player, CommandSender sender, String banID, String reason, String type)
+    public void addPermban(Player player, CommandSender sender, String banID, String reason, String type)
     {
         plugin.permbanConfig.createSection(player.getUniqueId().toString());
         plugin.permbanConfig.set(player.getUniqueId().toString() + ".player", player.getName());
@@ -38,7 +44,7 @@ public class Permban
         plugin.permbanConfig.load();
     }
 
-    public static void addPermban(OfflinePlayer player, CommandSender sender, String banID, String reason, String type)
+    public void addPermban(OfflinePlayer player, CommandSender sender, String banID, String reason, String type)
     {
         plugin.permbanConfig.createSection(player.getUniqueId().toString());
         plugin.permbanConfig.set(player.getUniqueId().toString() + ".player", player.getName());
@@ -50,22 +56,22 @@ public class Permban
         plugin.permbanConfig.load();
     }
 
-    public static String getReason(Player player)
+    public String getReason(Player player)
     {
         return plugin.permbanConfig.get(player.getUniqueId().toString() + ".reason").toString();
     }
 
-    public static String getBanID(Player player)
+    public String getBanID(Player player)
     {
         return plugin.permbanConfig.get(player.getUniqueId().toString() + ".id").toString();
     }
 
-    public static boolean isBanned(Player player)
+    public boolean isBanned(Player player)
     {
         return plugin.permbanConfig.isConfigurationSection(player.getUniqueId().toString());
     }
 
-    public static boolean removePermban(OfflinePlayer player)
+    public boolean removePermban(OfflinePlayer player)
     {
         if (plugin.permbanConfig.isConfigurationSection(player.getUniqueId().toString()))
         {
@@ -77,7 +83,7 @@ public class Permban
         return false;
     }
 
-    public static boolean removePermban(Player player)
+    public boolean removePermban(Player player)
     {
         if (plugin.permbanConfig.isConfigurationSection(player.getUniqueId().toString()))
         {

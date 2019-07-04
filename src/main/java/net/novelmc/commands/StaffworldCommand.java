@@ -1,6 +1,6 @@
 package net.novelmc.commands;
 
-import net.novelmc.bridge.LuckPermsBridge;
+import net.novelmc.util.ConverseBase;
 import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -10,7 +10,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class StaffworldCommand implements CommandExecutor
+public class StaffworldCommand extends ConverseBase implements CommandExecutor
 {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args)
@@ -43,7 +43,7 @@ public class StaffworldCommand implements CommandExecutor
                 {
                     case "add":
                     {
-                        if (args.length > 2)
+                        if (args.length < 2)
                         {
                             return false;
                         }
@@ -53,19 +53,19 @@ public class StaffworldCommand implements CommandExecutor
                             sender.sendMessage(Messages.PLAYER_NOT_FOUND);
                             return true;
                         }
-                        if (LuckPermsBridge.isStaff(sPlayer.getUniqueId()) ||
-                        LuckPermsBridge.isArchitect(sPlayer.getUniqueId()))
+                        if (plugin.lp.isStaff(sPlayer.getUniqueId()) ||
+                                plugin.lp.isArchitect(sPlayer.getUniqueId()))
                         {
-                            sender.sendMessage(ChatColor.RED + "That player already has access");
+                            sender.sendMessage(ChatColor.RED + "That player already has access to the staff world.");
                             return true;
                         }
-                        LuckPermsBridge.allowStaffWorld(sPlayer.getUniqueId());
+                        plugin.lp.allowStaffWorld(sPlayer.getUniqueId());
                         Util.action(sender, "Adding " + sPlayer.getName() + " to the staff world");
                         return true;
                     }
                     case "remove":
                     {
-                        if (args.length > 2)
+                        if (args.length < 2)
                         {
                             return false;
                         }
@@ -75,13 +75,13 @@ public class StaffworldCommand implements CommandExecutor
                             sender.sendMessage(Messages.PLAYER_NOT_FOUND);
                             return true;
                         }
-                        if (LuckPermsBridge.isStaff(sPlayer.getUniqueId()) ||
-                                LuckPermsBridge.isArchitect(sPlayer.getUniqueId()))
+                        if (plugin.lp.isStaff(sPlayer.getUniqueId()) ||
+                                plugin.lp.isArchitect(sPlayer.getUniqueId()))
                         {
                             sender.sendMessage(ChatColor.RED + "You cannot remove access from that player.");
                             return true;
                         }
-                        LuckPermsBridge.disallowStaffWorld(sPlayer.getUniqueId());
+                        plugin.lp.disallowStaffWorld(sPlayer.getUniqueId());
                         Util.action(sender, "Removing " + sPlayer.getName() + " from the staff world");
                         return true;
                     }

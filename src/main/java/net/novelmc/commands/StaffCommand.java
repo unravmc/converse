@@ -2,7 +2,7 @@ package net.novelmc.commands;
 
 import me.lucko.luckperms.api.LuckPermsApi;
 import net.novelmc.Converse;
-import net.novelmc.bridge.LuckPermsBridge;
+import net.novelmc.util.ConverseBase;
 import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -11,7 +11,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class StaffCommand implements CommandExecutor
+public class StaffCommand extends ConverseBase implements CommandExecutor
 {
     private static LuckPermsApi api = Converse.getLuckPermsAPI();
 
@@ -48,7 +48,7 @@ public class StaffCommand implements CommandExecutor
 
                 if (args[2].equalsIgnoreCase("moderator") || args[2].equalsIgnoreCase("mod"))
                 {
-                    LuckPermsBridge.set(player.getUniqueId(), Converse.plugin.config.getString("permissions.mod"));
+                    plugin.lp.set(player.getUniqueId(), Converse.plugin.config.getString("permissions.mod"));
                     Util.action(sender, "Adding " + player.getName() + " to Mod");
                     return true;
                 }
@@ -59,7 +59,7 @@ public class StaffCommand implements CommandExecutor
                         sender.sendMessage(Messages.NO_PERMISSION);
                         return true;
                     }
-                    LuckPermsBridge.set(player.getUniqueId(), Converse.plugin.config.getString("permissions.senior_mod"));
+                    plugin.lp.set(player.getUniqueId(), Converse.plugin.config.getString("permissions.senior_mod"));
                     Util.action(sender, "Adding " + player.getName() + " to Senior Mod");
                     return true;
                 }
@@ -70,7 +70,7 @@ public class StaffCommand implements CommandExecutor
                         sender.sendMessage(Messages.NO_PERMISSION);
                         return true;
                     }
-                    LuckPermsBridge.set(player.getUniqueId(), Converse.plugin.config.getString("permissions.developer"));
+                    plugin.lp.set(player.getUniqueId(), Converse.plugin.config.getString("permissions.developer"));
                     Util.action(sender, "Adding " + player.getName() + " to Developer");
                     return true;
                 }
@@ -81,7 +81,7 @@ public class StaffCommand implements CommandExecutor
                         sender.sendMessage(Messages.NO_PERMISSION);
                         return true;
                     }
-                    LuckPermsBridge.set(player.getUniqueId(), Converse.plugin.config.getString("permissions.executive"));
+                    plugin.lp.set(player.getUniqueId(), Converse.plugin.config.getString("permissions.executive"));
                     Util.action(sender, "Adding " + player.getName() + " to Executive");
                     return true;
                 }
@@ -92,7 +92,7 @@ public class StaffCommand implements CommandExecutor
                         sender.sendMessage(Messages.NO_PERMISSION);
                         return true;
                     }
-                    LuckPermsBridge.set(player.getUniqueId(), Converse.plugin.config.getString("permissions.architect"));
+                    plugin.lp.set(player.getUniqueId(), Converse.plugin.config.getString("permissions.architect"));
                     Util.action(sender, "Adding " + player.getName() + " to Architect");
                     return true;
                 }
@@ -123,7 +123,7 @@ public class StaffCommand implements CommandExecutor
                     return true;
                 }
 
-                LuckPermsBridge.set(player.getUniqueId(), Converse.plugin.config.getString("permissions.op"));
+                plugin.lp.set(player.getUniqueId(), Converse.plugin.config.getString("permissions.op"));
                 Util.action(sender, "Removing " + player.getName() + " from staff");
                 return true;
             }

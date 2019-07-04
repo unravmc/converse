@@ -1,44 +1,48 @@
 package net.novelmc.listeners;
 
-import net.novelmc.bans.Ban;
-import net.novelmc.permban.Permban;
+import net.novelmc.util.ConverseBase;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 
-public class BanListener implements Listener
+public class BanListener extends ConverseBase implements Listener
 {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerLogin(PlayerLoginEvent event)
     {
         Player player = event.getPlayer();
 
-        if (Permban.isBanned(player))
+        if (plugin.permban.isBanned(player))
         {
             if (player.hasPermission("converse.ban.bypass"))
             {
-                Permban.removePermban(player);
+                plugin.permban.removePermban(player);
                 return;
             }
-            event.disallow(PlayerLoginEvent.Result.KICK_OTHER, Permban.constructBanMessage(Permban.getReason(player), Permban.getBanID(player)));
+            event.disallow(PlayerLoginEvent.Result.KICK_OTHER, plugin.permban.constructBanMessage(plugin.permban.getReason(player), plugin.permban.getBanID(player)));
         }
 
-        if (Ban.isBanned(player))
+        if (plugin.ban.isBanned(player))
         {
-            Ban.removeBan(player);
+            if (player.hasPermission("converse.ban.bypass"))
+            {
+                plugin.ban.removeBan(player);
+                return;
+            }
+            plugin.ban.removeBan(player);
         }
         else
         {
-            if (Ban.get(player))
+            if (plugin.ban.get(player))
             {
                 if (player.hasPermission("converse.ban.bypass"))
                 {
-                    Ban.removeBan(player);
+                    plugin.ban.removeBan(player);
                     return;
                 }
-                event.disallow(PlayerLoginEvent.Result.KICK_OTHER, Ban.constructBanMessage(player, Ban.getReason(player), Ban.getBanID(player)));
+                event.disallow(PlayerLoginEvent.Result.KICK_OTHER, plugin.ban.constructBanMessage(player, plugin.ban.getReason(player), plugin.ban.getBanID(player)));
             }
         }
     }

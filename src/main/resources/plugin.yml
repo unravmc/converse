@@ -48,7 +48,7 @@ commands:
     description: Manage admins
     aliases: [saconfig]
   staffworld:
-    usage: /<command>
+    usage: /<command> <add <player> | remove <player>>
     description: Teleport to the staffworld
     aliases: [adminworld]
   unban:

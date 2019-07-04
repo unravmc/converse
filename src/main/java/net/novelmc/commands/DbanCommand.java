@@ -1,7 +1,7 @@
 package net.novelmc.commands;
 
 import java.util.Date;
-import net.novelmc.bans.Ban;
+import net.novelmc.util.ConverseBase;
 import net.novelmc.util.Util;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.RandomStringUtils;
@@ -13,7 +13,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class DbanCommand implements CommandExecutor
+public class DbanCommand extends ConverseBase implements CommandExecutor
 {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args)
@@ -37,7 +37,7 @@ public class DbanCommand implements CommandExecutor
 
         if (player == null)
         {
-            Ban.addBan(offlinePlayer, sender, banID, reason, expires, "username");
+            plugin.ban.addBan(offlinePlayer, sender, banID, reason, expires, "username");
             if (reason.length() == 0)
             {
                 Util.action(sender, "Banning " + offlinePlayer.getName());
@@ -50,8 +50,8 @@ public class DbanCommand implements CommandExecutor
         }
         else
         {
-            Ban.addBan(player, sender, banID, reason, expires, "username");
-            player.kickPlayer(Ban.constructBanMessage(player, reason, banID));
+            plugin.ban.addBan(player, sender, banID, reason, expires, "username");
+            player.kickPlayer(plugin.ban.constructBanMessage(player, reason, banID));
             if (reason.length() == 0)
             {
                 Util.action(sender, "Banning " + player.getName());

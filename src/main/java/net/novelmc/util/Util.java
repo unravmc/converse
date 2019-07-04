@@ -7,15 +7,14 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import net.novelmc.bridge.LuckPermsBridge;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Util
+public class Util extends ConverseBase
 {
-    public static List<String> getOnlinePlayers()
+    public List<String> getOnlinePlayers()
     {
         List<String> players = new ArrayList<>();
         for (Player player : Bukkit.getOnlinePlayers())
@@ -51,12 +50,12 @@ public class Util
     }
 
 
-    public static void adminchat(CommandSender sender, String message)
+    public void adminchat(CommandSender sender, String message)
     {
-        String badAdminChatFormat = ChatColor.DARK_GRAY + "# " + LuckPermsBridge.displayRank(Bukkit.getPlayer(sender.getName()))
+        String badAdminChatFormat = ChatColor.DARK_GRAY + "# " + plugin.lp.displayRank(Bukkit.getPlayer(sender.getName()))
                 + ChatColor.GRAY + " " + sender.getName() + ChatColor.DARK_GRAY
                 + ": " + ChatColor.GOLD + message;
-        Bukkit.getLogger().info(badAdminChatFormat);
+        Bukkit.getLogger().info(ChatColor.stripColor(badAdminChatFormat));
         for (Player player : Bukkit.getOnlinePlayers())
         {
             if (player.hasPermission("converse.adminchat"))

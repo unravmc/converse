@@ -3,7 +3,7 @@ package net.novelmc.listeners;
 import java.util.ArrayList;
 import java.util.List;
 import net.novelmc.Converse;
-import net.novelmc.bridge.LuckPermsBridge;
+import net.novelmc.util.ConverseBase;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -14,7 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
-public class MuteListener implements Listener
+public class MuteListener extends ConverseBase implements Listener
 {
     private static List<Player> muted = new ArrayList<>();
     private final static List<String> blockedCommands = Converse.plugin.config.getStringList("muted_commands");
@@ -49,7 +49,7 @@ public class MuteListener implements Listener
     {
         Player player = event.getPlayer();
 
-        if (LuckPermsBridge.isStaff(player.getUniqueId()))
+        if (plugin.lp.isStaff(player.getUniqueId()))
         {
             return;
         }
@@ -82,7 +82,7 @@ public class MuteListener implements Listener
     public void onPlayerChat(AsyncPlayerChatEvent event)
     {
         Player player = event.getPlayer();
-        if (LuckPermsBridge.isStaff(player.getUniqueId()))
+        if (plugin.lp.isStaff(player.getUniqueId()))
         {
             return;
         }
