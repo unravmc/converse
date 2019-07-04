@@ -1,8 +1,8 @@
 package net.novelmc.commands;
 
+import java.io.File;
 import net.novelmc.Converse;
 import net.novelmc.util.ConverseBase;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -42,7 +42,6 @@ public class ConverseCommand extends ConverseBase implements CommandExecutor
                     return true;
                 }
                 Player player = (Player)sender;
-                sender.sendMessage(Bukkit.getPluginManager().getPlugin(Converse.plugin.getDescription().getName()).getDataFolder().toString());
                 if (plugin.lp.isStaff(player.getUniqueId()))
                 {
                     sender.sendMessage("You are staff!");
@@ -51,6 +50,8 @@ public class ConverseCommand extends ConverseBase implements CommandExecutor
                 {
                     sender.sendMessage("You aren't staff.");
                 }
+                sender.sendMessage(plugin.getDataFolder() + File.separator + "players" + File.separator + player.getName() + ".yml");
+
                 return true;
             }
             case "reload":

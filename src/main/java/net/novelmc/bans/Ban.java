@@ -14,7 +14,8 @@ public class Ban
     private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd \'at\' HH:mm:ss z");
     private Converse plugin;
 
-    public Ban(Converse plugin) {
+    public Ban(Converse plugin)
+    {
         this.plugin = plugin;
     }
 

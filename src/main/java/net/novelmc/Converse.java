@@ -21,10 +21,12 @@ import net.novelmc.commands.UnbanCommand;
 import net.novelmc.config.BanConfig;
 import net.novelmc.config.MainConfig;
 import net.novelmc.config.PermbanConfig;
+import net.novelmc.config.PlayerData;
 import net.novelmc.listeners.BanListener;
 import net.novelmc.listeners.ChatListener;
 import net.novelmc.listeners.ModeListener;
 import net.novelmc.listeners.MuteListener;
+import net.novelmc.listeners.PlayerDataListener;
 import net.novelmc.listeners.StaffListener;
 import net.novelmc.listeners.WorldListener;
 import net.novelmc.permban.Permban;
@@ -44,6 +46,7 @@ public class Converse extends JavaPlugin
     public BanConfig banConfig;
     public MainConfig config;
     public PermbanConfig permbanConfig;
+    public PlayerData pd;
     // Banning
     public Ban ban;
     public Permban permban;
@@ -54,6 +57,7 @@ public class Converse extends JavaPlugin
     public ChatListener cl;
     public ModeListener ml;
     public MuteListener mul;
+    public PlayerDataListener pdl;
     public StaffListener sl;
     public WorldListener wl;
 
@@ -61,9 +65,10 @@ public class Converse extends JavaPlugin
     {
         plugin = this;
         server = plugin.getServer();
-        banConfig = new BanConfig(plugin);
-        config = new MainConfig(plugin);
-        permbanConfig = new PermbanConfig(plugin);
+        banConfig = new BanConfig(this);
+        config = new MainConfig(this);
+        permbanConfig = new PermbanConfig(this);
+        pd = new PlayerData(this);
     }
 
     public void onEnable()
@@ -136,6 +141,7 @@ public class Converse extends JavaPlugin
         cl = new ChatListener(this);
         ml = new ModeListener(this);
         mul = new MuteListener(this);
+        pdl = new PlayerDataListener(this);
         sl = new StaffListener(this);
         wl = new WorldListener(this);
     }
