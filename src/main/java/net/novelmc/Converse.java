@@ -162,12 +162,8 @@ public class Converse extends JavaPlugin
 
     public void reregisterConfigs()
     {
-        banConfig.save();
-        config.save();
-        permbanConfig.save();
-        banConfig.load();
-        config.load();
-        permbanConfig.load();
+        unregisterConfigs();
+        registerConfigs();
     }
 
     public static class BuildProperties
