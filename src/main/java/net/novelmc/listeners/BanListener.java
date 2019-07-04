@@ -1,14 +1,23 @@
 package net.novelmc.listeners;
 
-import net.novelmc.util.ConverseBase;
+import net.novelmc.Converse;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 
-public class BanListener extends ConverseBase implements Listener
+public class BanListener implements Listener
 {
+    private Converse plugin;
+
+    public BanListener(Converse plugin)
+    {
+        this.plugin = plugin;
+        Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
+    }
+
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerLogin(PlayerLoginEvent event)
     {

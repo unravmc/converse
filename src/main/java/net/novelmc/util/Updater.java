@@ -10,17 +10,16 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLConnection;
 import net.novelmc.Converse;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Updater
 {
-    private Plugin plugin;
+    private Converse plugin;
     private Converse.BuildProperties build = Converse.build;
     private String oldHead = build.head;
     private String path = this.getFilePath();
 
-    public Updater(Plugin plugin)
+    public Updater(Converse plugin)
     {
         this.plugin = plugin;
     }
@@ -85,7 +84,7 @@ public class Updater
 
     private String getFilePath()
     {
-        if (plugin instanceof JavaPlugin)
+        if (plugin != null)
         {
             try
             {

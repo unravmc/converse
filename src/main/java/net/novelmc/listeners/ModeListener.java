@@ -2,7 +2,6 @@ package net.novelmc.listeners;
 
 import java.util.UUID;
 import net.novelmc.Converse;
-import net.novelmc.util.ConverseBase;
 import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -13,7 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.server.ServerListPingEvent;
 
-public class ModeListener extends ConverseBase implements Listener
+public class ModeListener implements Listener
 {
     private Converse plugin;
 

@@ -50,13 +50,17 @@ public class Converse extends JavaPlugin
     // LuckPerms
     public LuckPermsBridge lp;
     // Listeners
+    public BanListener bl;
+    public ChatListener cl;
     public ModeListener ml;
+    public MuteListener mul;
+    public StaffListener sl;
+    public WorldListener wl;
 
     public void onLoad()
     {
         plugin = this;
         server = plugin.getServer();
-        // Config
         banConfig = new BanConfig(plugin);
         config = new MainConfig(plugin);
         permbanConfig = new PermbanConfig(plugin);
@@ -72,6 +76,7 @@ public class Converse extends JavaPlugin
         new Metrics(this);
         // LuckPerms
         getLuckPermsAPI();
+        lp = new LuckPermsBridge(this);
         // Commands
         registerCommands();
         // Listener
@@ -79,8 +84,6 @@ public class Converse extends JavaPlugin
         // Banning
         ban = new Ban(this);
         permban = new Permban(this);
-        // LuckPerms
-        lp = new LuckPermsBridge(this);
     }
 
     public void onDisable()
@@ -129,12 +132,12 @@ public class Converse extends JavaPlugin
 
     private void registerListeners()
     {
-        getServer().getPluginManager().registerEvents(new ChatListener(), this);
-        getServer().getPluginManager().registerEvents(new BanListener(), this);
+        bl = new BanListener(this);
+        cl = new ChatListener(this);
         ml = new ModeListener(this);
-        getServer().getPluginManager().registerEvents(new MuteListener(), this);
-        getServer().getPluginManager().registerEvents(new StaffListener(), this);
-        getServer().getPluginManager().registerEvents(new WorldListener(), this);
+        mul = new MuteListener(this);
+        sl = new StaffListener(this);
+        wl = new WorldListener(this);
     }
 
     private void registerConfigs()

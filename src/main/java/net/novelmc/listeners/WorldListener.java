@@ -1,15 +1,20 @@
 package net.novelmc.listeners;
 
-import me.lucko.luckperms.api.LuckPermsApi;
 import net.novelmc.Converse;
-import net.novelmc.util.ConverseBase;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-public class WorldListener extends ConverseBase implements Listener
+public class WorldListener implements Listener
 {
-    private static LuckPermsApi api = Converse.getLuckPermsAPI();
+    private Converse plugin;
+
+    public WorldListener(Converse plugin)
+    {
+        this.plugin = plugin;
+        Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
+    }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event)

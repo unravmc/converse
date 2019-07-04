@@ -3,7 +3,6 @@ package net.novelmc.listeners;
 import java.util.ArrayList;
 import java.util.List;
 import net.novelmc.Converse;
-import net.novelmc.util.ConverseBase;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -14,8 +13,16 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
-public class MuteListener extends ConverseBase implements Listener
+public class MuteListener implements Listener
 {
+    private Converse plugin;
+
+    public MuteListener(Converse plugin)
+    {
+        this.plugin = plugin;
+        Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
+    }
+
     private static List<Player> muted = new ArrayList<>();
     private final static List<String> blockedCommands = Converse.plugin.config.getStringList("muted_commands");
 
