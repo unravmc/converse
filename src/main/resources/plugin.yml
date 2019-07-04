@@ -4,7 +4,6 @@ description: Plugin for NovelMC
 author: Telesphoreo
 main: net.novelmc.Converse
 depend: [LuckPerms]
-softdepend: [CoreProtect]
 api-version: 1.14
 commands:
   adminchat:
@@ -29,13 +28,13 @@ commands:
     aliases: [flatlands]
   graychat:
     usage: /<command> <player>
-    description: Makes a player talk in gray chat
+    description: Makes a players chat messages show up in gray
   mode:
     usage: /<command> [event | dev | staff | off]
     description: Change the server mode
   mute:
     usage: /<command> <player | purge>
-    description: Mutes a player.
+    description: Mute a player or purge all mutes
     aliases: [stfu, emute]
   permban:
     usage: /<command> <player> [reason]
