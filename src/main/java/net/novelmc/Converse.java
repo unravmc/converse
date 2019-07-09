@@ -60,7 +60,7 @@ public class Converse extends JavaPlugin
     public ModeListener ml;
     public MuteListener mul;
     public PlayerDataListener pdl;
-    public TabListener tabl;
+    public TabListener sl;
     public WorldListener wl;
 
     public void onLoad()
@@ -146,7 +146,7 @@ public class Converse extends JavaPlugin
         ml = new ModeListener(this);
         mul = new MuteListener(this);
         pdl = new PlayerDataListener(this);
-        tabl = new TabListener(this);
+        sl = new TabListener(this);
         wl = new WorldListener(this);
     }
 
