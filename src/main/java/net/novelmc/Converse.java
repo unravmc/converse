@@ -29,7 +29,7 @@ import net.novelmc.listeners.ChatListener;
 import net.novelmc.listeners.ModeListener;
 import net.novelmc.listeners.MuteListener;
 import net.novelmc.listeners.PlayerDataListener;
-import net.novelmc.listeners.StaffListener;
+import net.novelmc.listeners.TabListener;
 import net.novelmc.listeners.WorldListener;
 import net.novelmc.permban.Permban;
 import net.novelmc.util.Updater;
@@ -60,7 +60,7 @@ public class Converse extends JavaPlugin
     public ModeListener ml;
     public MuteListener mul;
     public PlayerDataListener pdl;
-    public StaffListener sl;
+    public TabListener tabl;
     public WorldListener wl;
 
     public void onLoad()
@@ -146,11 +146,11 @@ public class Converse extends JavaPlugin
         ml = new ModeListener(this);
         mul = new MuteListener(this);
         pdl = new PlayerDataListener(this);
-        sl = new StaffListener(this);
+        tabl = new TabListener(this);
         wl = new WorldListener(this);
     }
 
-    private void registerConfigs()
+    public void registerConfigs()
     {
         banConfig.load();
         config.load();
@@ -164,7 +164,7 @@ public class Converse extends JavaPlugin
         permbanConfig.save();
     }
 
-    public void reregisterConfigs()
+    private void reregisterConfigs()
     {
         unregisterConfigs();
         registerConfigs();

@@ -61,7 +61,7 @@ public class ConverseCommand extends ConverseBase implements CommandExecutor
                     sender.sendMessage(Messages.NO_PERMISSION);
                     return true;
                 }
-                Converse.plugin.reregisterConfigs();
+                plugin.registerConfigs();
                 sender.sendMessage(ChatColor.GRAY + "All Converse files have been reloaded.");
                 return true;
             }

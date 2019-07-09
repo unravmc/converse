@@ -23,15 +23,15 @@ public class MuteListener implements Listener
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
-    private static List<Player> muted = new ArrayList<>();
-    private final static List<String> blockedCommands = Converse.plugin.config.getStringList("muted_commands");
+    private List<Player> muted = new ArrayList<>();
+    private final List<String> blockedCommands = Converse.plugin.config.getStringList("muted_commands");
 
-    public static boolean isMuted(Player player)
+    public boolean isMuted(Player player)
     {
         return muted.contains(player);
     }
 
-    public static void setMuted(Player player, boolean mute)
+    public void setMuted(Player player, boolean mute)
     {
         if (mute)
         {
@@ -41,12 +41,12 @@ public class MuteListener implements Listener
         muted.remove(player);
     }
 
-    public static int getMutedAmount()
+    public int getMutedAmount()
     {
         return muted.size();
     }
 
-    public static void purgeMuted()
+    public void purgeMuted()
     {
         muted.clear();
     }

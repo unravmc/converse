@@ -32,6 +32,11 @@
             <id>CodeMC</id>
             <url>https://repo.codemc.org/repository/maven-public</url>
         </repository>
+
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -54,6 +59,12 @@
             <artifactId>luckperms-api</artifactId>
             <version>4.4</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.thekeenant</groupId>
+            <artifactId>tabbed</artifactId>
+            <version>v1.8</version>
         </dependency>
     </dependencies>
 

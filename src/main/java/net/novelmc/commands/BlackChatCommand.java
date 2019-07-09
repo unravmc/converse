@@ -13,7 +13,7 @@ public class BlackChatCommand implements CommandExecutor
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args)
     {
-        if (!sender.hasPermission("converse.graychat"))
+        if (!sender.hasPermission("converse.blackchat"))
         {
             sender.sendMessage(Messages.NO_PERMISSION);
             return true;

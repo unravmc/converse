@@ -28,8 +28,8 @@ public class MuteCommand extends ConverseBase implements CommandExecutor
 
         if (args[0].equalsIgnoreCase("purge"))
         {
-            int amount = MuteListener.getMutedAmount();
-            MuteListener.purgeMuted();
+            int amount = plugin.mul.getMutedAmount();
+            plugin.mul.purgeMuted();
             Util.action(sender, "Unmuting all players");
             sender.sendMessage(ChatColor.GRAY + "Unmuted " + amount + " players.");
             return true;
@@ -47,8 +47,8 @@ public class MuteCommand extends ConverseBase implements CommandExecutor
             sender.sendMessage(ChatColor.RED + "You cannot mute admins.");
             return true;
         }
-        MuteListener.setMuted(player, !MuteListener.isMuted(player));
-        Util.action(sender, (MuteListener.isMuted(player) ? "M" : "Unm") + "uting " + player.getName());
+        plugin.mul.setMuted(player, !plugin.mul.isMuted(player));
+        Util.action(sender, (plugin.mul.isMuted(player) ? "M" : "Unm") + "uting " + player.getName());
         return true;
     }
 }

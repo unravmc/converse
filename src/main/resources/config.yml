@@ -35,3 +35,17 @@ permissions:
 
   # What is the Architect group name?
   architect: architect
+
+# Tab list settings
+tablist:
+  # What should the header be?
+  header:
+    - "&7"
+    - "&9&lNovel&f&lMC"
+    - "&7"
+
+  # What should the footer be?
+  footer:
+    - "&7"
+    - "&7https://novelmcn.net"
+    - "&7"

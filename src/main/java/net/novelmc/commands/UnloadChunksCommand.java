@@ -21,8 +21,8 @@ public class UnloadChunksCommand extends ConverseBase implements CommandExecutor
             numChunks += unloadUnusedChunks(world);
         }
 
-        sender.sendMessage(ChatColor.GRAY + "" + numChunks + " chunks unloaded.");
         Util.action(sender.getName(), "Unloading all unused chunks");
+        sender.sendMessage(ChatColor.GRAY + "" + numChunks + " chunks unloaded.");
         return true;
     }
 
