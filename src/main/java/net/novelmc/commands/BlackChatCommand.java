@@ -34,13 +34,13 @@ public class BlackChatCommand implements CommandExecutor
         if (!ChatListener.isPunished(player))
         {
             ChatListener.setPunished(player, true);
-            sender.sendMessage(ChatColor.GRAY + "Turning on gray chat for " + player.getName() + ".");
+            sender.sendMessage(ChatColor.GRAY + "Turning on black chat for " + player.getName() + ".");
             return true;
         }
         else
         {
             ChatListener.setPunished(player, false);
-            sender.sendMessage(ChatColor.GRAY + "Turning off gray chat for " + player.getName() + ".");
+            sender.sendMessage(ChatColor.GRAY + "Turning off black chat for " + player.getName() + ".");
             return true;
         }
     }
