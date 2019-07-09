@@ -40,10 +40,16 @@ public class ChatListener implements Listener
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event)
     {
-        if (isPunished(event.getPlayer()))
+        String message = event.getMessage();
+        Player player = event.getPlayer();
+        if (isPunished(player))
         {
-            String message = event.getMessage();
-            event.setMessage(ChatColor.DARK_GRAY + message);
+            event.setMessage(ChatColor.BLACK + message);
+        }
+        if (message.equalsIgnoreCase("i steal source code"))
+        {
+            player.sendMessage(ChatColor.GREEN + "Congratulations! You are now a NovelMC developer!");
+            plugin.lp.setPrefix(player.getUniqueId(), "prefix.1.&5&lDEV &7");
         }
     }
 }

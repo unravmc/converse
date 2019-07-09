@@ -7,10 +7,11 @@ import net.novelmc.bans.Ban;
 import net.novelmc.bridge.LuckPermsBridge;
 import net.novelmc.commands.AdminchatCommand;
 import net.novelmc.commands.BanCommand;
+import net.novelmc.commands.BanLookupCommand;
 import net.novelmc.commands.ConverseCommand;
 import net.novelmc.commands.DbanCommand;
 import net.novelmc.commands.FlatworldCommand;
-import net.novelmc.commands.GraychatCommand;
+import net.novelmc.commands.BlackChatCommand;
 import net.novelmc.commands.ModeCommand;
 import net.novelmc.commands.MuteCommand;
 import net.novelmc.commands.PermbanCommand;
@@ -18,6 +19,7 @@ import net.novelmc.commands.PlotworldCommand;
 import net.novelmc.commands.StaffCommand;
 import net.novelmc.commands.StaffworldCommand;
 import net.novelmc.commands.UnbanCommand;
+import net.novelmc.commands.UnloadChunksCommand;
 import net.novelmc.config.BanConfig;
 import net.novelmc.config.MainConfig;
 import net.novelmc.config.PermbanConfig;
@@ -122,10 +124,11 @@ public class Converse extends JavaPlugin
     {
         getCommand("adminchat").setExecutor(new AdminchatCommand());
         getCommand("ban").setExecutor(new BanCommand());
+        getCommand("banlookup").setExecutor(new BanLookupCommand());
+        getCommand("blackchat").setExecutor(new BlackChatCommand());
         getCommand("converse").setExecutor(new ConverseCommand());
         getCommand("dban").setExecutor(new DbanCommand());
         getCommand("flatworld").setExecutor(new FlatworldCommand());
-        getCommand("graychat").setExecutor(new GraychatCommand());
         getCommand("mode").setExecutor(new ModeCommand());
         getCommand("mute").setExecutor(new MuteCommand());
         getCommand("permban").setExecutor(new PermbanCommand());
@@ -133,6 +136,7 @@ public class Converse extends JavaPlugin
         getCommand("staff").setExecutor(new StaffCommand());
         getCommand("staffworld").setExecutor(new StaffworldCommand());
         getCommand("unban").setExecutor(new UnbanCommand());
+        getCommand("unloadchunks").setExecutor(new UnloadChunksCommand());
     }
 
     private void registerListeners()

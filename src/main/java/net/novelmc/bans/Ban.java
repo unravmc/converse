@@ -2,6 +2,7 @@ package net.novelmc.bans;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 import net.novelmc.Converse;
 import net.novelmc.util.Util;
 import org.bukkit.ChatColor;
@@ -67,7 +68,37 @@ public class Ban
         return plugin.banConfig.get(player.getUniqueId().toString() + ".reason").toString();
     }
 
+    public String getReason(OfflinePlayer player)
+    {
+        return plugin.banConfig.get(player.getUniqueId().toString() + ".reason").toString();
+    }
+
+    public boolean hasReason(OfflinePlayer player)
+    {
+        return plugin.banConfig.isSet(player.getUniqueId().toString() + ".reason");
+    }
+
+    public String getIP(OfflinePlayer player)
+    {
+        return plugin.banConfig.get(player.getUniqueId().toString() + ".ip").toString();
+    }
+
+    public boolean hasIP(OfflinePlayer player)
+    {
+        return plugin.banConfig.isSet(player.getUniqueId().toString() + ".ip");
+    }
+
+    public String getBannedBy(OfflinePlayer player)
+    {
+        return plugin.banConfig.get(player.getUniqueId().toString() + ".by").toString();
+    }
+
     public String getBanID(Player player)
+    {
+        return plugin.banConfig.get(player.getUniqueId().toString() + ".id").toString();
+    }
+
+    public String getBanID(OfflinePlayer player)
     {
         return plugin.banConfig.get(player.getUniqueId().toString() + ".id").toString();
     }
@@ -77,12 +108,28 @@ public class Ban
         return Util.getUnixTime((Date)plugin.banConfig.get(player.getUniqueId() + ".duration"));
     }
 
+    public long getExpireUnix(OfflinePlayer player)
+    {
+        return Util.getUnixTime((Date)plugin.banConfig.get(player.getUniqueId() + ".duration"));
+    }
+
     public String formatDate(Player player)
     {
         return simpleDateFormat.format(Util.getUnixDate(getExpireUnix(player)));
     }
 
+    public String formatDate(OfflinePlayer player)
+    {
+        return simpleDateFormat.format(Util.getUnixDate(getExpireUnix(player)));
+    }
+
+
     public boolean hasExpiry(Player player)
+    {
+        return getExpireUnix(player) > 0;
+    }
+
+    public boolean hasExpiry(OfflinePlayer player)
     {
         return getExpireUnix(player) > 0;
     }
@@ -92,9 +139,14 @@ public class Ban
         return hasExpiry(player) && getExpireUnix(player) < Util.getUnixTime();
     }
 
-    public boolean get(Player player)
+    public boolean getPlayer(Player player)
     {
         return plugin.banConfig.isConfigurationSection(player.getUniqueId().toString());
+    }
+
+    public boolean getPlayer(UUID uuid)
+    {
+        return plugin.banConfig.isConfigurationSection(uuid.toString());
     }
 
     public boolean isBanned(Player player)

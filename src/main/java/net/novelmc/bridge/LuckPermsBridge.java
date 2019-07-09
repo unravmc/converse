@@ -1,5 +1,6 @@
 package net.novelmc.bridge;
 
+import java.util.Date;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import me.lucko.luckperms.api.LuckPermsApi;
@@ -7,14 +8,14 @@ import me.lucko.luckperms.api.Node;
 import me.lucko.luckperms.api.User;
 import me.lucko.luckperms.api.manager.UserManager;
 import net.novelmc.Converse;
+import net.novelmc.util.Util;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class LuckPermsBridge
 {
-    private LuckPermsApi api = Converse.getLuckPermsAPI();
-
     private Converse plugin;
+    private LuckPermsApi api = Converse.getLuckPermsAPI();
 
     public LuckPermsBridge(Converse plugin)
     {
@@ -67,24 +68,24 @@ public class LuckPermsBridge
         {
             return ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "MOD";
         }
-        if (isSeniorModerator(player.getUniqueId()))
+        else if (isSeniorModerator(player.getUniqueId()))
         {
             return ChatColor.GOLD + "" + ChatColor.BOLD + "SRM";
         }
-        if (isDeveloper(player.getUniqueId()))
+        else if (isDeveloper(player.getUniqueId()))
         {
             return ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "DEV";
         }
-        if (isExecutive(player.getUniqueId()))
+        else if (isExecutive(player.getUniqueId()))
         {
             return ChatColor.RED + "" + ChatColor.BOLD + "EXEC";
         }
-        if (isArchitect(player.getUniqueId()))
+        else if (isArchitect(player.getUniqueId()))
         {
             return ChatColor.BLUE + "" + ChatColor.BOLD + "ART";
         }
 
-        return ChatColor.GREEN + "" + ChatColor.BOLD + "OP";
+        return ChatColor.WHITE + "" + ChatColor.BOLD + "MBR";
     }
 
     public ChatColor displayRankColor(Player player)
@@ -98,19 +99,19 @@ public class LuckPermsBridge
         {
             return ChatColor.DARK_GREEN;
         }
-        if (isSeniorModerator(player.getUniqueId()))
+        else if (isSeniorModerator(player.getUniqueId()))
         {
             return ChatColor.GOLD;
         }
-        if (isDeveloper(player.getUniqueId()))
+        else if (isDeveloper(player.getUniqueId()))
         {
             return ChatColor.DARK_PURPLE;
         }
-        if (isExecutive(player.getUniqueId()))
+        else if (isExecutive(player.getUniqueId()))
         {
             return ChatColor.RED;
         }
-        if (isArchitect(player.getUniqueId()))
+        else if (isArchitect(player.getUniqueId()))
         {
             return ChatColor.BLUE;
         }
@@ -136,6 +137,22 @@ public class LuckPermsBridge
             userManager.saveUser(user);
         });
     }
+    //
+
+    public void setPrefix(UUID uuid, String permission)
+    {
+        UserManager userManager = api.getUserManager();
+        CompletableFuture<User> userFuture = userManager.loadUser(uuid);
+
+        userFuture.thenAcceptAsync(user ->
+        {
+            Date expires = Util.parseDateOffset("1m");
+            long longExpires = Util.getUnixTime(expires);
+            Node prefix = api.buildNode(permission).setExpiry(longExpires).build();
+            user.setPermission(prefix);
+            userManager.saveUser(user);
+        });
+    }
 
     public void allowStaffWorld(UUID uuid)
     {
@@ -145,7 +162,9 @@ public class LuckPermsBridge
         userFuture.thenAcceptAsync(user ->
         {
             Node permission = api.buildNode("multiverse.access.staffworld").build();
+            Node command = api.buildNode("converse.staffworld").build();
             user.setPermission(permission);
+            user.setPermission(command);
             userManager.saveUser(user);
         });
     }
@@ -158,7 +177,9 @@ public class LuckPermsBridge
         userFuture.thenAcceptAsync(user ->
         {
             Node permission = api.buildNode("multiverse.access.staffworld").build();
+            Node command = api.buildNode("converse.staffworld").build();
             user.unsetPermission(permission);
+            user.unsetPermission(command);
             userManager.saveUser(user);
         });
     }

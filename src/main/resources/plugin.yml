@@ -13,7 +13,15 @@ commands:
   ban:
     usage: /<command> <player> <duration> [reason]
     description: Temporarily bans a player
-    aliases: [eban, banip, ebanip]
+    aliases: [eban, banip, ebanip, tempban, etempban]
+  banlookup:
+    usage: /<command> <player>
+    description: Look up a player ban
+    aliases: [bl]
+  blackchat:
+    usage: /<command> <player>
+    description: Makes a players chat messages show up in black.
+    aliases: [darkchat, graychat]
   converse:
     usage: /<command> [reload | debug]
     description: Show information about Converse
@@ -26,9 +34,6 @@ commands:
     usage: /<command>
     description: Teleport to the flatworld
     aliases: [flatlands]
-  graychat:
-    usage: /<command> <player>
-    description: Makes a players chat messages show up in gray
   mode:
     usage: /<command> [event | dev | staff | off]
     description: Change the server mode
@@ -54,3 +59,7 @@ commands:
     usage: /<command> <player>
     description: Unbans a banned player.
     aliases: [pardon, epardon, unpermban]
+  unloadchunks:
+    usage: /<command>
+    description: Unloads all unused chunks
+    aliases: [uc]

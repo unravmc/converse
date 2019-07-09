@@ -44,7 +44,7 @@ public class BanListener implements Listener
         }
         else
         {
-            if (plugin.ban.get(player))
+            if (plugin.ban.getPlayer(player))
             {
                 if (player.hasPermission("converse.ban.bypass"))
                 {

@@ -71,6 +71,12 @@ public class Permban extends ConverseBase
         return plugin.permbanConfig.isConfigurationSection(player.getUniqueId().toString());
     }
 
+    public boolean isBanned(OfflinePlayer player)
+    {
+        return plugin.permbanConfig.isConfigurationSection(player.getUniqueId().toString());
+    }
+
+
     public boolean removePermban(OfflinePlayer player)
     {
         if (plugin.permbanConfig.isConfigurationSection(player.getUniqueId().toString()))
