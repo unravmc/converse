@@ -10,8 +10,9 @@ import org.bukkit.event.player.PlayerLoginEvent;
 
 public class BanListener implements Listener
 {
-    private Converse plugin;
+    private final Converse plugin;
 
+    @SuppressWarnings("")
     public BanListener(Converse plugin)
     {
         this.plugin = plugin;

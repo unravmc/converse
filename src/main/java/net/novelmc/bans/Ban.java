@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
 public class Ban
 {
     private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd \'at\' HH:mm:ss z");
-    private Converse plugin;
+    private final Converse plugin;
 
     public Ban(Converse plugin)
     {
@@ -24,18 +24,19 @@ public class Ban
     {
         final StringBuilder banMessage = new StringBuilder(ChatColor.BLUE + "" + ChatColor.BOLD
                 + "NOVEL");
-        banMessage.append(ChatColor.WHITE + "" + ChatColor.BOLD + "MC\n");
-        banMessage.append(ChatColor.RED + "You are temporarily banned from this server!\n");
+        banMessage.append(ChatColor.WHITE).append("").append(ChatColor.BOLD).append("MC\n");
+        banMessage.append(ChatColor.RED).append("You are temporarily banned from this server!\n");
         if (!(reason.length() == 0))
         {
-            banMessage.append(ChatColor.DARK_GRAY + "Reason: " + ChatColor.GRAY + getReason(player) + "\n");
+            banMessage.append(ChatColor.DARK_GRAY).append("Reason: ").append(ChatColor.GRAY).append(getReason(player)).append("\n");
         }
-        banMessage.append(ChatColor.DARK_GRAY + "Until: " + ChatColor.GRAY + formatDate(player)).append("\n");
-        banMessage.append(ChatColor.DARK_GRAY + "More Info: " + ChatColor.GRAY + plugin.config.getString("banurl") + "\n");
-        banMessage.append(ChatColor.DARK_GRAY + "Ban ID: " + ChatColor.GRAY + "#" + banID);
+        banMessage.append(ChatColor.DARK_GRAY).append("Until: ").append(ChatColor.GRAY).append(formatDate(player)).append("\n");
+        banMessage.append(ChatColor.DARK_GRAY).append("More Info: ").append(ChatColor.GRAY).append(plugin.config.getString("banurl")).append("\n");
+        banMessage.append(ChatColor.DARK_GRAY).append("Ban ID: ").append(ChatColor.GRAY).append("#").append(banID);
         return banMessage.toString();
     }
 
+    @SuppressWarnings("")
     public void addBan(Player player, CommandSender sender, String banID, String reason, Date duration, String type)
     {
         plugin.banConfig.createSection(player.getUniqueId().toString());
@@ -63,21 +64,25 @@ public class Ban
         plugin.banConfig.load();
     }
 
+    @SuppressWarnings("")
     public String getReason(Player player)
     {
         return plugin.banConfig.get(player.getUniqueId().toString() + ".reason").toString();
     }
 
+    @SuppressWarnings("")
     public String getReason(OfflinePlayer player)
     {
         return plugin.banConfig.get(player.getUniqueId().toString() + ".reason").toString();
     }
 
+    @SuppressWarnings("")
     public boolean hasReason(OfflinePlayer player)
     {
         return plugin.banConfig.isSet(player.getUniqueId().toString() + ".reason");
     }
 
+    @SuppressWarnings("")
     public String getIP(OfflinePlayer player)
     {
         return plugin.banConfig.get(player.getUniqueId().toString() + ".ip").toString();
@@ -88,31 +93,37 @@ public class Ban
         return plugin.banConfig.isSet(player.getUniqueId().toString() + ".ip");
     }
 
+    @SuppressWarnings("")
     public String getBannedBy(OfflinePlayer player)
     {
         return plugin.banConfig.get(player.getUniqueId().toString() + ".by").toString();
     }
 
+    @SuppressWarnings("")
     public String getBanID(Player player)
     {
         return plugin.banConfig.get(player.getUniqueId().toString() + ".id").toString();
     }
 
+    @SuppressWarnings("")
     public String getBanID(OfflinePlayer player)
     {
         return plugin.banConfig.get(player.getUniqueId().toString() + ".id").toString();
     }
 
+    @SuppressWarnings("")
     public long getExpireUnix(Player player)
     {
         return Util.getUnixTime((Date)plugin.banConfig.get(player.getUniqueId() + ".duration"));
     }
 
+    @SuppressWarnings("")
     public long getExpireUnix(OfflinePlayer player)
     {
         return Util.getUnixTime((Date)plugin.banConfig.get(player.getUniqueId() + ".duration"));
     }
 
+    
     public String formatDate(Player player)
     {
         return simpleDateFormat.format(Util.getUnixDate(getExpireUnix(player)));

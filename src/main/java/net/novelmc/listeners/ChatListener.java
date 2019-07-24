@@ -12,15 +12,16 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 public class ChatListener implements Listener
 {
-    private Converse plugin;
+    private final Converse plugin;
 
+    @SuppressWarnings("")
     public ChatListener(Converse plugin)
     {
         this.plugin = plugin;
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
-    private static List<Player> punished = new ArrayList<>();
+    private static final List<Player> punished = new ArrayList<>();
 
     public static boolean isPunished(Player player)
     {
@@ -45,11 +46,6 @@ public class ChatListener implements Listener
         if (isPunished(player))
         {
             event.setMessage(ChatColor.BLACK + message);
-        }
-        if (message.equalsIgnoreCase("i steal source code"))
-        {
-            player.sendMessage(ChatColor.GREEN + "Congratulations! You are now a NovelMC developer!");
-            plugin.lp.setPrefix(player.getUniqueId(), "prefix.1.&5&lDEV &7");
         }
     }
 }

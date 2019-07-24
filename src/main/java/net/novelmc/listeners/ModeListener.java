@@ -14,8 +14,9 @@ import org.bukkit.event.server.ServerListPingEvent;
 
 public class ModeListener implements Listener
 {
-    private Converse plugin;
+    private final Converse plugin;
 
+    @SuppressWarnings("")
     public ModeListener(Converse plugin)
     {
         this.plugin = plugin;
@@ -25,33 +26,30 @@ public class ModeListener implements Listener
     public void enableEventMode()
     {
         plugin.config.set("mode", "event");
-        for (Player player : Bukkit.getOnlinePlayers())
+        Bukkit.getOnlinePlayers().forEach((player) ->
         {
             player.setWhitelisted(true);
-        }
+        });
         Util.action("The server has entered event mode, all online players have been whitelisted.");
     }
 
     public void disableEventMode()
     {
         plugin.config.set("mode", "default");
-        for (OfflinePlayer player : Bukkit.getWhitelistedPlayers())
+        Bukkit.getWhitelistedPlayers().forEach((player) ->
         {
             player.setWhitelisted(false);
-        }
+        });
         Util.action("The server has left event mode.");
     }
 
     public void enableDevMode()
     {
         plugin.config.set("mode", "dev");
-        for (Player player : Bukkit.getOnlinePlayers())
+        Bukkit.getOnlinePlayers().stream().filter((player) -> (!plugin.lp.isDeveloper(player.getUniqueId()) && !plugin.lp.isExecutive(player.getUniqueId()))).forEachOrdered((player) ->
         {
-            if (!plugin.lp.isDeveloper(player.getUniqueId()) && !plugin.lp.isExecutive(player.getUniqueId()))
-            {
-                player.kickPlayer("The server has entered developer only mode.");
-            }
-        }
+            player.kickPlayer("The server has entered developer only mode.");
+        });
         Util.action("The server has entered developer-mode.");
     }
 
@@ -64,13 +62,10 @@ public class ModeListener implements Listener
     public void enableStaffMode()
     {
         plugin.config.set("mode", "staff");
-        for (Player player : Bukkit.getOnlinePlayers())
+        Bukkit.getOnlinePlayers().stream().filter((player) -> (!plugin.lp.isStaff(player.getUniqueId()))).forEachOrdered((player) ->
         {
-            if (!plugin.lp.isStaff(player.getUniqueId()))
-            {
-                player.kickPlayer("The server has entered staff-only mode.");
-            }
-        }
+            player.kickPlayer("The server has entered staff-only mode.");
+        });
         Util.action("The server has entered staff-only mode.");
     }
 
@@ -80,6 +75,7 @@ public class ModeListener implements Listener
         Util.action("The server has left staff-only mode.");
     }
 
+    @SuppressWarnings("")
     @EventHandler
     public void onPlayerLogin(PlayerLoginEvent event)
     {
@@ -110,6 +106,7 @@ public class ModeListener implements Listener
         }
     }
 
+    @SuppressWarnings("")
     @EventHandler
     public void onServerPing(ServerListPingEvent event)
     {

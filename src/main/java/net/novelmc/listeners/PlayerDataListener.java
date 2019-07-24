@@ -13,10 +13,13 @@ public class PlayerDataListener implements Listener
 {
     private final Converse plugin;
 
+    @SuppressWarnings("")
     public PlayerDataListener(Converse plugin)
     {
+        
         this.plugin = plugin;
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
+        
     }
 
     @EventHandler

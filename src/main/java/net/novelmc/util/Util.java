@@ -56,8 +56,9 @@ public class Util extends ConverseBase
         ChatColor color = plugin.lp.displayRankColor(Bukkit.getPlayer(sender.getName()));
         
         String format = ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + "STAFF"  
-                + ChatColor.DARK_GRAY + "] " + sender.getName() + ChatColor.DARK_GRAY
-                + ChatColor.DARK_GRAY + "[" + color + rank + ChatColor.DARK_GRAY + "] " + ChatColor.GOLD + message;
+                + ChatColor.DARK_GRAY + "] " 
+                + ChatColor.RESET + sender.getName() + ChatColor.DARK_GRAY
+                + ChatColor.DARK_GRAY + " [" + color + rank + ChatColor.DARK_GRAY + "] " + ChatColor.GOLD + message;
         Bukkit.getLogger().info(ChatColor.stripColor(format));
         Bukkit.getOnlinePlayers().stream().filter((player) -> (player.hasPermission("converse.adminchat"))).forEachOrdered((player) ->
         {

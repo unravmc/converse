@@ -15,15 +15,16 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 public class MuteListener implements Listener
 {
-    private Converse plugin;
+    private final Converse plugin;
 
+    @SuppressWarnings("")
     public MuteListener(Converse plugin)
     {
         this.plugin = plugin;
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
-    private List<Player> muted = new ArrayList<>();
+    private final List<Player> muted = new ArrayList<>();
     private final List<String> blockedCommands = Converse.plugin.config.getStringList("muted_commands");
 
     public boolean isMuted(Player player)

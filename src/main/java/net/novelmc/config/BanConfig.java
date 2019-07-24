@@ -1,14 +1,16 @@
 package net.novelmc.config;
 
 import java.io.File;
+import java.io.IOException;
 import net.novelmc.Converse;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 public class BanConfig extends YamlConfiguration
 {
     private static BanConfig config;
-    private Converse plugin;
-    private File file;
+    private final Converse plugin;
+    private final File file;
 
     public BanConfig(Converse plugin)
     {
@@ -27,9 +29,8 @@ public class BanConfig extends YamlConfiguration
         {
             super.load(file);
         }
-        catch (Exception ex)
+        catch (IOException | InvalidConfigurationException ex)
         {
-            ex.printStackTrace();
         }
     }
 
@@ -39,9 +40,8 @@ public class BanConfig extends YamlConfiguration
         {
             super.save(file);
         }
-        catch (Exception ex)
+        catch (IOException ex)
         {
-            ex.printStackTrace();
         }
     }
 
