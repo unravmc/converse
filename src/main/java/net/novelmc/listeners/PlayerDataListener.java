@@ -35,7 +35,7 @@ public class PlayerDataListener implements Listener
         
         String rank = plugin.lp.displayRank(p);
         ChatColor color = plugin.lp.displayRankColor(p);
-        event.setJoinMessage(jpref + ChatColor.GRAY + "[" 
+        event.setJoinMessage(jpref + ChatColor.DARK_GRAY + "[" 
                 + color + rank 
                 + ChatColor.DARK_GRAY + "] " 
                 + color + p.getName());

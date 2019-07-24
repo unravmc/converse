@@ -44,8 +44,13 @@ public class TabListener extends ConverseBase implements Listener
         catch (NoClassDefFoundError ignored)
         {
         }
-
-        player.setPlayerListName(plugin.lp.displayRank(player) + ChatColor.RESET + " " + player.getName());
+        String rank = plugin.lp.displayRank(player);
+        ChatColor color = plugin.lp.displayRankColor(player);
+        
+        player.setPlayerListName(ChatColor.DARK_GRAY + "[" 
+                + color + rank 
+                + ChatColor.DARK_GRAY + "]" 
+                + ChatColor.RESET + " " + player.getName());
     }
 
     @EventHandler
@@ -54,9 +59,14 @@ public class TabListener extends ConverseBase implements Listener
         Bukkit.getScheduler().runTask(plugin, () ->
         {
             Player player = Bukkit.getPlayer(event.getTarget().getFriendlyName());
+            String rank = plugin.lp.displayRank(player);
+            ChatColor color = plugin.lp.displayRankColor(player);
             if (player != null)
             {
-                player.setPlayerListName(plugin.lp.displayRank(player) + ChatColor.RESET + " " + player.getName());
+                player.setPlayerListName(ChatColor.DARK_GRAY + "[" 
+                + color + rank 
+                + ChatColor.DARK_GRAY + "]" 
+                + ChatColor.RESET + " " + player.getName());
             }
         });
     }
