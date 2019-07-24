@@ -14,8 +14,8 @@ import org.bukkit.entity.Player;
 
 public class LuckPermsBridge
 {
-    private Converse plugin;
-    private LuckPermsApi api = Converse.getLuckPermsAPI();
+    private final Converse plugin;
+    private final LuckPermsApi api = Converse.getLuckPermsAPI();
 
     public LuckPermsBridge(Converse plugin)
     {
@@ -61,12 +61,12 @@ public class LuckPermsBridge
     {
         if (player == null)
         {
-            return ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "CONSOLE";
+            return ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "CON";
         }
 
         if (isModerator(player.getUniqueId()))
         {
-            return ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "MOD";
+            return ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "M";
         }
         else if (isSeniorModerator(player.getUniqueId()))
         {
@@ -74,18 +74,18 @@ public class LuckPermsBridge
         }
         else if (isDeveloper(player.getUniqueId()))
         {
-            return ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "DEV";
+            return ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "D";
         }
         else if (isExecutive(player.getUniqueId()))
         {
-            return ChatColor.RED + "" + ChatColor.BOLD + "EXEC";
+            return ChatColor.RED + "" + ChatColor.BOLD + "E";
         }
         else if (isArchitect(player.getUniqueId()))
         {
-            return ChatColor.BLUE + "" + ChatColor.BOLD + "ART";
+            return ChatColor.BLUE + "" + ChatColor.BOLD + "A";
         }
 
-        return ChatColor.WHITE + "" + ChatColor.BOLD + "MBR";
+        return ChatColor.WHITE + "" + ChatColor.BOLD + "MB";
     }
 
     public ChatColor displayRankColor(Player player)

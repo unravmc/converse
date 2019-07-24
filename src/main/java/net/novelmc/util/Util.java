@@ -17,10 +17,10 @@ public class Util extends ConverseBase
     public List<String> getOnlinePlayers()
     {
         List<String> players = new ArrayList<>();
-        for (Player player : Bukkit.getOnlinePlayers())
+        Bukkit.getOnlinePlayers().forEach((player) ->
         {
             players.add(player.getName());
-        }
+        });
         return players;
     }
 
@@ -52,17 +52,17 @@ public class Util extends ConverseBase
 
     public void adminchat(CommandSender sender, String message)
     {
-        String badAdminChatFormat = ChatColor.DARK_GRAY + "# " + plugin.lp.displayRank(Bukkit.getPlayer(sender.getName()))
-                + ChatColor.GRAY + " " + sender.getName() + ChatColor.DARK_GRAY
-                + ": " + ChatColor.GOLD + message;
-        Bukkit.getLogger().info(ChatColor.stripColor(badAdminChatFormat));
-        for (Player player : Bukkit.getOnlinePlayers())
+        String rank = plugin.lp.displayRank(Bukkit.getPlayer(sender.getName()));
+        ChatColor color = plugin.lp.displayRankColor(Bukkit.getPlayer(sender.getName()));
+        
+        String format = ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + "STAFF"  
+                + ChatColor.GRAY + "] " + sender.getName() + ChatColor.DARK_GRAY
+                + ChatColor.DARK_GRAY + "[" + color + rank + ChatColor.DARK_GRAY + "] " + ChatColor.GOLD + message;
+        Bukkit.getLogger().info(ChatColor.stripColor(format));
+        Bukkit.getOnlinePlayers().stream().filter((player) -> (player.hasPermission("converse.adminchat"))).forEachOrdered((player) ->
         {
-            if (player.hasPermission("converse.adminchat"))
-            {
-                player.sendMessage(badAdminChatFormat);
-            }
-        }
+            player.sendMessage(format);
+        });
     }
 
     // thank you tfm :pensive:
