@@ -23,16 +23,16 @@ public class Ban
     public String constructBanMessage(Player player, String reason, String banID)
     {
         final StringBuilder banMessage = new StringBuilder(ChatColor.BLUE + "" + ChatColor.BOLD
-                + "NOVEL");
+                + "Novel");
         banMessage.append(ChatColor.WHITE).append("").append(ChatColor.BOLD).append("MC\n");
         banMessage.append(ChatColor.RED).append("You are temporarily banned from this server!\n");
         if (!(reason.length() == 0))
         {
-            banMessage.append(ChatColor.DARK_GRAY).append("Reason: ").append(ChatColor.GRAY).append(getReason(player)).append("\n");
+            banMessage.append(ChatColor.GRAY).append("Reason: ").append(ChatColor.WHITE).append(getReason(player)).append("\n");
         }
-        banMessage.append(ChatColor.DARK_GRAY).append("Until: ").append(ChatColor.GRAY).append(formatDate(player)).append("\n");
-        banMessage.append(ChatColor.DARK_GRAY).append("More Info: ").append(ChatColor.GRAY).append(plugin.config.getString("banurl")).append("\n");
-        banMessage.append(ChatColor.DARK_GRAY).append("Ban ID: ").append(ChatColor.GRAY).append("#").append(banID);
+        banMessage.append(ChatColor.GRAY).append("Until: ").append(ChatColor.WHITE).append(formatDate(player)).append("\n");
+        banMessage.append(ChatColor.GRAY).append("More Info: ").append(ChatColor.GOLD).append(ChatColor.UNDERLINE).append(plugin.config.getString("banurl")).append("\n");
+        banMessage.append(ChatColor.GRAY).append("Ban ID: ").append(ChatColor.WHITE).append("#").append(banID);
         return banMessage.toString();
     }
 
@@ -123,7 +123,7 @@ public class Ban
         return Util.getUnixTime((Date)plugin.banConfig.get(player.getUniqueId() + ".duration"));
     }
 
-    
+
     public String formatDate(Player player)
     {
         return simpleDateFormat.format(Util.getUnixDate(getExpireUnix(player)));

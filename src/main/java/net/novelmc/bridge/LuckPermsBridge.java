@@ -61,31 +61,31 @@ public class LuckPermsBridge
     {
         if (player == null)
         {
-            return ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "CON";
+            return ChatColor.DARK_AQUA + "" + "C";
         }
 
         if (isModerator(player.getUniqueId()))
         {
-            return ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "M";
+            return ChatColor.DARK_GREEN + "" + "M";
         }
         else if (isSeniorModerator(player.getUniqueId()))
         {
-            return ChatColor.GOLD + "" + ChatColor.BOLD + "SRM";
+            return ChatColor.GOLD + "" + "S";
         }
         else if (isDeveloper(player.getUniqueId()))
         {
-            return ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "D";
+            return ChatColor.DARK_PURPLE + "" + "D";
         }
         else if (isExecutive(player.getUniqueId()))
         {
-            return ChatColor.RED + "" + ChatColor.BOLD + "E";
+            return ChatColor.DARK_RED + "" + "E";
         }
         else if (isArchitect(player.getUniqueId()))
         {
-            return ChatColor.BLUE + "" + ChatColor.BOLD + "A";
+            return ChatColor.DARK_BLUE + "" + "A";
         }
 
-        return ChatColor.WHITE + "" + ChatColor.BOLD + "MB";
+        return ChatColor.WHITE + "" + "P";
     }
 
     public ChatColor displayRankColor(Player player)
@@ -109,11 +109,11 @@ public class LuckPermsBridge
         }
         else if (isExecutive(player.getUniqueId()))
         {
-            return ChatColor.RED;
+            return ChatColor.DARK_RED;
         }
         else if (isArchitect(player.getUniqueId()))
         {
-            return ChatColor.BLUE;
+            return ChatColor.DARK_BLUE;
         }
 
         return ChatColor.RESET;
