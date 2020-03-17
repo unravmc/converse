@@ -23,7 +23,7 @@ public class Ban
     public String constructBanMessage(Player player, String reason, String banID)
     {
         final StringBuilder banMessage = new StringBuilder(ChatColor.BLUE + "" + ChatColor.BOLD
-                + "Novel");
+                + "Unraveled");
         banMessage.append(ChatColor.WHITE).append("").append(ChatColor.BOLD).append("MC\n");
         banMessage.append(ChatColor.RED).append("You are temporarily banned from this server!\n");
         if (!(reason.length() == 0))
