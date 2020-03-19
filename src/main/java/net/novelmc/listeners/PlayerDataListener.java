@@ -46,7 +46,10 @@ public class PlayerDataListener implements Listener
     
     //custom leave. Simply just [-]$player
     public void customLeaveMessage(PlayerQuitEvent event) {
-        event.setQuitMessage(ChatColor.DARK_GRAY + "[" + ChatColor.RED + "-" + ChatColor.DARK_GRAY + "] " 
-        + event.getPlayer().getName());
+        Player p = event.getPlayer();
+        String rank = plugin.lp.displayRank(p);
+        ChatColor color = plugin.lp.displayRankColor(p);
+        event.setQuitMessage(ChatColor.DARK_GRAY + "[" + ChatColor.RED + "-" + ChatColor.DARK_GRAY + "] " + color 
+        + p.getName());
     }
 }

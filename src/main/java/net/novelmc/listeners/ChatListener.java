@@ -48,4 +48,6 @@ public class ChatListener implements Listener
             event.setMessage(ChatColor.BLACK + message);
         }
     }
+    
+    
 }

@@ -50,7 +50,7 @@ public class TabListener extends ConverseBase implements Listener
         player.setPlayerListName(ChatColor.DARK_GRAY + "[" 
                 + color + rank 
                 + ChatColor.DARK_GRAY + "]" 
-                + ChatColor.RESET + " " + player.getName());
+                + plugin.lp.nameColor(player) + " " + player.getName());
     }
 
     @EventHandler
@@ -66,7 +66,7 @@ public class TabListener extends ConverseBase implements Listener
                 player.setPlayerListName(ChatColor.DARK_GRAY + "[" 
                 + color + rank 
                 + ChatColor.DARK_GRAY + "]" 
-                + ChatColor.RESET + " " + player.getName());
+                + plugin.lp.nameColor(player) + " " + player.getName());
             }
         });
     }

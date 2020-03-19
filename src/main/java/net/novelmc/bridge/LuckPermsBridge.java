@@ -56,6 +56,31 @@ public class LuckPermsBridge
     {
         return isModerator(player) || isSeniorModerator(player) || isDeveloper(player) || isExecutive(player);
     }
+    
+    public ChatColor nameColor(Player player) 
+    {
+        if (player == null) {
+            return ChatColor.RESET;
+        }
+        else if (isModerator(player.getUniqueId())) {
+            return ChatColor.GREEN;
+        }
+        else if (isSeniorModerator(player.getUniqueId())) {
+            return ChatColor.YELLOW;
+        }
+        else if (isDeveloper(player.getUniqueId())) {
+            return ChatColor.LIGHT_PURPLE;
+        }
+        else if (isExecutive(player.getUniqueId())) {
+            return ChatColor.RED;
+        }
+        else if (isArchitect(player.getUniqueId())) {
+            return ChatColor.BLUE;
+        }
+        else {
+            return ChatColor.RESET;
+        }
+    }
 
     public String displayRank(Player player)
     {
@@ -84,8 +109,12 @@ public class LuckPermsBridge
         {
             return ChatColor.DARK_BLUE + "" + "A";
         }
+        else if (!isStaff(player.getUniqueId()) && !isArchitect(player.getUniqueId())){
+            return "";
+        }
 
-        return ChatColor.WHITE + "" + "P";
+        //theoretically it should never reach this line.
+        return "";
     }
 
     public ChatColor displayRankColor(Player player)

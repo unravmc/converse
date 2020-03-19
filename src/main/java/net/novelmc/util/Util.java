@@ -52,12 +52,13 @@ public class Util extends ConverseBase
 
     public void adminchat(CommandSender sender, String message)
     {
+        Player p = Bukkit.getPlayer(sender.getName());
         String rank = plugin.lp.displayRank(Bukkit.getPlayer(sender.getName()));
         ChatColor color = plugin.lp.displayRankColor(Bukkit.getPlayer(sender.getName()));
 
         String format = ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + "STAFF"
                 + ChatColor.DARK_GRAY + "] "
-                + ChatColor.RESET + sender.getName() + ChatColor.DARK_GRAY
+                + plugin.lp.nameColor(p) + sender.getName() + ChatColor.DARK_GRAY
                 + ChatColor.DARK_GRAY + " [" + color + rank + ChatColor.DARK_GRAY + "]" + ChatColor.WHITE + ": " + ChatColor.GOLD + message;
         Bukkit.getLogger().info(ChatColor.stripColor(format));
         Bukkit.getOnlinePlayers().stream().filter((player) -> (player.hasPermission("converse.adminchat"))).forEachOrdered((player) ->

@@ -1,5 +1,6 @@
 package net.novelmc;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import me.lucko.luckperms.api.LuckPermsApi;
@@ -63,6 +64,7 @@ public class Converse extends JavaPlugin
     public TabListener sl;
     public WorldListener wl;
 
+    @Override
     public void onLoad()
     {
         plugin = this;
@@ -73,6 +75,7 @@ public class Converse extends JavaPlugin
         pd = new PlayerData(this);
     }
 
+    @Override
     public void onEnable()
     {
         // Config
@@ -93,6 +96,7 @@ public class Converse extends JavaPlugin
         permban = new Permban(this);
     }
 
+    @Override
     public void onDisable()
     {
         // Unregister configs
@@ -120,6 +124,7 @@ public class Converse extends JavaPlugin
         return null;
     }
 
+    @SuppressWarnings("null")
     private void registerCommands()
     {
         getCommand("adminchat").setExecutor(new AdminchatCommand());
@@ -196,7 +201,7 @@ public class Converse extends JavaPlugin
                 date = props.getProperty("buildDate", "unknown");
                 head = props.getProperty("buildHead", "unknown").replace("${git.commit.id.abbrev}", "unknown");
             }
-            catch (Exception ex)
+            catch (IOException ex)
             {
                 server.getLogger().severe("Could not load build properties! Did you compile with NetBeans/Maven?");
                 server.getLogger().severe(ex.toString());
