@@ -133,11 +133,12 @@ public class Converse extends JavaPlugin
         getCommand("mute").setExecutor(new MuteCommand());
         getCommand("permban").setExecutor(new PermbanCommand());
         getCommand("plotworld").setExecutor(new PlotworldCommand());
+        getCommand("shop").setExecutor(new ShopCommand());
         getCommand("staff").setExecutor(new StaffCommand());
         getCommand("staffworld").setExecutor(new StaffworldCommand());
         getCommand("unban").setExecutor(new UnbanCommand());
         getCommand("unloadchunks").setExecutor(new UnloadChunksCommand());
-        getCommand("shop").setExecutor(new ShopCommand());
+        
     }
 
     private void registerListeners()
