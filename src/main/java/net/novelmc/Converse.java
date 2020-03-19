@@ -6,21 +6,7 @@ import java.util.Properties;
 import me.lucko.luckperms.api.LuckPermsApi;
 import net.novelmc.bans.Ban;
 import net.novelmc.bridge.LuckPermsBridge;
-import net.novelmc.commands.AdminchatCommand;
-import net.novelmc.commands.BanCommand;
-import net.novelmc.commands.BanLookupCommand;
-import net.novelmc.commands.ConverseCommand;
-import net.novelmc.commands.DbanCommand;
-import net.novelmc.commands.FlatworldCommand;
-import net.novelmc.commands.BlackChatCommand;
-import net.novelmc.commands.ModeCommand;
-import net.novelmc.commands.MuteCommand;
-import net.novelmc.commands.PermbanCommand;
-import net.novelmc.commands.PlotworldCommand;
-import net.novelmc.commands.StaffCommand;
-import net.novelmc.commands.StaffworldCommand;
-import net.novelmc.commands.UnbanCommand;
-import net.novelmc.commands.UnloadChunksCommand;
+import net.novelmc.commands.*;
 import net.novelmc.config.BanConfig;
 import net.novelmc.config.MainConfig;
 import net.novelmc.config.PermbanConfig;
@@ -33,6 +19,7 @@ import net.novelmc.listeners.PlayerDataListener;
 import net.novelmc.listeners.TabListener;
 import net.novelmc.listeners.WorldListener;
 import net.novelmc.permban.Permban;
+import net.novelmc.shop.ShopIndex;
 import net.novelmc.util.Updater;
 import net.novelmc.util.Util;
 import org.bstats.bukkit.Metrics;
@@ -56,6 +43,8 @@ public class Converse extends JavaPlugin
     public Permban permban;
     // LuckPerms
     public LuckPermsBridge lp;
+    // Shop
+    public ShopIndex si;
     // Listeners
     public BanListener bl;
     public ChatListener cl;
@@ -74,6 +63,7 @@ public class Converse extends JavaPlugin
         config = new MainConfig(this);
         permbanConfig = new PermbanConfig(this);
         pd = new PlayerData(this);
+        si = new ShopIndex();
     }
 
     @Override
@@ -97,6 +87,8 @@ public class Converse extends JavaPlugin
         permban = new Permban(this);
         //Scoreboard for Tablist
         Util.tabInit();
+        // Shop Index
+        si.initializeItems();
     }
 
     @Override
@@ -145,6 +137,7 @@ public class Converse extends JavaPlugin
         getCommand("staffworld").setExecutor(new StaffworldCommand());
         getCommand("unban").setExecutor(new UnbanCommand());
         getCommand("unloadchunks").setExecutor(new UnloadChunksCommand());
+        getCommand("shop").setExecutor(new ShopCommand());
     }
 
     private void registerListeners()

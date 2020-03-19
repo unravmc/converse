@@ -1,15 +1,20 @@
 package net.novelmc.listeners;
 
 import net.novelmc.Converse;
+import net.novelmc.shop.ShopIndex;
 import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class PlayerDataListener implements Listener
 {
@@ -47,17 +52,46 @@ public class PlayerDataListener implements Listener
         }
     }
     
-    //custom leave. Simply just [-]$player
+    //custom leave.
     @EventHandler(priority = EventPriority.HIGHEST)
     public void customLeaveMessage(PlayerQuitEvent event) {
         Player p = event.getPlayer();
+        String rank = plugin.lp.displayRank(p);
+        ChatColor color2 = plugin.lp.displayRankColor(p);
         ChatColor color = plugin.lp.nameColor(p);
+        String jpref = ChatColor.DARK_GRAY + "[" 
+                + ChatColor.RED + "-" 
+                + ChatColor.DARK_GRAY + "] ";
         if (!plugin.lp.isStaff(p.getUniqueId())) {
-            event.setQuitMessage(ChatColor.DARK_GRAY + "[" + ChatColor.RED + "-" + ChatColor.DARK_GRAY + "] " + ChatColor.GRAY 
+            event.setQuitMessage(jpref + ChatColor.GRAY 
             + p.getName());
         } else {
-            event.setQuitMessage(ChatColor.DARK_GRAY + "[" + ChatColor.RED + "-" + ChatColor.DARK_GRAY + "] " + color 
-            + p.getName()); 
+            event.setQuitMessage(jpref 
+                    + ChatColor.DARK_GRAY + "[" 
+                    + color2 + rank 
+                    + ChatColor.DARK_GRAY + "] " 
+                    + color + p.getName()); 
         }
+    }
+    
+    //This is where the shop checks for clicks
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent e) {
+        ShopIndex shopIndex = new ShopIndex();
+        if (e.getInventory().getHolder() != shopIndex) {
+            return;
+        }
+        if (e.getClick().equals(ClickType.NUMBER_KEY)) {
+            e.setCancelled(true);
+        }
+        e.setCancelled(true);
+        
+        Player p = (Player) e.getWhoClicked();
+        ItemStack clickedItem = e.getCurrentItem();
+        
+        //make sure this isn't null
+        if (clickedItem == null || clickedItem.getType() == Material.AIR) return;
+        
+        p.sendMessage("You clicked at slot " + e.getRawSlot());
     }
 }

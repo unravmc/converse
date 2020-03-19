@@ -48,10 +48,16 @@ public class TabListener extends ConverseBase implements Listener
         String rank = plugin.lp.displayRank(player);
         ChatColor color = plugin.lp.displayRankColor(player);
         
-        player.setPlayerListName(ChatColor.DARK_GRAY + "[" 
+        if (!plugin.lp.isStaff(player.getUniqueId())) 
+        {
+            player.setPlayerListName(plugin.lp.nameColor(player) + player.getName());
+        } 
+        else 
+        { player.setPlayerListName(ChatColor.DARK_GRAY + "[" 
                 + color + rank 
                 + ChatColor.DARK_GRAY + "]" 
-                + plugin.lp.nameColor(player) + " " + player.getName());
+                + plugin.lp.nameColor(player) + " " + player.getName()); 
+        }
         
         Util.tabAdd(player);
     }
