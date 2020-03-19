@@ -40,6 +40,7 @@ public class TabListener extends ConverseBase implements Listener
             List<String> footer = plugin.config.getStringList("tablist.footer");
             tab.setHeader(Util.colorize(StringUtils.join(header, "\n")));
             tab.setFooter(Util.colorize(StringUtils.join(footer, "\n")));
+            
         }
         catch (NoClassDefFoundError ignored)
         {

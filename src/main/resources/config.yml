@@ -3,7 +3,7 @@
 #
 
 # URL where players should appeal their bans
-banurl: https://novelmc.net/appeal
+banurl: https://unraveledmc.net/appeal
 
 # What mode is the server in?
 mode: default
@@ -41,11 +41,11 @@ tablist:
   # What should the header be?
   header:
     - "&7"
-    - "&9&lNovel&f&lMC"
+    - "&7Unraveled&8MC"
     - "&7"
 
   # What should the footer be?
   footer:
     - "&7"
-    - "&7https://novelmcn.net"
+    - "&7https://unraveledmc.net"
     - "&7"

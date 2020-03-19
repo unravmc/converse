@@ -34,6 +34,7 @@ import net.novelmc.listeners.TabListener;
 import net.novelmc.listeners.WorldListener;
 import net.novelmc.permban.Permban;
 import net.novelmc.util.Updater;
+import net.novelmc.util.Util;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
@@ -94,6 +95,8 @@ public class Converse extends JavaPlugin
         // Banning
         ban = new Ban(this);
         permban = new Permban(this);
+        //Scoreboard for Tablist
+        Util.tabInit();
     }
 
     @Override

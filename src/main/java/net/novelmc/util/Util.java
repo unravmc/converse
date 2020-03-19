@@ -5,12 +5,17 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import net.novelmc.Converse;
+import net.novelmc.bridge.LuckPermsBridge;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 public class Util extends ConverseBase
 {
@@ -65,6 +70,58 @@ public class Util extends ConverseBase
         {
             player.sendMessage(format);
         });
+    }
+    
+    //TabList Sorting Methods
+    private static final LuckPermsBridge LPB = Converse.plugin.lp;
+    private static Scoreboard sb = Bukkit.getScoreboardManager().getNewScoreboard();
+    private static Team mod;
+    private static Team srmod;
+    private static Team dev;
+    private static Team exec;
+    private static Team arc;
+    private static Team player;
+    @SuppressWarnings("null")
+    public static void tabInit() {
+        mod = sb.registerNewTeam("mod");
+        srmod = sb.registerNewTeam("srmod");
+        dev = sb.registerNewTeam("dev");
+        exec = sb.registerNewTeam("exec");
+        arc = sb.registerNewTeam("arc");
+        player = sb.registerNewTeam("default");
+        
+        mod.setPrefix("[M]");
+        srmod.setPrefix("[SM]");
+        dev.setPrefix("[D]");
+        exec.setPrefix("[E]");
+        arc.setPrefix("[A]");
+    }
+    
+    @SuppressWarnings("null")
+    public static void tabAdd(Player p) {
+
+        if (p == null) {
+            //do nothing
+        }
+        
+        if (LPB.isModerator(p.getUniqueId())) {
+            mod.addEntry(p.getName());
+        }
+        else if (LPB.isSeniorModerator(p.getUniqueId())) {
+            srmod.addEntry(p.getName());
+        }
+        else if (LPB.isDeveloper(p.getUniqueId())) {
+            dev.addEntry(p.getName());
+        }
+        else if (LPB.isExecutive(p.getUniqueId())) {
+            exec.addEntry(p.getName());
+        }
+        else if (LPB.isArchitect(p.getUniqueId())) {
+            arc.addEntry(p.getName());
+        }
+        else {
+            player.addEntry(p.getName());
+        }
     }
     
     // thank you tfm :pensive:
