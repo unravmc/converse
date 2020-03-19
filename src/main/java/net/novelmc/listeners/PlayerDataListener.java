@@ -1,10 +1,12 @@
 package net.novelmc.listeners;
 
 import net.novelmc.Converse;
+import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -22,7 +24,7 @@ public class PlayerDataListener implements Listener
         
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerJoin(PlayerJoinEvent event)
     {
         //initialize playerdata
@@ -33,23 +35,29 @@ public class PlayerDataListener implements Listener
         String jpref = ChatColor.DARK_GRAY + "[" + ChatColor.GREEN + "+" + ChatColor.DARK_GRAY + "] ";
         
         if (!plugin.lp.isStaff(p.getUniqueId())) {
-            event.setJoinMessage(jpref + p.getName());
+            event.setJoinMessage(jpref + ChatColor.GRAY + p.getName());
         }
-        
-        String rank = plugin.lp.displayRank(p);
-        ChatColor color = plugin.lp.displayRankColor(p);
-        event.setJoinMessage(jpref + ChatColor.DARK_GRAY + "[" 
+        else {
+            String rank = plugin.lp.displayRank(p);
+            ChatColor color = plugin.lp.displayRankColor(p);
+            event.setJoinMessage(jpref + ChatColor.DARK_GRAY + "[" 
                 + color + rank 
                 + ChatColor.DARK_GRAY + "] " 
-                + color + p.getName());
+                + plugin.lp.nameColor(p) + p.getName());
+        }
     }
     
     //custom leave. Simply just [-]$player
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void customLeaveMessage(PlayerQuitEvent event) {
         Player p = event.getPlayer();
-        String rank = plugin.lp.displayRank(p);
-        ChatColor color = plugin.lp.displayRankColor(p);
-        event.setQuitMessage(ChatColor.DARK_GRAY + "[" + ChatColor.RED + "-" + ChatColor.DARK_GRAY + "] " + color 
-        + p.getName());
+        ChatColor color = plugin.lp.nameColor(p);
+        if (!plugin.lp.isStaff(p.getUniqueId())) {
+            event.setQuitMessage(ChatColor.DARK_GRAY + "[" + ChatColor.RED + "-" + ChatColor.DARK_GRAY + "] " + ChatColor.GRAY 
+            + p.getName());
+        } else {
+            event.setQuitMessage(ChatColor.DARK_GRAY + "[" + ChatColor.RED + "-" + ChatColor.DARK_GRAY + "] " + color 
+            + p.getName()); 
+        }
     }
 }

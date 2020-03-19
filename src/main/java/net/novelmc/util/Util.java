@@ -66,14 +66,15 @@ public class Util extends ConverseBase
                 + plugin.lp.nameColor(p) + sender.getName() + ChatColor.DARK_GRAY
                 + ChatColor.DARK_GRAY + " [" + color + rank + ChatColor.DARK_GRAY + "]" + ChatColor.WHITE + ": " + ChatColor.GOLD + message;
         Bukkit.getLogger().info(ChatColor.stripColor(format));
-        Bukkit.getOnlinePlayers().stream().filter((player) -> (player.hasPermission("converse.adminchat"))).forEachOrdered((player) ->
+        Bukkit.getOnlinePlayers().stream().filter((players) -> (players.hasPermission("converse.adminchat"))).forEachOrdered((players) ->
         {
-            player.sendMessage(format);
+            players.sendMessage(format);
         });
     }
     
     //TabList Sorting Methods
     private static final LuckPermsBridge LPB = Converse.plugin.lp;
+    @SuppressWarnings("null")
     private static Scoreboard sb = Bukkit.getScoreboardManager().getNewScoreboard();
     private static Team mod;
     private static Team srmod;
@@ -83,12 +84,12 @@ public class Util extends ConverseBase
     private static Team player;
     @SuppressWarnings("null")
     public static void tabInit() {
-        mod = sb.registerNewTeam("mod");
-        srmod = sb.registerNewTeam("srmod");
-        dev = sb.registerNewTeam("dev");
-        exec = sb.registerNewTeam("exec");
-        arc = sb.registerNewTeam("arc");
-        player = sb.registerNewTeam("default");
+        player = sb.registerNewTeam("a");
+        arc = sb.registerNewTeam("b");
+        mod = sb.registerNewTeam("c");
+        srmod = sb.registerNewTeam("d");
+        dev = sb.registerNewTeam("e");
+        exec = sb.registerNewTeam("f");
         
         mod.setPrefix("[M]");
         srmod.setPrefix("[SM]");
@@ -121,6 +122,20 @@ public class Util extends ConverseBase
         }
         else {
             player.addEntry(p.getName());
+        }
+    }
+    
+    @SuppressWarnings("null")
+    public static void tabRemove(Player p) {
+        if (p == null) {
+            throw new NullPointerException();
+        }
+        
+        if (sb.getEntries().contains(p.getName())) {
+            Team team = sb.getEntryTeam(p.getName());
+            team.removeEntry(p.getName());
+        } else {
+            //do nothing :)
         }
     }
     

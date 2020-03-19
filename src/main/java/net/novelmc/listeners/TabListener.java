@@ -52,6 +52,8 @@ public class TabListener extends ConverseBase implements Listener
                 + color + rank 
                 + ChatColor.DARK_GRAY + "]" 
                 + plugin.lp.nameColor(player) + " " + player.getName());
+        
+        Util.tabAdd(player);
     }
 
     @EventHandler
@@ -62,13 +64,22 @@ public class TabListener extends ConverseBase implements Listener
             Player player = Bukkit.getPlayer(event.getTarget().getFriendlyName());
             String rank = plugin.lp.displayRank(player);
             ChatColor color = plugin.lp.displayRankColor(player);
-            if (player != null)
+            if (player == null) {
+                throw new NullPointerException();
+            }
+            
+            if (plugin.lp.isStaff(player.getUniqueId()))
             {
                 player.setPlayerListName(ChatColor.DARK_GRAY + "[" 
                 + color + rank 
                 + ChatColor.DARK_GRAY + "]" 
                 + plugin.lp.nameColor(player) + " " + player.getName());
+            } else {
+                player.setPlayerListName(plugin.lp.nameColor(player) + player.getName());
             }
+            
+            Util.tabRemove(player);
+            Util.tabAdd(player);
         });
     }
 }
