@@ -1,22 +1,31 @@
 package net.novelmc.shop;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
-public class ShopIndex implements InventoryHolder, Listener {
+public abstract class ShopIndex implements InventoryHolder, Listener {
     private final Inventory INV;
+    private Map<Integer, GUIAction> actions;
+    private UUID uuid;
+    //
+    public static Map<UUID, ShopIndex> invByUUID = new HashMap<>();
+    public static Map<UUID, UUID> openInventories = new HashMap<>();
     
     @SuppressWarnings("")
-    public ShopIndex() {
-        INV = Bukkit.createInventory(this, 9, "UnraveledMC Shop");
+    public ShopIndex(int invSize, String invName) {
+        uuid = UUID.randomUUID();
+        INV = Bukkit.createInventory(null, invSize, invName);
+        actions = new HashMap<>();
+        invByUUID.put(getUUId(), this);
+    }
+    
+    public UUID getUUId() {
+        return uuid;
     }
     
     @Override
@@ -24,27 +33,47 @@ public class ShopIndex implements InventoryHolder, Listener {
         return INV;
     }
     
-    //Init
-    public void initializeItems() {
-        INV.addItem(createGuiItem(Material.DIAMOND, "Option 1", "Lore Line 1", "Lore Line 2"));
-    }
-    // Create new gui item in inventory;
-    @SuppressWarnings("")
-    private ItemStack createGuiItem(Material mat, String name, String...lore) {
-        ItemStack item = new ItemStack(mat, 1);
-        ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(name);
-        ArrayList<String> metaLore = new ArrayList<>();
-        
-        metaLore.addAll(Arrays.asList(lore));
-        
-        meta.setLore(metaLore);
-        item.setItemMeta(meta);
-        return item;
+    public interface GUIAction {
+        void click(Player player);
     }
     
-    //open the actual menu
-    public void openInventory(Player p) {
+    public void setItem(int slot, ItemStack stack, GUIAction action) {
+        INV.setItem(slot, stack);
+        if (action != null) {
+            actions.put(slot, action);
+        }
+    }
+    
+    public void setItem(int slot, ItemStack stack) {
+        setItem(slot, stack, null);
+    }
+    
+    public void open(Player p) {
         p.openInventory(INV);
+        openInventories.put(p.getUniqueId(), getUUId());
+    }
+    
+    public void delete() {
+        Bukkit.getOnlinePlayers().forEach((p) ->
+        {
+            UUID u = openInventories.get(p.getUniqueId());
+            if (u.equals(getUUId()))
+            {
+                p.closeInventory();
+            }
+        });
+        invByUUID.remove(getUUId());
+    }
+    
+    public static Map<UUID, ShopIndex> getInvByUUID() {
+        return invByUUID;
+    }
+    
+    public static Map<UUID, UUID> getOpenInvs() {
+        return openInventories;
+    }
+    
+    public Map<Integer, GUIAction> getActions() {
+        return actions;
     }
 }

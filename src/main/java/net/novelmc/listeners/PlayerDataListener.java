@@ -73,25 +73,4 @@ public class PlayerDataListener implements Listener
                     + color + p.getName()); 
         }
     }
-    
-    //This is where the shop checks for clicks
-    @EventHandler
-    public void onInventoryClick(InventoryClickEvent e) {
-        ShopIndex shopIndex = new ShopIndex();
-        if (e.getInventory().getHolder() != shopIndex) {
-            return;
-        }
-        if (e.getClick().equals(ClickType.NUMBER_KEY)) {
-            e.setCancelled(true);
-        }
-        e.setCancelled(true);
-        
-        Player p = (Player) e.getWhoClicked();
-        ItemStack clickedItem = e.getCurrentItem();
-        
-        //make sure this isn't null
-        if (clickedItem == null || clickedItem.getType() == Material.AIR) return;
-        
-        p.sendMessage("You clicked at slot " + e.getRawSlot());
-    }
 }

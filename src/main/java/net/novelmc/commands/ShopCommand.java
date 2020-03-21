@@ -18,7 +18,7 @@ public class ShopCommand implements CommandExecutor
         }
         
         Player p = (Player) sender;
-        Converse.plugin.si.openInventory(p);
+        Converse.plugin.shop.open(p);
         return true;
     }
 }
