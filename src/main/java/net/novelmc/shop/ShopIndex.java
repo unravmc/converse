@@ -2,11 +2,13 @@ package net.novelmc.shop;
 
 import java.util.*;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public abstract class ShopIndex implements InventoryHolder, Listener {
     private final Inventory INV;
@@ -37,23 +39,23 @@ public abstract class ShopIndex implements InventoryHolder, Listener {
         void click(Player player);
     }
     
-    public void setItem(int slot, ItemStack stack, GUIAction action) {
+    public final void setItem(int slot, ItemStack stack, GUIAction action) {
         INV.setItem(slot, stack);
         if (action != null) {
             actions.put(slot, action);
         }
     }
     
-    public void setItem(int slot, ItemStack stack) {
+    public final void setItem(int slot, ItemStack stack) {
         setItem(slot, stack, null);
     }
     
-    public void open(Player p) {
+    public final void open(Player p) {
         p.openInventory(INV);
         openInventories.put(p.getUniqueId(), getUUId());
     }
     
-    public void delete() {
+    public final void delete() {
         Bukkit.getOnlinePlayers().forEach((p) ->
         {
             UUID u = openInventories.get(p.getUniqueId());
@@ -75,5 +77,17 @@ public abstract class ShopIndex implements InventoryHolder, Listener {
     
     public Map<Integer, GUIAction> getActions() {
         return actions;
+    }
+    
+    @SuppressWarnings("null")
+    public final ItemStack newItem(Material mat, String name, String...lore) {
+        ItemStack item = new ItemStack(mat, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(name);
+        ArrayList<String> metaLore = new ArrayList<>();
+        metaLore.addAll(Arrays.asList(lore));
+        meta.setLore(metaLore);
+        item.setItemMeta(meta);
+        return item;
     }
 }

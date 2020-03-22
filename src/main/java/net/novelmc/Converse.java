@@ -19,8 +19,7 @@ import net.novelmc.listeners.PlayerDataListener;
 import net.novelmc.listeners.TabListener;
 import net.novelmc.listeners.WorldListener;
 import net.novelmc.permban.Permban;
-import net.novelmc.shop.MainMenu;
-import net.novelmc.shop.ShopListener;
+import net.novelmc.shop.*;
 import net.novelmc.util.Updater;
 import net.novelmc.util.Util;
 import org.bstats.bukkit.Metrics;
@@ -46,6 +45,7 @@ public class Converse extends JavaPlugin
     public LuckPermsBridge lp;
     // Shop
     public MainMenu shop;
+    public TrailsMenu trails;
     public ShopListener shl;
     // Listeners
     public BanListener bl;
@@ -65,7 +65,7 @@ public class Converse extends JavaPlugin
         config = new MainConfig(this);
         permbanConfig = new PermbanConfig(this);
         pd = new PlayerData(this);
-        shop = new MainMenu();
+        loadShops();
     }
 
     @Override
@@ -107,6 +107,11 @@ public class Converse extends JavaPlugin
         {
             getLogger().info("There was an error checking for an update");
         }
+    }
+    
+    private void loadShops() {
+        shop = new MainMenu();
+        trails = new TrailsMenu();
     }
 
     public static LuckPermsApi getLuckPermsAPI()
