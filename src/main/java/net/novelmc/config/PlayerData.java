@@ -2,6 +2,9 @@ package net.novelmc.config;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import net.novelmc.Converse;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -61,7 +64,6 @@ public class PlayerData extends YamlConfiguration
             {
                 playerData.set("ip", player.getAddress().getHostName());
             }
-            return;
         }
     }
 

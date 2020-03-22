@@ -48,8 +48,8 @@ commands:
     usage: /<command>
     description: Teleport to the plotworld
   shop:
-    usage: /<command>
-    description: Opens the shop menu.
+    usage: /<command> [add | set | del | get] [player] [amount]
+    description: Opens the shop menu, also manages coins (Staff only).
     aliases: [umcshop]
   staff:
     usage: /<command> <add <player> <rank> | remove <player>>
