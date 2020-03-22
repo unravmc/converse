@@ -20,7 +20,6 @@ import net.novelmc.listeners.TabListener;
 import net.novelmc.listeners.WorldListener;
 import net.novelmc.permban.Permban;
 import net.novelmc.shop.*;
-import net.novelmc.util.Updater;
 import net.novelmc.util.Util;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
@@ -97,17 +96,6 @@ public class Converse extends JavaPlugin
     {
         // Unregister configs
         unregisterConfigs();
-
-        // Updater
-        try
-        {
-            Updater updater = new Updater(this);
-            updater.update();
-        }
-        catch (NoClassDefFoundError ex)
-        {
-            getLogger().info("There was an error checking for an update");
-        }
     }
     
     private void loadShops() {
