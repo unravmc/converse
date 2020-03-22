@@ -46,6 +46,7 @@ public class Converse extends JavaPlugin
     // Shop
     public MainMenu shop;
     public TrailsMenu trails;
+    public PlayersMenu players;
     public ShopListener shl;
     // Listeners
     public BanListener bl;
@@ -112,6 +113,7 @@ public class Converse extends JavaPlugin
     private void loadShops() {
         shop = new MainMenu();
         trails = new TrailsMenu();
+        players = new PlayersMenu();
     }
 
     public static LuckPermsApi getLuckPermsAPI()

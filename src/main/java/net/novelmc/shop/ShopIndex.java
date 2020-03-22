@@ -3,12 +3,14 @@ package net.novelmc.shop;
 import java.util.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 public abstract class ShopIndex implements InventoryHolder, Listener {
     private final Inventory INV;
@@ -19,6 +21,7 @@ public abstract class ShopIndex implements InventoryHolder, Listener {
     public static Map<UUID, UUID> openInventories = new HashMap<>();
     //
     public static Map<UUID, Integer> coinMap;
+    public static final int playerCount = Bukkit.getOnlinePlayers().size();
     
     @SuppressWarnings("")
     public ShopIndex(int invSize, String invName) {
@@ -139,6 +142,18 @@ public abstract class ShopIndex implements InventoryHolder, Listener {
             int newIndex = index - x;
             coinMap.replace(p.getUniqueId(), newIndex);
         }
+    }
+    
+    public ItemStack newPlayerHead(Player p) {
+        ItemStack item = new ItemStack(Material.PLAYER_HEAD, 1);
+        SkullMeta sku = (SkullMeta) item.getItemMeta();
+        sku.setDisplayName(p.getName());
+        ArrayList<String> loreComments = new ArrayList<>();
+        loreComments.add("Click for user specific info");
+        sku.setLore(loreComments);
+        sku.setOwningPlayer((OfflinePlayer) p);
+        item.setItemMeta(sku);
+        return item;
     }
     
     

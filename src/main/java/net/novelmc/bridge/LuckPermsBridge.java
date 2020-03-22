@@ -51,6 +51,11 @@ public class LuckPermsBridge
         User user = api.getUserManager().getUser(player);
         return user.getPrimaryGroup().equalsIgnoreCase(plugin.config.getString("permissions.architect"));
     }
+    
+    public boolean isVoter(UUID player) {
+        User user = api.getUserManager().getUser(player);
+        return user.getPrimaryGroup().equalsIgnoreCase(plugin.config.getString("permissions.voter"));
+    }
 
     public boolean isStaff(UUID player)
     {
@@ -76,6 +81,9 @@ public class LuckPermsBridge
         }
         else if (isArchitect(player.getUniqueId())) {
             return ChatColor.BLUE;
+        }
+        else if (isVoter(player.getUniqueId())) {
+            return ChatColor.AQUA;
         }
         else {
             return ChatColor.RESET;
@@ -109,12 +117,12 @@ public class LuckPermsBridge
         {
             return ChatColor.DARK_BLUE + "" + "A";
         }
-        else if (!isStaff(player.getUniqueId()) && !isArchitect(player.getUniqueId())){
+        else if (isVoter(player.getUniqueId())) {
+            return ChatColor.DARK_AQUA + "" + "V";
+        }
+        else {
             return "";
         }
-
-        //theoretically it should never reach this line.
-        return "";
     }
 
     public ChatColor displayRankColor(Player player)
