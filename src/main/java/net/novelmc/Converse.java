@@ -121,6 +121,7 @@ public class Converse extends JavaPlugin
         getCommand("converse").setExecutor(new ConverseCommand());
         getCommand("dban").setExecutor(new DbanCommand());
         getCommand("flatworld").setExecutor(new FlatworldCommand());
+        getCommand("manageshop").setExecutor(new ShopAdminCommand());
         getCommand("mode").setExecutor(new ModeCommand());
         getCommand("mute").setExecutor(new MuteCommand());
         getCommand("permban").setExecutor(new PermbanCommand());

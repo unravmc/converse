@@ -16,7 +16,7 @@ public class PlayersMenu extends ShopIndex {
                     player.sendMessage("Thanks for testing!!");
                 });
                 x++;
-            } while (x < playerCount);
+            } while (x <= playerCount);
         });
     }
 }

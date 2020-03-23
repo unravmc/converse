@@ -3,6 +3,7 @@ package net.novelmc.listeners;
 import java.util.ArrayList;
 import java.util.List;
 import net.novelmc.Converse;
+import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -13,6 +14,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 public class ChatListener implements Listener
 {
     private final Converse plugin;
+    private Util util = new Util();
 
     @SuppressWarnings("")
     public ChatListener(Converse plugin)
@@ -47,7 +49,10 @@ public class ChatListener implements Listener
         {
             event.setMessage(ChatColor.BLACK + message);
         }
+        
+        if (util.isInAdminChat(player)) {
+            event.setCancelled(true);
+            util.adminchat(player, message);
+        }
     }
-    
-    
 }

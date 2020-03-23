@@ -34,6 +34,10 @@ commands:
     usage: /<command>
     description: Teleport to the flatworld
     aliases: [flatlands]
+  manageshop:
+    usage: /<command> <add | del | set | get> <player> [amount]
+    description: Manages the shop for admins.
+    aliases: [mshop, shopadmin]
   mode:
     usage: /<command> [event | dev | staff | off]
     description: Change the server mode

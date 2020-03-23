@@ -1,11 +1,15 @@
 package net.novelmc.commands;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import net.novelmc.util.Util;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class AdminchatCommand implements CommandExecutor
 {
@@ -22,7 +26,13 @@ public class AdminchatCommand implements CommandExecutor
         String message = StringUtils.join(args, " ");
         if (message.length() == 0)
         {
-            sender.sendMessage(ChatColor.GRAY + "Please enter a message.");
+            if (!(sender instanceof Player)) {
+                sender.sendMessage("Adminchat can only be toggled in game.");
+                return true;
+            }
+            Player p = (Player) sender;
+            util.putAdminChat(p);
+            p.sendMessage("Toggled adminchat " + (util.getAdminChat() ? "on" : "off"));
             return true;
         }
         util.adminchat(sender, message);

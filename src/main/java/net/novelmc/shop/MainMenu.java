@@ -13,7 +13,7 @@ public class MainMenu extends ShopIndex {
         setItem(0, is1, player -> {
             Converse.plugin.trails.open(player);
         });
-        setItem(0, is2, player -> {
+        setItem(1, is2, player -> {
             if (!player.hasPermission("converse.staff")) {
                 player.sendMessage("You cannot do that.");
                 return;

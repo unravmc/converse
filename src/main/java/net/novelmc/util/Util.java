@@ -1,10 +1,6 @@
 package net.novelmc.util;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,6 +15,9 @@ import org.bukkit.scoreboard.Team;
 
 public class Util extends ConverseBase
 {
+    private Map<UUID, Boolean> adminChat = new HashMap<>();
+    private boolean inAdminChat = false;
+    
     public List<String> getOnlinePlayers()
     {
         List<String> players = new ArrayList<>();
@@ -70,6 +69,34 @@ public class Util extends ConverseBase
         {
             players.sendMessage(format);
         });
+    }
+    
+    //adminchat getter
+    public Boolean getAdminChat() {
+        return inAdminChat;
+    }
+    
+    //adminchat setter
+    public void setAdminChat(boolean inChat) {
+        this.inAdminChat = inChat;
+    }
+    
+    //creation of the adminchat toggleable variable;
+    public void putAdminChat(Player p) {
+        UUID uuid = p.getUniqueId();
+        if (!getAdminChat()) {
+            adminChat.put(uuid, inAdminChat);
+            setAdminChat(true);
+        } else {
+            adminChat.remove(uuid);
+            setAdminChat(false);
+        }
+    }
+    
+    //creation of the container for the listener
+    public Boolean isInAdminChat(Player p) {
+        UUID uuid = p.getUniqueId();
+        return adminChat.containsKey(uuid);
     }
     
     //TabList Sorting Methods
