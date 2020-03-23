@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.novelmc</groupId>
     <artifactId>Converse</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.1.0-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,9 +17,9 @@
     </properties>
 
     <scm>
-        <connection>scm:git:git@github.com:NovelMC/converse.git</connection>
-        <developerConnection>scm:git:git@github.com:NovelMC/converse.git</developerConnection>
-        <url>git@github.com:NovelMC/converse.git</url>
+        <connection>scm:git:git@github.com:unravmc/converse.git</connection>
+        <developerConnection>scm:git:git@github.com:unravmc/converse.git</developerConnection>
+        <url>git@github.com:unravmc/converse.git</url>
     </scm>
 
     <repositories>
@@ -40,14 +40,6 @@
     </repositories>
 
     <dependencies>
-
-        <dependency>
-            <groupId>org.bstats</groupId>
-            <artifactId>bstats-bukkit</artifactId>
-            <version>1.5</version>
-            <scope>compile</scope>
-        </dependency>
-
         <dependency>
             <groupId>me.lucko.luckperms</groupId>
             <artifactId>luckperms-api</artifactId>

@@ -1,7 +1,7 @@
 name: ${project.name}
 version: ${project.version}
-description: Plugin for NovelMC
-author: Telesphoreo
+description: Plugin for UnraveledMC
+author: UnraveledMC
 main: net.novelmc.Converse
 depend: [LuckPerms]
 api-version: 1.14

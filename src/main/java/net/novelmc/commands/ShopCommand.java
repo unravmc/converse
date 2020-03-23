@@ -91,24 +91,25 @@ public class ShopCommand implements CommandExecutor
                     }
                     break;
             }
-            return true;
         }
         if (args.length == 2) {
             if (args[0].equalsIgnoreCase("get")) {
-                Player player = Bukkit.getPlayer(args[1]);
-                if (player == null) {
-                    sender.sendMessage(ChatColor.GRAY + "That player cannot be found!");
-                    return true;
+                Player player;
+                try {
+                    player = Bukkit.getPlayer(args[1]);
+                    int coins = ShopIndex.getCoins(player);
+                    if (coins == 0) {
+                        sender.sendMessage(ChatColor.GRAY + "There are no entries for that player, or their balance is 0.");
+                        return true;
+                    }
+                    sender.sendMessage(ChatColor.GRAY + player.getName() + " has " + coins + " coins.");
+
+                } catch (NullPointerException ex) {
+                    sender.sendMessage("That player is not a valid player!");
                 }
-                int coins = ShopIndex.getCoins(player);
-                if (coins == 0) {
-                    sender.sendMessage(ChatColor.GRAY + "There are no entries for that player, or their balance is 0.");
-                    return true;
-                }
-                sender.sendMessage(ChatColor.GRAY + player.getName() + " has " + coins + " coins.");
             }
         }
-        //in case it doesn't already return true???
+        
         return true;
     }
 }

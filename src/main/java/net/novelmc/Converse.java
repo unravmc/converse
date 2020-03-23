@@ -21,7 +21,6 @@ import net.novelmc.listeners.WorldListener;
 import net.novelmc.permban.Permban;
 import net.novelmc.shop.*;
 import net.novelmc.util.Util;
-import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -75,8 +74,6 @@ public class Converse extends JavaPlugin
         registerConfigs();
         // BuildProperties
         build.load(this);
-        // Metrics
-        new Metrics(this);
         // LuckPerms
         getLuckPermsAPI();
         lp = new LuckPermsBridge(this);

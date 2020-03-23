@@ -48,9 +48,12 @@ public class TabListener extends ConverseBase implements Listener
         String rank = plugin.lp.displayRank(player);
         ChatColor color = plugin.lp.displayRankColor(player);
         
-        if (!plugin.lp.isStaff(player.getUniqueId())) 
+        if (plugin.lp.isStaff(player.getUniqueId())) 
         {
-            player.setPlayerListName(plugin.lp.nameColor(player) + player.getName());
+            player.setPlayerListName(ChatColor.DARK_GRAY + "[" 
+                + color + rank 
+                + ChatColor.DARK_GRAY + "]" 
+                + plugin.lp.nameColor(player) + " " + player.getName()); 
         } 
         if (plugin.lp.isArchitect(player.getUniqueId()) || plugin.lp.isVoter(player.getUniqueId())) {
             player.setPlayerListName(ChatColor.DARK_GRAY + "[" 
@@ -59,10 +62,8 @@ public class TabListener extends ConverseBase implements Listener
                 + plugin.lp.nameColor(player) + " " + player.getName());
         }
         else 
-        { player.setPlayerListName(ChatColor.DARK_GRAY + "[" 
-                + color + rank 
-                + ChatColor.DARK_GRAY + "]" 
-                + plugin.lp.nameColor(player) + " " + player.getName()); 
+        { 
+            player.setPlayerListName(plugin.lp.nameColor(player) + player.getName());
         }
         
         Util.tabAdd(player);
@@ -86,7 +87,14 @@ public class TabListener extends ConverseBase implements Listener
                 + color + rank 
                 + ChatColor.DARK_GRAY + "]" 
                 + plugin.lp.nameColor(player) + " " + player.getName());
-            } else {
+            }
+            if (plugin.lp.isArchitect(player.getUniqueId()) || plugin.lp.isVoter(player.getUniqueId())) {
+                player.setPlayerListName(ChatColor.DARK_GRAY + "[" 
+                + color + rank 
+                + ChatColor.DARK_GRAY + "]" 
+                + plugin.lp.nameColor(player) + " " + player.getName());
+            }
+            else {
                 player.setPlayerListName(plugin.lp.nameColor(player) + player.getName());
             }
             
