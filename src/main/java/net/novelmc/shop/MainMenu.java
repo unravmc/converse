@@ -18,6 +18,7 @@ public class MainMenu extends ShopIndex {
                 player.sendMessage("You cannot do that.");
                 return;
             }
+            
             Converse.plugin.players.open(player);
         });
     }
