@@ -66,7 +66,7 @@ public class TabListener extends ConverseBase implements Listener
             player.setPlayerListName(plugin.lp.nameColor(player) + player.getName());
         }
         
-        Util.tabAdd(player);
+        plugin.po.tabAdd(player);
     }
 
     @EventHandler
@@ -98,8 +98,8 @@ public class TabListener extends ConverseBase implements Listener
                 player.setPlayerListName(plugin.lp.nameColor(player) + player.getName());
             }
             
-            Util.tabRemove(player);
-            Util.tabAdd(player);
+            plugin.po.tabRemove(player);
+            plugin.po.tabAdd(player);
         });
     }
 }

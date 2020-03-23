@@ -20,6 +20,7 @@ import net.novelmc.listeners.TabListener;
 import net.novelmc.listeners.WorldListener;
 import net.novelmc.permban.Permban;
 import net.novelmc.shop.*;
+import net.novelmc.util.PlayerOrganizer;
 import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
@@ -36,6 +37,7 @@ public class Converse extends JavaPlugin
     public MainConfig config;
     public PermbanConfig permbanConfig;
     public PlayerData pd;
+    public PlayerOrganizer po;
     // Banning
     public Ban ban;
     public Permban permban;
@@ -85,7 +87,7 @@ public class Converse extends JavaPlugin
         ban = new Ban(this);
         permban = new Permban(this);
         //Scoreboard for Tablist
-        Util.tabInit();
+        po = new PlayerOrganizer();
     }
 
     @Override
