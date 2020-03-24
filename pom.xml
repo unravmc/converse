@@ -52,12 +52,6 @@
            <artifactId>spigot-api</artifactId>
            <version>1.14.4-R0.1-SNAPSHOT</version>
            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>net.md-5</groupId>
-                    <artifactId>bungeecord-chat</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>

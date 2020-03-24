@@ -23,7 +23,7 @@ public class ShopAdminCommand implements CommandExecutor {
         }
         
         if (args.length == 3) {
-            Player p = Bukkit.getPlayerExact(args[1]);
+            Player p = Bukkit.getPlayer(args[1]);
             
             int x; 
             try {
@@ -71,7 +71,7 @@ public class ShopAdminCommand implements CommandExecutor {
         }
         if (args.length == 2) {
             if (args[0].equalsIgnoreCase("get")) {
-                Player player = Bukkit.getPlayerExact(args[1]);
+                Player player = Bukkit.getPlayer(args[1]);
                 if (player != null) {
                     int coins = ShopIndex.getCoins(player);
                     if (coins == 0) {

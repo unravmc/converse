@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
@@ -46,14 +47,20 @@ public class ChatListener implements Listener
         String message = event.getMessage();
         Player player = event.getPlayer();
         
-        if (util.isInAdminChat(player)) {
-            event.setCancelled(true);
-            util.adminchat(player, message);
-        }
-        
         if (isPunished(player))
         {
             event.setMessage(ChatColor.BLACK + message);
+        }
+    }
+    
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void adminChat(AsyncPlayerChatEvent event) {
+        String message = event.getMessage().trim();
+        Player p = event.getPlayer();
+        
+        if (util.isInAdminChat(p)) {
+            event.setCancelled(true);
+            util.adminchat(p, message);
         }
     }
 }
