@@ -21,7 +21,6 @@ public abstract class ShopIndex implements InventoryHolder, Listener {
     public static Map<UUID, UUID> openInventories = new HashMap<>();
     //
     public static Map<UUID, Integer> coinMap;
-    public static final int playerCount = Bukkit.getOnlinePlayers().size();
     
     @SuppressWarnings("")
     public ShopIndex(int invSize, String invName) {
@@ -144,7 +143,7 @@ public abstract class ShopIndex implements InventoryHolder, Listener {
         }
     }
     
-    public ItemStack newPlayerHead(Player p) {
+    public final ItemStack newPlayerHead(Player p) {
         ItemStack item = new ItemStack(Material.PLAYER_HEAD, 1);
         SkullMeta sku = (SkullMeta) item.getItemMeta();
         sku.setDisplayName(p.getName());

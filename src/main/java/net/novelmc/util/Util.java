@@ -15,7 +15,7 @@ import org.bukkit.scoreboard.Team;
 
 public class Util extends ConverseBase
 {
-    private Map<UUID, Boolean> adminChat = new HashMap<>();
+    private HashMap<UUID, Boolean> adminChat = new HashMap<>();
     private boolean inAdminChat = false;
     
     public List<String> getOnlinePlayers()
@@ -71,25 +71,18 @@ public class Util extends ConverseBase
         });
     }
     
-    //adminchat getter
-    public Boolean getAdminChat() {
-        return inAdminChat;
+    public void adminchat(Player p, String message) {
+        CommandSender sender = (CommandSender) p;
+        adminchat(sender, message);
     }
-    
-    //adminchat setter
-    public void setAdminChat(boolean inChat) {
-        this.inAdminChat = inChat;
-    }
-    
+ 
     //creation of the adminchat toggleable variable;
     public void putAdminChat(Player p) {
         UUID uuid = p.getUniqueId();
-        if (!getAdminChat()) {
+        if (!adminChat.containsKey(uuid)) {
             adminChat.put(uuid, inAdminChat);
-            setAdminChat(true);
         } else {
             adminChat.remove(uuid);
-            setAdminChat(false);
         }
     }
     

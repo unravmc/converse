@@ -45,14 +45,15 @@ public class ChatListener implements Listener
     {
         String message = event.getMessage();
         Player player = event.getPlayer();
-        if (isPunished(player))
-        {
-            event.setMessage(ChatColor.BLACK + message);
-        }
         
         if (util.isInAdminChat(player)) {
             event.setCancelled(true);
             util.adminchat(player, message);
+        }
+        
+        if (isPunished(player))
+        {
+            event.setMessage(ChatColor.BLACK + message);
         }
     }
 }

@@ -8,19 +8,16 @@ import org.bukkit.inventory.ItemStack;
 public class PlayersMenu extends ShopIndex {
     
     public PlayersMenu() {
-        super(playerCount + 1, "Players Menu");
-        Iterator it = Bukkit.getOnlinePlayers().iterator();
+        super(Bukkit.getOnlinePlayers().size() + 1, "Players Menu");
         
-        it.forEachRemaining((target) -> {
-            Player p = (Player) target;
-            ItemStack is = newPlayerHead(p);
-            int x = 0;
-            do {
-                setItem(x, is, player -> {
-                    player.sendMessage("You clicked on " + p.getName());
-                });
-                x++;
-            } while (it.hasNext());
-        });
+        int x = 0;
+        for (Player target : Bukkit.getOnlinePlayers())
+        {
+            ItemStack is = newPlayerHead(target);
+            setItem(x, is, player -> {
+                player.sendMessage("You clicked on " + target.getName());
+            });
+            x++;
+        }
     }
 }
