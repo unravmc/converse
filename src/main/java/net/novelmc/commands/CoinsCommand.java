@@ -1,12 +1,13 @@
 package net.novelmc.commands;
 
+import net.novelmc.Converse;
 import org.bukkit.command.*;
 import net.novelmc.util.CoinIndex;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class CoinsCommand implements CommandExecutor {
-    private final CoinIndex index = new CoinIndex();
+    private final CoinIndex index = Converse.plugin.coinIndex;
     
     @Override
     public boolean onCommand(CommandSender cs, Command cmd, String lbl, String[] args) {

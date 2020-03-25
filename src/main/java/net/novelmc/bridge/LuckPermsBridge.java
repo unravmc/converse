@@ -24,36 +24,48 @@ public class LuckPermsBridge
 
     public boolean isModerator(UUID player)
     {
+        assert api != null;
         User user = api.getUserManager().getUser(player);
+        assert user != null;
         return user.getPrimaryGroup().equalsIgnoreCase(plugin.config.getString("permissions.mod"));
     }
 
     public boolean isSeniorModerator(UUID player)
     {
+        assert api != null;
         User user = api.getUserManager().getUser(player);
+        assert user != null;
         return user.getPrimaryGroup().equalsIgnoreCase(plugin.config.getString("permissions.senior_mod"));
     }
 
     public boolean isDeveloper(UUID player)
     {
+        assert api != null;
         User user = api.getUserManager().getUser(player);
+        assert user != null;
         return user.getPrimaryGroup().equalsIgnoreCase(plugin.config.getString("permissions.developer"));
     }
 
     public boolean isExecutive(UUID player)
     {
+        assert api != null;
         User user = api.getUserManager().getUser(player);
+        assert user != null;
         return user.getPrimaryGroup().equalsIgnoreCase(plugin.config.getString("permissions.executive"));
     }
 
     public boolean isArchitect(UUID player)
     {
+        assert api != null;
         User user = api.getUserManager().getUser(player);
+        assert user != null;
         return user.getPrimaryGroup().equalsIgnoreCase(plugin.config.getString("permissions.architect"));
     }
     
     public boolean isVoter(UUID player) {
+        assert api != null;
         User user = api.getUserManager().getUser(player);
+        assert user != null;
         return user.getPrimaryGroup().equalsIgnoreCase(plugin.config.getString("permissions.voter"));
     }
 
@@ -158,6 +170,7 @@ public class LuckPermsBridge
 
     public void set(UUID uuid, String group)
     {
+        assert api != null;
         UserManager userManager = api.getUserManager();
         CompletableFuture<User> userFuture = userManager.loadUser(uuid);
 
@@ -178,6 +191,7 @@ public class LuckPermsBridge
 
     public void setPrefix(UUID uuid, String permission)
     {
+        assert api != null;
         UserManager userManager = api.getUserManager();
         CompletableFuture<User> userFuture = userManager.loadUser(uuid);
 
@@ -193,6 +207,7 @@ public class LuckPermsBridge
 
     public void allowStaffWorld(UUID uuid)
     {
+        assert api != null;
         UserManager userManager = api.getUserManager();
         CompletableFuture<User> userFuture = userManager.loadUser(uuid);
 
@@ -208,6 +223,7 @@ public class LuckPermsBridge
 
     public void disallowStaffWorld(UUID uuid)
     {
+        assert api != null;
         UserManager userManager = api.getUserManager();
         CompletableFuture<User> userFuture = userManager.loadUser(uuid);
 

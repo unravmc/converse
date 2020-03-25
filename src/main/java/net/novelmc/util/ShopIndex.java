@@ -1,9 +1,7 @@
 package net.novelmc.util;
 
-import java.util.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
@@ -11,6 +9,9 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.*;
 
 public abstract class ShopIndex implements InventoryHolder, Listener {
     private final Inventory INV;
@@ -33,6 +34,7 @@ public abstract class ShopIndex implements InventoryHolder, Listener {
         return uuid;
     }
     
+    @NotNull
     @Override
     public Inventory getInventory() {
         return INV;
@@ -86,9 +88,9 @@ public abstract class ShopIndex implements InventoryHolder, Listener {
     public final ItemStack newItem(Material mat, String name, String...lore) {
         ItemStack item = new ItemStack(mat, 1);
         ItemMeta meta = item.getItemMeta();
+        assert meta != null;
         meta.setDisplayName(name);
-        ArrayList<String> metaLore = new ArrayList<>();
-        metaLore.addAll(Arrays.asList(lore));
+        ArrayList<String> metaLore = new ArrayList<>(Arrays.asList(lore));
         meta.setLore(metaLore);
         item.setItemMeta(meta);
         return item;
@@ -97,11 +99,12 @@ public abstract class ShopIndex implements InventoryHolder, Listener {
     public final ItemStack newPlayerHead(Player p) {
         ItemStack item = new ItemStack(Material.PLAYER_HEAD, 1);
         SkullMeta sku = (SkullMeta) item.getItemMeta();
+        assert sku != null;
         sku.setDisplayName(p.getName());
         ArrayList<String> loreComments = new ArrayList<>();
         loreComments.add("Click for user specific info");
         sku.setLore(loreComments);
-        sku.setOwningPlayer((OfflinePlayer) p);
+        sku.setOwningPlayer(p);
         item.setItemMeta(sku);
         return item;
     }

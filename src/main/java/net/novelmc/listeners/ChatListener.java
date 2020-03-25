@@ -11,16 +11,15 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.jetbrains.annotations.NotNull;
 
 public class ChatListener implements Listener
 {
-    private final Converse plugin;
     private Util util = new Util();
 
     @SuppressWarnings("")
     public ChatListener(Converse plugin)
     {
-        this.plugin = plugin;
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
@@ -42,7 +41,7 @@ public class ChatListener implements Listener
     }
 
     @EventHandler
-    public void onPlayerChat(AsyncPlayerChatEvent event)
+    public void onPlayerChat(@NotNull AsyncPlayerChatEvent event)
     {
         String message = event.getMessage();
         Player player = event.getPlayer();
@@ -54,7 +53,7 @@ public class ChatListener implements Listener
     }
     
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void adminChat(AsyncPlayerChatEvent event) {
+    public void adminChat(@NotNull AsyncPlayerChatEvent event) {
         String message = event.getMessage().trim();
         Player p = event.getPlayer();
         

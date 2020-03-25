@@ -10,14 +10,11 @@ import org.bukkit.entity.Player;
 
 public class Util extends ConverseBase {
 
-
     //honestly why tf is this here????
     public List<String> getOnlinePlayers() {
         List<String> players = new ArrayList<>();
         Bukkit.getOnlinePlayers().forEach((p) ->
-        {
-            players.add(p.getName());
-        });
+                players.add(p.getName()));
         return players;
     }
 
@@ -55,14 +52,11 @@ public class Util extends ConverseBase {
         Bukkit.getOnlinePlayers()
                 .stream()
                 .filter((players) -> (players.hasPermission("converse.adminchat")))
-                .forEachOrdered((players) -> {
-                        players.sendMessage(format);
-                    });
+                .forEachOrdered((players) -> players.sendMessage(format));
     }
     
     public void adminchat(Player p, String message) {
-        CommandSender sender = (CommandSender) p;
-        adminchat(sender, message);
+        adminchat((CommandSender) p, message);
     }
     
     private HashMap<UUID, Boolean> adminChat = new HashMap<>();
@@ -71,7 +65,7 @@ public class Util extends ConverseBase {
     public void putAdminChat(UUID uuid) {
         if (adminChat.containsKey(uuid)) {
             boolean value = adminChat.get(uuid);
-            if (value == true) {
+            if (value) {
                 adminChat.replace(uuid, false);
             } else {
                 adminChat.replace(uuid, true);

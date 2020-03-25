@@ -5,20 +5,21 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class ShopAdminCommand implements CommandExecutor {
     private final String PLAYER_NOT_FOUND = ChatColor.GRAY + "That player cannot be found!";
     private final String INVALID_NUMBER = ChatColor.GRAY + "That is not a valid integer!";
-    private final CoinIndex coins = new CoinIndex();
+    public static final CoinIndex coins = new CoinIndex();
     
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String lbl, String[] args) {
+    public boolean onCommand(CommandSender sender, Command cmd, String lbl, @NotNull String[] args) {
         
         if (args.length == 0) {
             return false;
         }
         
-        if (args.length > 0 && !sender.hasPermission("converse.shopadmin")) {
+        if (!sender.hasPermission("converse.shop.admin")) {
             sender.sendMessage(Messages.NO_PERMISSION);
             return true;
         }

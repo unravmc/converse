@@ -16,13 +16,9 @@ public class MainMenu extends ShopIndex {
         
         
         
-        setItem(0, is1, player -> {
-            Converse.plugin.trails.open(player);
-        });
+        setItem(0, is1, player -> Converse.plugin.trails.open(player));
         
-        setItem(1, is2, player -> {
-            Converse.plugin.players.open(player);
-        });
+        setItem(1, is2, player -> Converse.plugin.players.open(player));
         
         setItem(2, is3, player -> {
             HoverIndex hover = new HoverIndex(player, ChatColor.RED, ChatColor.GRAY, "Hoverable Text", "This is a test for some hoverable text!!");

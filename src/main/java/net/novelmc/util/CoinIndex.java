@@ -20,11 +20,7 @@ public class CoinIndex extends ConverseBase {
     
     public int getCoins(Player p) {
         UUID unique = p.getUniqueId();
-        if (!coinMap.containsKey(unique)) {
-            return 0;
-        } else { 
-            return coinMap.get(unique);
-        }
+        return coinMap.getOrDefault(unique, 0);
     }
     
     public void addCoins(Player p, int x) {

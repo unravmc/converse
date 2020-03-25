@@ -3,6 +3,7 @@ package net.novelmc.listeners;
 import net.novelmc.util.ShopIndex;
 import java.util.UUID;
 import net.novelmc.Converse;
+import org.jetbrains.annotations.NotNull;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,16 +13,14 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class ShopListener implements Listener {
-    private Converse plugin;
 
     public ShopListener(Converse plugin)
     {
-        this.plugin = plugin;
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
     }
     
     @EventHandler
-    public void onClick(InventoryClickEvent e) {
+    public void onClick(@NotNull InventoryClickEvent e) {
         if (!(e.getWhoClicked() instanceof Player)) {
             return;
         }

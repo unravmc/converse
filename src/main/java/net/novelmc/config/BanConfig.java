@@ -29,8 +29,8 @@ public class BanConfig extends YamlConfiguration
         {
             super.load(file);
         }
-        catch (IOException | InvalidConfigurationException ex)
-        {
+        catch (IOException | InvalidConfigurationException ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -40,8 +40,8 @@ public class BanConfig extends YamlConfiguration
         {
             super.save(file);
         }
-        catch (IOException ex)
-        {
+        catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 

@@ -39,6 +39,8 @@ public class Converse extends JavaPlugin
     public TrailsMenu trails;
     public PlayersMenu players;
     public ShopListener shl;
+    // Indexers
+    public CoinIndex coinIndex;
     // Listeners
     public BanListener bl;
     public ChatListener cl;
@@ -47,6 +49,7 @@ public class Converse extends JavaPlugin
     public PlayerDataListener pdl;
     public TabListener sl;
     public WorldListener wl;
+
 
     @Override
     public void onLoad()
@@ -57,12 +60,12 @@ public class Converse extends JavaPlugin
         config = new MainConfig(this);
         permbanConfig = new PermbanConfig(this);
         pd = new PlayerData(this);
-        loadShops();
     }
 
     @Override
     public void onEnable()
     {
+        loadShops();
         // Config
         registerConfigs();
         // BuildProperties
@@ -92,6 +95,10 @@ public class Converse extends JavaPlugin
         shop = new MainMenu();
         trails = new TrailsMenu();
         players = new PlayersMenu();
+    }
+
+    private void indexer() {
+        coinIndex = new CoinIndex();
     }
 
     public static LuckPermsApi getLuckPermsAPI()
@@ -148,17 +155,10 @@ public class Converse extends JavaPlugin
         permbanConfig.load();
     }
 
-    private void unregisterConfigs()
-    {
+    private void unregisterConfigs() {
         banConfig.save();
         config.save();
         permbanConfig.save();
-    }
-
-    private void reregisterConfigs()
-    {
-        unregisterConfigs();
-        registerConfigs();
     }
 
     public static class BuildProperties

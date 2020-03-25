@@ -2,6 +2,7 @@ package net.novelmc.bans;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 import net.novelmc.Converse;
 import net.novelmc.util.Util;
@@ -12,7 +13,7 @@ import org.bukkit.entity.Player;
 
 public class Ban
 {
-    private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd \'at\' HH:mm:ss z");
+    private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
     private final Converse plugin;
 
     public Ban(Converse plugin)
@@ -23,7 +24,7 @@ public class Ban
     public String constructBanMessage(Player player, String reason, String banID)
     {
         final StringBuilder banMessage = new StringBuilder(ChatColor.GRAY + "Unraveled");
-        banMessage.append(ChatColor.DARK_GRAY).append("").append("MC\n");
+        banMessage.append(ChatColor.DARK_GRAY).append("MC\n");
         banMessage.append(ChatColor.RED).append("You are temporarily banned from this server!\n");
         if (!(reason.length() == 0))
         {
@@ -40,7 +41,7 @@ public class Ban
     {
         plugin.banConfig.createSection(player.getUniqueId().toString());
         plugin.banConfig.set(player.getUniqueId().toString() + ".player", player.getName());
-        plugin.banConfig.set(player.getUniqueId().toString() + ".ip", player.getAddress().getHostString());
+        plugin.banConfig.set(player.getUniqueId().toString() + ".ip", Objects.requireNonNull(player.getAddress()).getHostString());
         plugin.banConfig.set(player.getUniqueId().toString() + ".type", type);
         plugin.banConfig.set(player.getUniqueId().toString() + ".by", sender.getName());
         plugin.banConfig.set(player.getUniqueId().toString() + ".reason", reason);
@@ -66,13 +67,13 @@ public class Ban
     @SuppressWarnings("")
     public String getReason(Player player)
     {
-        return plugin.banConfig.get(player.getUniqueId().toString() + ".reason").toString();
+        return Objects.requireNonNull(plugin.banConfig.get(player.getUniqueId().toString() + ".reason")).toString();
     }
 
     @SuppressWarnings("")
     public String getReason(OfflinePlayer player)
     {
-        return plugin.banConfig.get(player.getUniqueId().toString() + ".reason").toString();
+        return Objects.requireNonNull(plugin.banConfig.get(player.getUniqueId().toString() + ".reason")).toString();
     }
 
     @SuppressWarnings("")
@@ -84,7 +85,7 @@ public class Ban
     @SuppressWarnings("")
     public String getIP(OfflinePlayer player)
     {
-        return plugin.banConfig.get(player.getUniqueId().toString() + ".ip").toString();
+        return Objects.requireNonNull(plugin.banConfig.get(player.getUniqueId().toString() + ".ip")).toString();
     }
 
     public boolean hasIP(OfflinePlayer player)
@@ -95,19 +96,19 @@ public class Ban
     @SuppressWarnings("")
     public String getBannedBy(OfflinePlayer player)
     {
-        return plugin.banConfig.get(player.getUniqueId().toString() + ".by").toString();
+        return Objects.requireNonNull(plugin.banConfig.get(player.getUniqueId().toString() + ".by")).toString();
     }
 
     @SuppressWarnings("")
     public String getBanID(Player player)
     {
-        return plugin.banConfig.get(player.getUniqueId().toString() + ".id").toString();
+        return Objects.requireNonNull(plugin.banConfig.get(player.getUniqueId().toString() + ".id")).toString();
     }
 
     @SuppressWarnings("")
     public String getBanID(OfflinePlayer player)
     {
-        return plugin.banConfig.get(player.getUniqueId().toString() + ".id").toString();
+        return Objects.requireNonNull(plugin.banConfig.get(player.getUniqueId().toString() + ".id")).toString();
     }
 
     @SuppressWarnings("")
@@ -177,15 +178,13 @@ public class Ban
         return false;
     }
 
-    public boolean removeBan(Player player)
+    public void removeBan(Player player)
     {
         if (plugin.banConfig.isConfigurationSection(player.getUniqueId().toString()))
         {
             plugin.banConfig.set(player.getUniqueId().toString(), null);
             plugin.banConfig.save();
             plugin.banConfig.load();
-            return true;
         }
-        return false;
     }
 }

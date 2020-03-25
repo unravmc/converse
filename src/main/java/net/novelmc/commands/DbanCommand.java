@@ -1,17 +1,19 @@
 package net.novelmc.commands;
 
-import java.util.Date;
 import net.novelmc.util.ConverseBase;
 import net.novelmc.util.Util;
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Date;
 
 public class DbanCommand extends ConverseBase implements CommandExecutor
 {

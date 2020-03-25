@@ -1,10 +1,5 @@
 package net.novelmc.config;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 import net.novelmc.Converse;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -12,15 +7,17 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
+
 public class PlayerData extends YamlConfiguration
 {
     private static PlayerData config;
-    private Converse plugin;
     private File userdata;
 
     public PlayerData(Converse plugin)
     {
-        this.plugin = plugin;
         this.userdata = new File(plugin.getDataFolder(), File.separator + "players");
 
         if (!userdata.exists())
@@ -40,7 +37,7 @@ public class PlayerData extends YamlConfiguration
             {
                 playerData.set("username", player.getName());
                 playerData.set("uuid", player.getUniqueId().toString());
-                playerData.set("ip", player.getAddress().getHostName());
+                playerData.set("ip", Objects.requireNonNull(player.getAddress()).getHostName());
                 playerData.save(f);
                 Bukkit.getLogger().info("Creating new player entry for " + player.getName());
                 return;
@@ -62,7 +59,7 @@ public class PlayerData extends YamlConfiguration
             }
             if (!playerData.isSet("ip"))
             {
-                playerData.set("ip", player.getAddress().getHostName());
+                playerData.set("ip", Objects.requireNonNull(player.getAddress()).getHostName());
             }
         }
     }
