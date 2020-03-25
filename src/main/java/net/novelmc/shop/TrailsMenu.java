@@ -1,5 +1,6 @@
 package net.novelmc.shop;
 
+import net.novelmc.util.ShopIndex;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 

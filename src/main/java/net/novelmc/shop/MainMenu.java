@@ -1,5 +1,6 @@
 package net.novelmc.shop;
 
+import net.novelmc.util.ShopIndex;
 import net.novelmc.Converse;
 import net.novelmc.util.HoverIndex;
 import net.md_5.bungee.api.ChatColor;

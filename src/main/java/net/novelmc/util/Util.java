@@ -9,9 +9,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class Util extends ConverseBase {
-    private HashMap<UUID, Boolean> adminChat = new HashMap<>();
-    private boolean inAdminChat = false;
 
+
+    //honestly why tf is this here????
     public List<String> getOnlinePlayers() {
         List<String> players = new ArrayList<>();
         Bukkit.getOnlinePlayers().forEach((p) ->
@@ -64,21 +64,29 @@ public class Util extends ConverseBase {
         CommandSender sender = (CommandSender) p;
         adminchat(sender, message);
     }
+    
+    private HashMap<UUID, Boolean> adminChat = new HashMap<>();
  
     //creation of the adminchat toggleable variable;
-    public void putAdminChat(Player p) {
-        UUID uuid = p.getUniqueId();
-        if (!adminChat.containsKey(uuid)) {
-            adminChat.put(uuid, inAdminChat);
+    public void putAdminChat(UUID uuid) {
+        if (adminChat.containsKey(uuid)) {
+            boolean value = adminChat.get(uuid);
+            if (value == true) {
+                adminChat.replace(uuid, false);
+            } else {
+                adminChat.replace(uuid, true);
+            }
         } else {
-            adminChat.remove(uuid);
+            adminChat.put(uuid, true);
         }
     }
-    
-    //creation of the container for the listener
-    public Boolean isInAdminChat(Player p) {
-        UUID uuid = p.getUniqueId();
-        return adminChat.containsKey(uuid);
+
+    public Boolean isInAdminChat(UUID uuid) {
+        if (!adminChat.containsKey(uuid)) {
+            return false;
+        }
+        
+        return adminChat.get(uuid);
     }
     
     // thank you tfm :pensive:

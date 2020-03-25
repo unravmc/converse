@@ -31,8 +31,8 @@ public class AdminchatCommand implements CommandExecutor
                 return true;
             }
             Player p = (Player) sender;
-            util.putAdminChat(p);
-            p.sendMessage("Toggled adminchat " + (util.isInAdminChat(p) ? "on" : "off"));
+            util.putAdminChat(p.getUniqueId());
+            p.sendMessage("Toggled adminchat " + (util.isInAdminChat(p.getUniqueId()) ? "on" : "off"));
             return true;
         }
         util.adminchat(sender, message);

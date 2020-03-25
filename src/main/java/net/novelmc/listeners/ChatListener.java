@@ -58,7 +58,7 @@ public class ChatListener implements Listener
         String message = event.getMessage().trim();
         Player p = event.getPlayer();
         
-        if (util.isInAdminChat(p)) {
+        if (util.isInAdminChat(p.getUniqueId())) {
             event.setCancelled(true);
             util.adminchat(p, message);
         }

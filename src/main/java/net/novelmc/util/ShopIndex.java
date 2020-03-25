@@ -1,4 +1,4 @@
-package net.novelmc.shop;
+package net.novelmc.util;
 
 import java.util.*;
 import org.bukkit.Bukkit;
@@ -19,8 +19,7 @@ public abstract class ShopIndex implements InventoryHolder, Listener {
     //
     public static Map<UUID, ShopIndex> invByUUID = new HashMap<>();
     public static Map<UUID, UUID> openInventories = new HashMap<>();
-    //
-    public static Map<UUID, Integer> coinMap;
+
     
     @SuppressWarnings("")
     public ShopIndex(int invSize, String invName) {
@@ -93,54 +92,6 @@ public abstract class ShopIndex implements InventoryHolder, Listener {
         meta.setLore(metaLore);
         item.setItemMeta(meta);
         return item;
-    }
-    
-    public static final void setCoins(Player p, int x) {
-        UUID unique = p.getUniqueId();
-        if (!coinMap.containsKey(unique)) {
-            coinMap.put(unique, x);
-        } else {
-            coinMap.replace(unique, x);
-        }
-    }
-    
-    public static final Integer getCoins(Player p) {
-        UUID unique = p.getUniqueId();
-        if (!coinMap.containsKey(unique)) {
-            return 0;
-        } else { 
-            return coinMap.get(unique);
-        }
-    }
-    
-    public static final void addCoins(Player p, int x) {
-        UUID unique = p.getUniqueId();
-        if (!coinMap.containsKey(unique)) {
-            setCoins(p, x);
-        } else {
-            int y = getCoins(p);
-            int z = x + y;
-            coinMap.replace(unique, z);
-        }
-    }
-    
-    public static final void removeCoins(Player p, Integer index) {
-        //Completely remove entry if specified coins are higher than the amount stored.
-        if (index > coinMap.get(p.getUniqueId())) {
-            coinMap.remove(p.getUniqueId());
-        }
-        
-        //do nothing if it's 0 or less.
-        if (index < 1) {
-            return;
-        }
-        
-        //Takes the difference then updates the map value.
-        if (index < coinMap.get(p.getUniqueId())) {
-            int x = coinMap.get(p.getUniqueId());
-            int newIndex = index - x;
-            coinMap.replace(p.getUniqueId(), newIndex);
-        }
     }
     
     public final ItemStack newPlayerHead(Player p) {

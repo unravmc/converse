@@ -1,7 +1,7 @@
 package net.novelmc.commands;
 
 import net.novelmc.Converse;
-import net.novelmc.shop.ShopIndex;
+import net.novelmc.util.ShopIndex;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

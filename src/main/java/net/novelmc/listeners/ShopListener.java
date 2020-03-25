@@ -1,5 +1,6 @@
-package net.novelmc.shop;
+package net.novelmc.listeners;
 
+import net.novelmc.util.ShopIndex;
 import java.util.UUID;
 import net.novelmc.Converse;
 import org.bukkit.Bukkit;

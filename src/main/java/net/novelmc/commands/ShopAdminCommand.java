@@ -1,6 +1,6 @@
 package net.novelmc.commands;
 
-import net.novelmc.shop.ShopIndex;
+import net.novelmc.util.CoinIndex;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.*;
@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 public class ShopAdminCommand implements CommandExecutor {
     private final String PLAYER_NOT_FOUND = ChatColor.GRAY + "That player cannot be found!";
     private final String INVALID_NUMBER = ChatColor.GRAY + "That is not a valid integer!";
+    private final CoinIndex coins = new CoinIndex();
     
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String lbl, String[] args) {
@@ -36,23 +37,23 @@ public class ShopAdminCommand implements CommandExecutor {
             if (p != null) {
                 switch (args[0].toLowerCase()) {
                     case "set":
-                        ShopIndex.setCoins(p, x);
+                        coins.setCoins(p, x);
                         sender.sendMessage(ChatColor.GRAY + p.getName() + " now has " + x + " coins!");
                         p.sendMessage(ChatColor.YELLOW + "You now have " + x + " coins!");
                         break;
                     case "add":
-                        ShopIndex.addCoins(p, x);
+                        coins.addCoins(p, x);
                         sender.sendMessage(p.getName() + " now has " + x + " coins!");
                         p.sendMessage(ChatColor.YELLOW + "You now have " + x + " coins!");
                         break;
                     case "del":
                        
-                        if (!ShopIndex.coinMap.containsKey(p.getUniqueId())) {
+                        if (!coins.coinMap.containsKey(p.getUniqueId())) {
                             sender.sendMessage("That player doesn't have any coins!");
                             break;
                         }
-                        ShopIndex.removeCoins(p, x);
-                        int index = ShopIndex.getCoins(p);
+                        coins.removeCoins(p, x);
+                        int index = coins.getCoins(p);
                         if (index == 0) {
                             sender.sendMessage(ChatColor.YELLOW + "This player no longer has any coins!");
                             break;
@@ -73,20 +74,22 @@ public class ShopAdminCommand implements CommandExecutor {
             if (args[0].equalsIgnoreCase("get")) {
                 Player player = Bukkit.getPlayer(args[1]);
                 if (player != null) {
-                    int coins = ShopIndex.getCoins(player);
-                    if (coins == 0) {
+                    int tCoins = coins.getCoins(player);
+                    if (tCoins == 0) {
                         sender.sendMessage(ChatColor.GRAY + "There are no entries for that player, or their balance is 0.");
                         return true;
                     }
-                    sender.sendMessage(ChatColor.GRAY + player.getName() + " has " + coins + " coins.");
+                    sender.sendMessage(ChatColor.GRAY + player.getName() + " has " + tCoins + " coins.");
                 }
                 else {
                     sender.sendMessage(PLAYER_NOT_FOUND);
                     return true;
                 }
             }
-        }
+        }   
         
         return true;
     }
+    
+    
 }

@@ -6,7 +6,7 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 
-public class HoverIndex {
+public class HoverIndex extends ConverseBase {
     private final Player player;
     private final ChatColor color;
     private final ChatColor color2;
