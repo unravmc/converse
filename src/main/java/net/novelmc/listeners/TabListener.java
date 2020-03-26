@@ -2,9 +2,6 @@ package net.novelmc.listeners;
 
 import com.keenant.tabbed.Tabbed;
 import com.keenant.tabbed.tablist.TitledTabList;
-
-import java.util.List;
-
 import me.lucko.luckperms.api.event.EventBus;
 import me.lucko.luckperms.api.event.node.NodeMutateEvent;
 import net.novelmc.Converse;
@@ -18,6 +15,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import java.util.List;
+import java.util.Objects;
+
 public class TabListener extends ConverseBase implements Listener {
     private Converse plugin;
 
@@ -30,7 +30,7 @@ public class TabListener extends ConverseBase implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
+        Player player = Objects.requireNonNull(event.getPlayer());
         try {
             Tabbed tabbed = new Tabbed(plugin);
             TitledTabList tab = tabbed.newTitledTabList(player);
@@ -65,7 +65,7 @@ public class TabListener extends ConverseBase implements Listener {
     private void onGroupChange(NodeMutateEvent event) {
         Bukkit.getScheduler().runTask(plugin, () ->
         {
-            Player player = Bukkit.getPlayer(event.getTarget().getFriendlyName());
+            Player player = Objects.requireNonNull(Bukkit.getPlayer(event.getTarget().getFriendlyName()));
             String rank = plugin.lp.displayRank(player);
             ChatColor color = plugin.lp.displayRankColor(player);
             if (player == null) {

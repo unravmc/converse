@@ -55,7 +55,7 @@ public abstract class ShopIndex implements InventoryHolder, Listener {
         setItem(slot, stack, null);
     }
 
-    public final void open(Player p) {
+    public final void open(@NotNull Player p) {
         p.openInventory(INV);
         openInventories.put(p.getUniqueId(), getUUId());
     }
@@ -83,7 +83,7 @@ public abstract class ShopIndex implements InventoryHolder, Listener {
         return actions;
     }
 
-    @SuppressWarnings("null")
+    @NotNull
     public final ItemStack newItem(Material mat, String name, String... lore) {
         ItemStack item = new ItemStack(mat, 1);
         ItemMeta meta = item.getItemMeta();
@@ -95,6 +95,7 @@ public abstract class ShopIndex implements InventoryHolder, Listener {
         return item;
     }
 
+    @NotNull
     public final ItemStack newPlayerHead(Player p) {
         ItemStack item = new ItemStack(Material.PLAYER_HEAD, 1);
         SkullMeta sku = (SkullMeta) item.getItemMeta();

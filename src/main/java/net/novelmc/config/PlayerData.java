@@ -32,6 +32,7 @@ public class PlayerData extends YamlConfiguration {
                 playerData.set("username", player.getName());
                 playerData.set("uuid", player.getUniqueId().toString());
                 playerData.set("ip", Objects.requireNonNull(player.getAddress()).getHostName());
+                playerData.set("coins", "0");
                 playerData.save(f);
                 Bukkit.getLogger().info("Creating new player entry for " + player.getName());
                 return;
@@ -48,6 +49,9 @@ public class PlayerData extends YamlConfiguration {
             }
             if (!playerData.isSet("ip")) {
                 playerData.set("ip", Objects.requireNonNull(player.getAddress()).getHostName());
+            }
+            if (!playerData.isSet("coins")) {
+                playerData.set("coins", "0");
             }
         }
     }

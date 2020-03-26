@@ -24,6 +24,7 @@ public class Converse extends JavaPlugin {
     public static Converse plugin;
     public static final BuildProperties build = new BuildProperties();
     public static Server server;
+    public static Util util;
     // Configs
     public BanConfig banConfig;
     public MainConfig config;
@@ -64,7 +65,6 @@ public class Converse extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        loadShops();
         // Config
         registerConfigs();
         // BuildProperties
@@ -79,6 +79,9 @@ public class Converse extends JavaPlugin {
         // Banning
         ban = new Ban(this);
         permban = new Permban(this);
+        // Shops
+        loadShops();
+        util = new Util();
         //Scoreboard for Tablist
         po = new PlayerOrganizer();
     }

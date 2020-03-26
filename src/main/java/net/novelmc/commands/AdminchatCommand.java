@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import net.novelmc.Converse;
 import net.novelmc.util.Util;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
@@ -13,7 +14,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class AdminchatCommand implements CommandExecutor {
-    Util util = new Util();
+    private Util util = Converse.util;
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {

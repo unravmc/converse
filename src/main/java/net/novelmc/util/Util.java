@@ -97,7 +97,7 @@ public class Util extends ConverseBase {
         return adminChat.get(uuid);
     }
 
-    // thank you tfm :pensive:
+    // Rewrote this a bit to be a little more functional.
     @Nullable
     public static Date parseDateOffset(String time) {
         Util.time = time;

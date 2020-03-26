@@ -15,7 +15,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class ChatListener implements Listener {
-    private Util util = new Util();
+    public Util util = Converse.util;
 
     @SuppressWarnings("")
     public ChatListener(Converse plugin) {
