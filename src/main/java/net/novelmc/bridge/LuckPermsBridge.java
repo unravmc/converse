@@ -3,6 +3,7 @@ package net.novelmc.bridge;
 import java.util.Date;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+
 import me.lucko.luckperms.api.LuckPermsApi;
 import me.lucko.luckperms.api.Node;
 import me.lucko.luckperms.api.User;
@@ -12,56 +13,49 @@ import net.novelmc.util.Util;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class LuckPermsBridge
-{
+public class LuckPermsBridge {
     private final Converse plugin;
     private final LuckPermsApi api = Converse.getLuckPermsAPI();
 
-    public LuckPermsBridge(Converse plugin)
-    {
+    public LuckPermsBridge(Converse plugin) {
         this.plugin = plugin;
     }
 
-    public boolean isModerator(UUID player)
-    {
+    public boolean isModerator(UUID player) {
         assert api != null;
         User user = api.getUserManager().getUser(player);
         assert user != null;
         return user.getPrimaryGroup().equalsIgnoreCase(plugin.config.getString("permissions.mod"));
     }
 
-    public boolean isSeniorModerator(UUID player)
-    {
+    public boolean isSeniorModerator(UUID player) {
         assert api != null;
         User user = api.getUserManager().getUser(player);
         assert user != null;
         return user.getPrimaryGroup().equalsIgnoreCase(plugin.config.getString("permissions.senior_mod"));
     }
 
-    public boolean isDeveloper(UUID player)
-    {
+    public boolean isDeveloper(UUID player) {
         assert api != null;
         User user = api.getUserManager().getUser(player);
         assert user != null;
         return user.getPrimaryGroup().equalsIgnoreCase(plugin.config.getString("permissions.developer"));
     }
 
-    public boolean isExecutive(UUID player)
-    {
+    public boolean isExecutive(UUID player) {
         assert api != null;
         User user = api.getUserManager().getUser(player);
         assert user != null;
         return user.getPrimaryGroup().equalsIgnoreCase(plugin.config.getString("permissions.executive"));
     }
 
-    public boolean isArchitect(UUID player)
-    {
+    public boolean isArchitect(UUID player) {
         assert api != null;
         User user = api.getUserManager().getUser(player);
         assert user != null;
         return user.getPrimaryGroup().equalsIgnoreCase(plugin.config.getString("permissions.architect"));
     }
-    
+
     public boolean isVoter(UUID player) {
         assert api != null;
         User user = api.getUserManager().getUser(player);
@@ -69,107 +63,73 @@ public class LuckPermsBridge
         return user.getPrimaryGroup().equalsIgnoreCase(plugin.config.getString("permissions.voter"));
     }
 
-    public boolean isStaff(UUID player)
-    {
+    public boolean isStaff(UUID player) {
         return isModerator(player) || isSeniorModerator(player) || isDeveloper(player) || isExecutive(player);
     }
-    
-    public ChatColor nameColor(Player player) 
-    {
+
+    public ChatColor nameColor(Player player) {
         if (player == null) {
             return ChatColor.RESET;
-        }
-        else if (isModerator(player.getUniqueId())) {
+        } else if (isModerator(player.getUniqueId())) {
             return ChatColor.GREEN;
-        }
-        else if (isSeniorModerator(player.getUniqueId())) {
+        } else if (isSeniorModerator(player.getUniqueId())) {
             return ChatColor.YELLOW;
-        }
-        else if (isDeveloper(player.getUniqueId())) {
+        } else if (isDeveloper(player.getUniqueId())) {
             return ChatColor.LIGHT_PURPLE;
-        }
-        else if (isExecutive(player.getUniqueId())) {
+        } else if (isExecutive(player.getUniqueId())) {
             return ChatColor.RED;
-        }
-        else if (isArchitect(player.getUniqueId())) {
+        } else if (isArchitect(player.getUniqueId())) {
             return ChatColor.BLUE;
-        }
-        else if (isVoter(player.getUniqueId())) {
+        } else if (isVoter(player.getUniqueId())) {
             return ChatColor.AQUA;
-        }
-        else {
+        } else {
             return ChatColor.RESET;
         }
     }
 
-    public String displayRank(Player player)
-    {
-        if (player == null)
-        {
+    public String displayRank(Player player) {
+        if (player == null) {
             return ChatColor.DARK_AQUA + "" + "C";
         }
 
-        if (isModerator(player.getUniqueId()))
-        {
+        if (isModerator(player.getUniqueId())) {
             return ChatColor.DARK_GREEN + "" + "M";
-        }
-        else if (isSeniorModerator(player.getUniqueId()))
-        {
+        } else if (isSeniorModerator(player.getUniqueId())) {
             return ChatColor.GOLD + "" + "S";
-        }
-        else if (isDeveloper(player.getUniqueId()))
-        {
+        } else if (isDeveloper(player.getUniqueId())) {
             return ChatColor.DARK_PURPLE + "" + "D";
-        }
-        else if (isExecutive(player.getUniqueId()))
-        {
+        } else if (isExecutive(player.getUniqueId())) {
             return ChatColor.DARK_RED + "" + "E";
-        }
-        else if (isArchitect(player.getUniqueId()))
-        {
+        } else if (isArchitect(player.getUniqueId())) {
             return ChatColor.DARK_BLUE + "" + "A";
-        }
-        else if (isVoter(player.getUniqueId())) {
+        } else if (isVoter(player.getUniqueId())) {
             return ChatColor.DARK_AQUA + "" + "V";
-        }
-        else {
+        } else {
             return "";
         }
     }
 
-    public ChatColor displayRankColor(Player player)
-    {
-        if (player == null)
-        {
+    public ChatColor displayRankColor(Player player) {
+        if (player == null) {
             return ChatColor.DARK_AQUA;
         }
 
-        if (isModerator(player.getUniqueId()))
-        {
+        if (isModerator(player.getUniqueId())) {
             return ChatColor.DARK_GREEN;
-        }
-        else if (isSeniorModerator(player.getUniqueId()))
-        {
+        } else if (isSeniorModerator(player.getUniqueId())) {
             return ChatColor.GOLD;
-        }
-        else if (isDeveloper(player.getUniqueId()))
-        {
+        } else if (isDeveloper(player.getUniqueId())) {
             return ChatColor.DARK_PURPLE;
-        }
-        else if (isExecutive(player.getUniqueId()))
-        {
+        } else if (isExecutive(player.getUniqueId())) {
             return ChatColor.DARK_RED;
-        }
-        else if (isArchitect(player.getUniqueId()))
-        {
+        } else if (isArchitect(player.getUniqueId())) {
             return ChatColor.DARK_BLUE;
         }
 
         return ChatColor.RESET;
     }
 
-    public void set(UUID uuid, String group)
-    {
+    public void set(UUID uuid, String group) {
         assert api != null;
         UserManager userManager = api.getUserManager();
         CompletableFuture<User> userFuture = userManager.loadUser(uuid);
@@ -178,8 +138,7 @@ public class LuckPermsBridge
         {
             Node oldGroup = api.buildNode("group." + user.getPrimaryGroup()).build();
             Node newGroup = api.buildNode("group." + group).build();
-            if (oldGroup == newGroup)
-            {
+            if (oldGroup == newGroup) {
                 return;
             }
             user.unsetPermission(oldGroup);
@@ -189,8 +148,7 @@ public class LuckPermsBridge
     }
     //
 
-    public void setPrefix(UUID uuid, String permission)
-    {
+    public void setPrefix(UUID uuid, String permission) {
         assert api != null;
         UserManager userManager = api.getUserManager();
         CompletableFuture<User> userFuture = userManager.loadUser(uuid);
@@ -205,8 +163,7 @@ public class LuckPermsBridge
         });
     }
 
-    public void allowStaffWorld(UUID uuid)
-    {
+    public void allowStaffWorld(UUID uuid) {
         assert api != null;
         UserManager userManager = api.getUserManager();
         CompletableFuture<User> userFuture = userManager.loadUser(uuid);
@@ -221,8 +178,7 @@ public class LuckPermsBridge
         });
     }
 
-    public void disallowStaffWorld(UUID uuid)
-    {
+    public void disallowStaffWorld(UUID uuid) {
         assert api != null;
         UserManager userManager = api.getUserManager();
         CompletableFuture<User> userFuture = userManager.loadUser(uuid);

@@ -10,52 +10,39 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class StaffworldCommand extends ConverseBase implements CommandExecutor
-{
+public class StaffworldCommand extends ConverseBase implements CommandExecutor {
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String s, String[] args)
-    {
-        if (!sender.hasPermission("converse.staffworld"))
-        {
+    public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
+        if (!sender.hasPermission("converse.staffworld")) {
             sender.sendMessage(Messages.NO_PERMISSION);
             return true;
         }
 
         World staffworld = Bukkit.getWorld("staffworld");
-        if (staffworld == null)
-        {
-            sender.sendMessage(ChatColor.RED + "The staffworld could not be found. Please contact an administrator for assistance.");
+        if (staffworld == null) {
+            sender.sendMessage(ChatColor.RED +
+                    "The staffworld could not be found. Please contact an administrator for assistance.");
             return true;
-        }
-        else
-        {
-            Player player = (Player)sender;
+        } else {
+            Player player = (Player) sender;
 
-            if (args.length == 0)
-            {
+            if (args.length == 0) {
                 sender.sendMessage(ChatColor.GRAY + "Teleporting to staffworld...");
                 player.teleport(staffworld.getSpawnLocation());
                 return true;
-            }
-            else
-            {
-                switch (args[0].toLowerCase())
-                {
-                    case "add":
-                    {
-                        if (args.length < 2)
-                        {
+            } else {
+                switch (args[0].toLowerCase()) {
+                    case "add": {
+                        if (args.length < 2) {
                             return false;
                         }
                         Player sPlayer = Bukkit.getPlayer(args[1]);
-                        if (sPlayer == null)
-                        {
+                        if (sPlayer == null) {
                             sender.sendMessage(Messages.PLAYER_NOT_FOUND);
                             return true;
                         }
                         if (plugin.lp.isStaff(sPlayer.getUniqueId()) ||
-                                plugin.lp.isArchitect(sPlayer.getUniqueId()))
-                        {
+                                plugin.lp.isArchitect(sPlayer.getUniqueId())) {
                             sender.sendMessage(ChatColor.RED + "That player already has access to the staff world.");
                             return true;
                         }
@@ -63,21 +50,17 @@ public class StaffworldCommand extends ConverseBase implements CommandExecutor
                         Util.action(sender, "Adding " + sPlayer.getName() + " to the staff world");
                         return true;
                     }
-                    case "remove":
-                    {
-                        if (args.length < 2)
-                        {
+                    case "remove": {
+                        if (args.length < 2) {
                             return false;
                         }
                         Player sPlayer = Bukkit.getPlayer(args[1]);
-                        if (sPlayer == null)
-                        {
+                        if (sPlayer == null) {
                             sender.sendMessage(Messages.PLAYER_NOT_FOUND);
                             return true;
                         }
                         if (plugin.lp.isStaff(sPlayer.getUniqueId()) ||
-                                plugin.lp.isArchitect(sPlayer.getUniqueId()))
-                        {
+                                plugin.lp.isArchitect(sPlayer.getUniqueId())) {
                             sender.sendMessage(ChatColor.RED + "You cannot remove access from that player.");
                             return true;
                         }

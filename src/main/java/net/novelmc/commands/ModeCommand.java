@@ -8,78 +8,56 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-public class ModeCommand extends ConverseBase implements CommandExecutor
-{
+public class ModeCommand extends ConverseBase implements CommandExecutor {
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String s, String[] args)
-    {
-        if (args.length > 1)
-        {
+    public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
+        if (args.length > 1) {
             return false;
         }
 
         String mode = Converse.plugin.config.getString("mode");
 
-        if (args.length == 1)
-        {
-            switch (args[0])
-            {
-                case "dev":
-                {
-                    if (!sender.hasPermission("converse.mode.dev"))
-                    {
+        if (args.length == 1) {
+            switch (args[0]) {
+                case "dev": {
+                    if (!sender.hasPermission("converse.mode.dev")) {
                         sender.sendMessage(Messages.NO_PERMISSION);
                         return true;
                     }
-                    if (mode.equalsIgnoreCase("dev"))
-                    {
+                    if (mode.equalsIgnoreCase("dev")) {
                         plugin.ml.disableDevMode();
-                    }
-                    else
-                    {
+                    } else {
                         plugin.ml.enableDevMode();
                     }
                     return true;
                 }
-                case "event":
-                {
-                    if (!sender.hasPermission("converse.mode.event"))
-                    {
+                case "event": {
+                    if (!sender.hasPermission("converse.mode.event")) {
                         sender.sendMessage(Messages.NO_PERMISSION);
                         return true;
                     }
-                    if (mode.equalsIgnoreCase("event"))
-                    {
+                    if (mode.equalsIgnoreCase("event")) {
                         plugin.ml.disableEventMode();
                         return true;
-                    }
-                    else
-                    {
+                    } else {
                         plugin.ml.enableEventMode();
                         return true;
                     }
                 }
-                case "staff":
-                {
-                    if (!sender.hasPermission("converse.mode.staff"))
-                    {
+                case "staff": {
+                    if (!sender.hasPermission("converse.mode.staff")) {
                         sender.sendMessage(Messages.NO_PERMISSION);
                         return true;
                     }
-                    if (mode.equalsIgnoreCase("staff"))
-                    {
+                    if (mode.equalsIgnoreCase("staff")) {
                         plugin.ml.disableStaffMode();
-                    }
-                    else
-                    {
+                    } else {
                         plugin.ml.enableStaffMode();
                     }
                     return true;
                 }
-                case "off":
-                {
-                    if (mode.equalsIgnoreCase("default"))
-                    {
+                case "off": {
+                    if (mode.equalsIgnoreCase("default")) {
                         sender.sendMessage(ChatColor.RED + "You are already in the default mode!");
                         return true;
                     }

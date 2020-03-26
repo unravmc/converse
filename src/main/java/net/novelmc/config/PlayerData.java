@@ -11,95 +11,73 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
-public class PlayerData extends YamlConfiguration
-{
+public class PlayerData extends YamlConfiguration {
     private static PlayerData config;
     private File userdata;
 
-    public PlayerData(Converse plugin)
-    {
+    public PlayerData(Converse plugin) {
         this.userdata = new File(plugin.getDataFolder(), File.separator + "players");
 
-        if (!userdata.exists())
-        {
+        if (!userdata.exists()) {
             userdata.mkdir();
         }
     }
 
-    public void createPlayer(Player player)
-    {
+    public void createPlayer(Player player) {
         File f = new File(userdata, File.separator + player.getName() + ".yml");
         FileConfiguration playerData = YamlConfiguration.loadConfiguration(f);
 
-        if (!f.exists())
-        {
-            try
-            {
+        if (!f.exists()) {
+            try {
                 playerData.set("username", player.getName());
                 playerData.set("uuid", player.getUniqueId().toString());
                 playerData.set("ip", Objects.requireNonNull(player.getAddress()).getHostName());
                 playerData.save(f);
                 Bukkit.getLogger().info("Creating new player entry for " + player.getName());
                 return;
-            }
-            catch (IOException ex)
-            {
+            } catch (IOException ex) {
                 ex.printStackTrace();
             }
         }
-        if (f.exists())
-        {
-            if (!playerData.isSet("username"))
-            {
+        if (f.exists()) {
+            if (!playerData.isSet("username")) {
                 playerData.set("username", player.getName());
             }
-            if (!playerData.isSet("uuid"))
-            {
+            if (!playerData.isSet("uuid")) {
                 playerData.set("uuid", player.getUniqueId().toString());
             }
-            if (!playerData.isSet("ip"))
-            {
+            if (!playerData.isSet("ip")) {
                 playerData.set("ip", Objects.requireNonNull(player.getAddress()).getHostName());
             }
         }
     }
 
-    public FileConfiguration getPlayer(Player player)
-    {
+    public FileConfiguration getPlayer(Player player) {
         File f = new File(userdata, File.separator + player.getName() + ".yml");
         return YamlConfiguration.loadConfiguration(f);
     }
 
-    public FileConfiguration getPlayer(String player)
-    {
+    public FileConfiguration getPlayer(String player) {
         File f = new File(userdata, File.separator + player + ".yml");
         return YamlConfiguration.loadConfiguration(f);
     }
 
-    public void savePlayer(Player player)
-    {
+    public void savePlayer(Player player) {
         File f = new File(userdata, File.separator + player.getName() + ".yml");
-        try
-        {
+        try {
             super.save(f);
             super.load(f);
-        }
-        catch (IOException | InvalidConfigurationException e)
-        {
+        } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
         }
     }
 
-    public void savePlayer(String player)
-    {
+    public void savePlayer(String player) {
         File f = new File(userdata, File.separator + player + ".yml");
-        try
-        {
+        try {
             super.save(f);
             super.load(f);
-        }
-        catch (IOException | InvalidConfigurationException e)
-        {
+        } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
         }
     }

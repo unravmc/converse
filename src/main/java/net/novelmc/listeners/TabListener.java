@@ -2,7 +2,9 @@ package net.novelmc.listeners;
 
 import com.keenant.tabbed.Tabbed;
 import com.keenant.tabbed.tablist.TitledTabList;
+
 import java.util.List;
+
 import me.lucko.luckperms.api.event.EventBus;
 import me.lucko.luckperms.api.event.node.NodeMutateEvent;
 import net.novelmc.Converse;
@@ -16,12 +18,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public class TabListener extends ConverseBase implements Listener
-{
+public class TabListener extends ConverseBase implements Listener {
     private Converse plugin;
 
-    public TabListener(Converse plugin)
-    {
+    public TabListener(Converse plugin) {
         this.plugin = plugin;
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
         EventBus eventBus = api.getEventBus();
@@ -29,49 +29,40 @@ public class TabListener extends ConverseBase implements Listener
     }
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event)
-    {
+    public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        try
-        {
+        try {
             Tabbed tabbed = new Tabbed(plugin);
             TitledTabList tab = tabbed.newTitledTabList(player);
             List<String> header = plugin.config.getStringList("tablist.header");
             List<String> footer = plugin.config.getStringList("tablist.footer");
             tab.setHeader(Util.colorize(StringUtils.join(header, "\n")));
             tab.setFooter(Util.colorize(StringUtils.join(footer, "\n")));
-            
-        }
-        catch (NoClassDefFoundError ignored)
-        {
+
+        } catch (NoClassDefFoundError ignored) {
         }
         String rank = plugin.lp.displayRank(player);
         ChatColor color = plugin.lp.displayRankColor(player);
-        
-        if (plugin.lp.isStaff(player.getUniqueId())) 
-        {
-            player.setPlayerListName(ChatColor.DARK_GRAY + "[" 
-                + color + rank 
-                + ChatColor.DARK_GRAY + "]" 
-                + plugin.lp.nameColor(player) + " " + player.getName()); 
-        } 
-        else if (plugin.lp.isArchitect(player.getUniqueId()) || plugin.lp.isVoter(player.getUniqueId())) {
-            player.setPlayerListName(ChatColor.DARK_GRAY + "[" 
-                + color + rank 
-                + ChatColor.DARK_GRAY + "]" 
-                + plugin.lp.nameColor(player) + " " + player.getName());
-        }
-        else 
-        { 
+
+        if (plugin.lp.isStaff(player.getUniqueId())) {
+            player.setPlayerListName(ChatColor.DARK_GRAY + "["
+                    + color + rank
+                    + ChatColor.DARK_GRAY + "]"
+                    + plugin.lp.nameColor(player) + " " + player.getName());
+        } else if (plugin.lp.isArchitect(player.getUniqueId()) || plugin.lp.isVoter(player.getUniqueId())) {
+            player.setPlayerListName(ChatColor.DARK_GRAY + "["
+                    + color + rank
+                    + ChatColor.DARK_GRAY + "]"
+                    + plugin.lp.nameColor(player) + " " + player.getName());
+        } else {
             player.setPlayerListName(plugin.lp.nameColor(player) + player.getName());
         }
-        
+
         plugin.po.tabAdd(player);
     }
 
     @EventHandler
-    private void onGroupChange(NodeMutateEvent event)
-    {
+    private void onGroupChange(NodeMutateEvent event) {
         Bukkit.getScheduler().runTask(plugin, () ->
         {
             Player player = Bukkit.getPlayer(event.getTarget().getFriendlyName());
@@ -80,24 +71,21 @@ public class TabListener extends ConverseBase implements Listener
             if (player == null) {
                 throw new NullPointerException();
             }
-            
-            if (plugin.lp.isStaff(player.getUniqueId()))
-            {
-                player.setPlayerListName(ChatColor.DARK_GRAY + "[" 
-                + color + rank 
-                + ChatColor.DARK_GRAY + "]" 
-                + plugin.lp.nameColor(player) + " " + player.getName());
-            }
-            else if (plugin.lp.isArchitect(player.getUniqueId()) || plugin.lp.isVoter(player.getUniqueId())) {
-                player.setPlayerListName(ChatColor.DARK_GRAY + "[" 
-                + color + rank 
-                + ChatColor.DARK_GRAY + "]" 
-                + plugin.lp.nameColor(player) + " " + player.getName());
-            }
-            else {
+
+            if (plugin.lp.isStaff(player.getUniqueId())) {
+                player.setPlayerListName(ChatColor.DARK_GRAY + "["
+                        + color + rank
+                        + ChatColor.DARK_GRAY + "]"
+                        + plugin.lp.nameColor(player) + " " + player.getName());
+            } else if (plugin.lp.isArchitect(player.getUniqueId()) || plugin.lp.isVoter(player.getUniqueId())) {
+                player.setPlayerListName(ChatColor.DARK_GRAY + "["
+                        + color + rank
+                        + ChatColor.DARK_GRAY + "]"
+                        + plugin.lp.nameColor(player) + " " + player.getName());
+            } else {
                 player.setPlayerListName(plugin.lp.nameColor(player) + player.getName());
             }
-            
+
             plugin.po.tabRemove(player);
             plugin.po.tabAdd(player);
         });

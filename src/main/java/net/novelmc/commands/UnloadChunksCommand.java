@@ -9,15 +9,12 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-public class UnloadChunksCommand extends ConverseBase implements CommandExecutor
-{
+public class UnloadChunksCommand extends ConverseBase implements CommandExecutor {
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String s, String[] args)
-    {
+    public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         int numChunks = 0;
 
-        for (World world : server.getWorlds())
-        {
+        for (World world : server.getWorlds()) {
             numChunks += unloadUnusedChunks(world);
         }
 
@@ -26,12 +23,10 @@ public class UnloadChunksCommand extends ConverseBase implements CommandExecutor
         return true;
     }
 
-    private int unloadUnusedChunks(World world)
-    {
+    private int unloadUnusedChunks(World world) {
         int numChunks = 0;
 
-        for (Chunk chunk : world.getLoadedChunks())
-        {
+        for (Chunk chunk : world.getLoadedChunks()) {
             chunk.unload();
             numChunks++;
         }

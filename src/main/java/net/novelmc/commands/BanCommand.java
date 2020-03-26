@@ -1,6 +1,7 @@
 package net.novelmc.commands;
 
 import java.util.Date;
+
 import net.novelmc.util.ConverseBase;
 import net.novelmc.util.Util;
 import org.apache.commons.lang.ArrayUtils;
@@ -14,19 +15,15 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class BanCommand extends ConverseBase implements CommandExecutor
-{
+public class BanCommand extends ConverseBase implements CommandExecutor {
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String s, String[] args)
-    {
-        if (!sender.hasPermission("converse.ban"))
-        {
+    public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
+        if (!sender.hasPermission("converse.ban")) {
             sender.sendMessage(Messages.NO_PERMISSION);
             return true;
         }
 
-        if (args.length < 2)
-        {
+        if (args.length < 2) {
             return false;
         }
 
@@ -36,12 +33,9 @@ public class BanCommand extends ConverseBase implements CommandExecutor
         String banID = RandomStringUtils.randomAlphabetic(5);
         final String reason = StringUtils.join(ArrayUtils.subarray(args, 2, args.length), " ");
 
-        try
-        {
+        try {
             Util.parseDateOffset(args[1]);
-        }
-        catch (NumberFormatException ex)
-        {
+        } catch (NumberFormatException ex) {
             sender.sendMessage(ChatColor.DARK_RED + "You know what? I hate you. You're the kind of person " +
                     "who just wants to break things. Stop. It took me a ridiculous amount of time to stop " +
                     "idiots like you from entering something above 999999999. Here's the fucking stacktrace since you " +
@@ -52,36 +46,27 @@ public class BanCommand extends ConverseBase implements CommandExecutor
 
         expires = Util.parseDateOffset(args[1]);
 
-        if (expires == null || !(expires instanceof Date))
-        {
+        if (expires == null || !(expires instanceof Date)) {
             sender.sendMessage(ChatColor.RED + "Please enter a valid date!");
             return true;
         }
 
-        if (player == null)
-        {
+        if (player == null) {
             plugin.ban.addBan(offlinePlayer, sender, banID, reason, expires, "username");
-            if (reason.length() == 0)
-            {
+            if (reason.length() == 0) {
                 Util.action(sender, "Banning " + offlinePlayer.getName() + " until " + expires);
                 return true;
+            } else {
+                Util.action(sender,
+                        "Banning " + offlinePlayer.getName() + " until " + expires + " with reason: " + reason);
             }
-            else
-            {
-                Util.action(sender, "Banning " + offlinePlayer.getName() + " until " + expires + " with reason: " + reason);
-            }
-        }
-        else
-        {
+        } else {
             plugin.ban.addBan(player, sender, banID, reason, expires, "username");
             player.kickPlayer(plugin.ban.constructBanMessage(player, reason, banID));
-            if (reason.length() == 0)
-            {
+            if (reason.length() == 0) {
                 Util.action(sender, "Banning " + player.getName() + " until " + expires);
                 return true;
-            }
-            else
-            {
+            } else {
                 Util.action(sender, "Banning " + player.getName() + " until " + expires + " with reason: " + reason);
             }
         }

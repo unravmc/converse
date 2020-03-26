@@ -15,19 +15,15 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
 
-public class DbanCommand extends ConverseBase implements CommandExecutor
-{
+public class DbanCommand extends ConverseBase implements CommandExecutor {
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String s, String[] args)
-    {
-        if (!sender.hasPermission("converse.dban"))
-        {
+    public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
+        if (!sender.hasPermission("converse.dban")) {
             sender.sendMessage(Messages.NO_PERMISSION);
             return true;
         }
 
-        if (args.length < 1)
-        {
+        if (args.length < 1) {
             return false;
         }
 
@@ -37,30 +33,21 @@ public class DbanCommand extends ConverseBase implements CommandExecutor
         Date expires = Util.parseDateOffset("24h");
         String banID = RandomStringUtils.randomAlphabetic(5);
 
-        if (player == null)
-        {
+        if (player == null) {
             plugin.ban.addBan(offlinePlayer, sender, banID, reason, expires, "username");
-            if (reason.length() == 0)
-            {
+            if (reason.length() == 0) {
                 Util.action(sender, "Banning " + offlinePlayer.getName());
                 return true;
-            }
-            else
-            {
+            } else {
                 Util.action(sender, "Banning " + offlinePlayer.getName() + " with reason: " + reason);
             }
-        }
-        else
-        {
+        } else {
             plugin.ban.addBan(player, sender, banID, reason, expires, "username");
             player.kickPlayer(plugin.ban.constructBanMessage(player, reason, banID));
-            if (reason.length() == 0)
-            {
+            if (reason.length() == 0) {
                 Util.action(sender, "Banning " + player.getName());
                 return true;
-            }
-            else
-            {
+            } else {
                 Util.action(sender, "Banning " + player.getName() + " with reason: " + reason);
             }
         }

@@ -8,14 +8,14 @@ import org.bukkit.entity.Player;
 
 public class CoinsCommand implements CommandExecutor {
     private final CoinIndex index = Converse.plugin.coinIndex;
-    
+
     @Override
     public boolean onCommand(CommandSender cs, Command cmd, String lbl, String[] args) {
         if (!(cs instanceof Player)) {
             cs.sendMessage("You can't do that!");
             return true;
         }
-        
+
         Player p = (Player) cs;
         int tCoins = index.getCoins(p);
         if (tCoins == 0) {
@@ -23,7 +23,7 @@ public class CoinsCommand implements CommandExecutor {
             return true;
         }
         p.sendMessage(ChatColor.GRAY + "You have " + tCoins + " coins.");
-        
+
         return true;
     }
 }

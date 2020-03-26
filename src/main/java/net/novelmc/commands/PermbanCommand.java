@@ -12,19 +12,15 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class PermbanCommand extends ConverseBase implements CommandExecutor
-{
+public class PermbanCommand extends ConverseBase implements CommandExecutor {
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String s, String[] args)
-    {
-        if (!sender.hasPermission("converse.permban"))
-        {
+    public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
+        if (!sender.hasPermission("converse.permban")) {
             sender.sendMessage(Messages.NO_PERMISSION);
             return true;
         }
 
-        if (args.length == 0)
-        {
+        if (args.length == 0) {
             return false;
         }
 
@@ -33,30 +29,21 @@ public class PermbanCommand extends ConverseBase implements CommandExecutor
         final String reason = StringUtils.join(ArrayUtils.subarray(args, 1, args.length), " ");
         String banID = RandomStringUtils.randomAlphabetic(5);
 
-        if (player == null)
-        {
+        if (player == null) {
             plugin.permban.addPermban(offlinePlayer, sender, banID, reason, "username");
-            if (reason.length() == 0)
-            {
+            if (reason.length() == 0) {
                 Util.action(sender, "Permanently banning " + offlinePlayer.getName());
                 return true;
-            }
-            else
-            {
+            } else {
                 Util.action(sender, "Permanently banning " + offlinePlayer.getName() + " with reason: " + reason);
             }
-        }
-        else
-        {
+        } else {
             plugin.permban.addPermban(player, sender, banID, reason, "username");
             player.kickPlayer(plugin.permban.constructBanMessage(reason, banID));
-            if (reason.length() == 0)
-            {
+            if (reason.length() == 0) {
                 Util.action(sender, "Permanently banning " + player.getName());
                 return true;
-            }
-            else
-            {
+            } else {
                 Util.action(sender, "Permanently banning " + player.getName() + " with reason: " + reason);
             }
         }

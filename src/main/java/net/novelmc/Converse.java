@@ -1,9 +1,11 @@
 package net.novelmc;
 
 import net.novelmc.listeners.ShopListener;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+
 import me.lucko.luckperms.api.LuckPermsApi;
 import net.novelmc.bans.Ban;
 import net.novelmc.bridge.LuckPermsBridge;
@@ -18,8 +20,7 @@ import org.bukkit.Server;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Converse extends JavaPlugin
-{
+public class Converse extends JavaPlugin {
     public static Converse plugin;
     public static final BuildProperties build = new BuildProperties();
     public static Server server;
@@ -52,8 +53,7 @@ public class Converse extends JavaPlugin
 
 
     @Override
-    public void onLoad()
-    {
+    public void onLoad() {
         plugin = this;
         server = plugin.getServer();
         banConfig = new BanConfig(this);
@@ -63,8 +63,7 @@ public class Converse extends JavaPlugin
     }
 
     @Override
-    public void onEnable()
-    {
+    public void onEnable() {
         loadShops();
         // Config
         registerConfigs();
@@ -85,12 +84,11 @@ public class Converse extends JavaPlugin
     }
 
     @Override
-    public void onDisable()
-    {
+    public void onDisable() {
         // Unregister configs
         unregisterConfigs();
     }
-    
+
     private void loadShops() {
         shop = new MainMenu();
         trails = new TrailsMenu();
@@ -101,19 +99,17 @@ public class Converse extends JavaPlugin
         coinIndex = new CoinIndex();
     }
 
-    public static LuckPermsApi getLuckPermsAPI()
-    {
-        RegisteredServiceProvider<LuckPermsApi> provider = Bukkit.getServicesManager().getRegistration(LuckPermsApi.class);
-        if (provider != null)
-        {
+    public static LuckPermsApi getLuckPermsAPI() {
+        RegisteredServiceProvider<LuckPermsApi> provider = Bukkit.getServicesManager()
+                .getRegistration(LuckPermsApi.class);
+        if (provider != null) {
             return provider.getProvider();
         }
         return null;
     }
 
     @SuppressWarnings("null")
-    private void registerCommands()
-    {
+    private void registerCommands() {
         getCommand("adminchat").setExecutor(new AdminchatCommand());
         getCommand("ban").setExecutor(new BanCommand());
         getCommand("banlookup").setExecutor(new BanLookupCommand());
@@ -132,11 +128,10 @@ public class Converse extends JavaPlugin
         getCommand("staffworld").setExecutor(new StaffworldCommand());
         getCommand("unban").setExecutor(new UnbanCommand());
         getCommand("unloadchunks").setExecutor(new UnloadChunksCommand());
-        
+
     }
 
-    private void registerListeners()
-    {
+    private void registerListeners() {
         bl = new BanListener(this);
         cl = new ChatListener(this);
         ml = new ModeListener(this);
@@ -145,11 +140,10 @@ public class Converse extends JavaPlugin
         sl = new TabListener(this);
         wl = new WorldListener(this);
         shl = new ShopListener(this);
-        
+
     }
 
-    public void registerConfigs()
-    {
+    public void registerConfigs() {
         banConfig.load();
         config.load();
         permbanConfig.load();
@@ -161,22 +155,18 @@ public class Converse extends JavaPlugin
         permbanConfig.save();
     }
 
-    public static class BuildProperties
-    {
+    public static class BuildProperties {
         public String author;
         public String version;
         public String number;
         public String date;
         public String head;
 
-        void load(Converse plugin)
-        {
-            try
-            {
+        void load(Converse plugin) {
+            try {
                 final Properties props;
 
-                try (InputStream in = plugin.getResource("build.properties"))
-                {
+                try (InputStream in = plugin.getResource("build.properties")) {
                     props = new Properties();
                     props.load(in);
                 }
@@ -186,9 +176,7 @@ public class Converse extends JavaPlugin
                 number = props.getProperty("buildNumber", "1");
                 date = props.getProperty("buildDate", "unknown");
                 head = props.getProperty("buildHead", "unknown").replace("${git.commit.id.abbrev}", "unknown");
-            }
-            catch (IOException ex)
-            {
+            } catch (IOException ex) {
                 server.getLogger().severe("Could not load build properties! Did you compile with NetBeans/Maven?");
                 server.getLogger().severe(ex.toString());
             }

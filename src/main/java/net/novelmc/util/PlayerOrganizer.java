@@ -24,7 +24,7 @@ public class PlayerOrganizer {
         Team srmod = sb.registerNewTeam("03S");
         Team dev = sb.registerNewTeam("02D");
         Team exec = sb.registerNewTeam("01E");
-        
+
         Objects.requireNonNull(sb.getTeam("01E")).setPrefix("&8[&4E&8] &r");
         Objects.requireNonNull(sb.getTeam("02D")).setPrefix("&8[&5D&8] &r");
         Objects.requireNonNull(sb.getTeam("03S")).setPrefix("&8[&6S&8] &r");
@@ -33,7 +33,7 @@ public class PlayerOrganizer {
         Objects.requireNonNull(sb.getTeam("06V")).setPrefix("&8[&3V&8] &r");
         Objects.requireNonNull(sb.getTeam("07G")).setPrefix("&r");
     }
-    
+
     public void tabAdd(@NotNull Player p) {
 
         String team;
@@ -42,23 +42,17 @@ public class PlayerOrganizer {
         //
         if (LPB.isModerator(p.getUniqueId())) {
             team = "04M";
-        }
-        else if (LPB.isSeniorModerator(p.getUniqueId())) {
+        } else if (LPB.isSeniorModerator(p.getUniqueId())) {
             team = "03S";
-        }
-        else if (LPB.isDeveloper(p.getUniqueId())) {
+        } else if (LPB.isDeveloper(p.getUniqueId())) {
             team = "02D";
-        }
-        else if (LPB.isExecutive(p.getUniqueId())) {
+        } else if (LPB.isExecutive(p.getUniqueId())) {
             team = "01E";
-        }
-        else if (LPB.isArchitect(p.getUniqueId())) {
+        } else if (LPB.isArchitect(p.getUniqueId())) {
             team = "05A";
-        }
-        else if (LPB.isVoter(p.getUniqueId())) {
+        } else if (LPB.isVoter(p.getUniqueId())) {
             team = "06V";
-        }
-        else {
+        } else {
             team = "07G";
         }
         //
@@ -69,7 +63,7 @@ public class PlayerOrganizer {
         }
         Bukkit.getOnlinePlayers().forEach(pl -> pl.setScoreboard(sb));
     }
-    
+
     public void tabRemove(Player p) {
         String uuid = p.getUniqueId().toString().trim();
 
