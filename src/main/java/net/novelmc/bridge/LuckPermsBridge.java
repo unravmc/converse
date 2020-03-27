@@ -1,9 +1,5 @@
 package net.novelmc.bridge;
 
-import java.util.Date;
-import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
-
 import me.lucko.luckperms.api.LuckPermsApi;
 import me.lucko.luckperms.api.Node;
 import me.lucko.luckperms.api.User;
@@ -12,6 +8,10 @@ import net.novelmc.Converse;
 import net.novelmc.util.Util;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+
+import java.util.Date;
+import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 public class LuckPermsBridge {
     private final Converse plugin;
@@ -160,6 +160,7 @@ public class LuckPermsBridge {
             Node prefix = api.buildNode(permission).setExpiry(longExpires).build();
             user.setPermission(prefix);
             userManager.saveUser(user);
+
         });
     }
 

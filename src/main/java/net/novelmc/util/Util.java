@@ -72,7 +72,7 @@ public class Util extends ConverseBase {
     }
 
     /**
-     * @param player The player who sent the action.
+     * @param player  The player who sent the action.
      * @param message The message for the action.
      */
     public static void action(@NotNull Player player, String message) {
@@ -134,6 +134,7 @@ public class Util extends ConverseBase {
         Util.uuid = uuid;
         adminChat.remove(uuid);
     }
+
     public static Boolean isInAdminChat(UUID uuid) {
         Util.uuid = uuid;
         if (!adminChat.containsKey(uuid)) {

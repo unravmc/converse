@@ -1,8 +1,5 @@
 package net.novelmc.listeners;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.novelmc.Converse;
 import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
@@ -14,10 +11,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ChatListener implements Listener {
     public Util util = Converse.util;
 
-    @SuppressWarnings("")
     public ChatListener(Converse plugin) {
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
     }
