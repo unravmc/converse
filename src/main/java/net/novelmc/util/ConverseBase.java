@@ -5,7 +5,7 @@ import net.novelmc.Converse;
 import org.bukkit.Server;
 
 public class ConverseBase {
-    protected Converse plugin = Converse.plugin;
+    protected static Converse plugin = Converse.plugin;
     protected Server server = Converse.server;
     protected LuckPermsApi api = Converse.getLuckPermsAPI();
 }

@@ -14,8 +14,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class AdminchatCommand implements CommandExecutor {
-    private Util util = Converse.util;
-
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (!sender.hasPermission("converse.adminchat")) {
@@ -29,11 +27,11 @@ public class AdminchatCommand implements CommandExecutor {
                 return true;
             }
             Player p = (Player) sender;
-            util.putAdminChat(p.getUniqueId());
-            p.sendMessage("Toggled adminchat " + (util.isInAdminChat(p.getUniqueId()) ? "on" : "off"));
+            Util.putAdminChat(p.getUniqueId());
+            p.sendMessage("Toggled adminchat " + (Util.isInAdminChat(p.getUniqueId()) ? "on" : "off"));
             return true;
         }
-        util.adminchat(sender, message);
+        Util.adminchat(sender, message);
         return true;
     }
 }

@@ -17,7 +17,7 @@ public class Util extends ConverseBase {
     private static String time;
     private static long unix;
     private static Date date;
-    private UUID uuid;
+    private static UUID uuid;
 
 
     /**
@@ -34,7 +34,7 @@ public class Util extends ConverseBase {
     /**
      * @return Inventory size, for PlayersMenu;
      */
-    public static final int size() {
+    public static int size() {
         int key = Bukkit.getOnlinePlayers().size();
         int value;
         if (key < 9) {
@@ -92,8 +92,7 @@ public class Util extends ConverseBase {
         return ChatColor.translateAlternateColorCodes('&', string);
     }
 
-
-    public void adminchat(@NotNull CommandSender sender, String message) {
+    public static void adminchat(@NotNull CommandSender sender, String message) {
         Player p = Bukkit.getPlayer(sender.getName());
         String rank = plugin.lp.displayRank(Bukkit.getPlayer(sender.getName()));
         ChatColor color = plugin.lp.displayRankColor(Bukkit.getPlayer(sender.getName()));
@@ -110,15 +109,15 @@ public class Util extends ConverseBase {
                 .forEachOrdered((players) -> players.sendMessage(format));
     }
 
-    public void adminchat(Player p, String message) {
+    public static void adminchat(Player p, String message) {
         adminchat((CommandSender) p, message);
     }
 
-    private HashMap<UUID, Boolean> adminChat = new HashMap<>();
+    private static HashMap<UUID, Boolean> adminChat = new HashMap<>();
 
     //creation of the adminchat toggleable variable;
-    public void putAdminChat(UUID uuid) {
-        this.uuid = uuid;
+    public static void putAdminChat(UUID uuid) {
+        Util.uuid = uuid;
         if (adminChat.containsKey(uuid)) {
             boolean value = adminChat.get(uuid);
             if (value) {
@@ -131,8 +130,12 @@ public class Util extends ConverseBase {
         }
     }
 
-    public Boolean isInAdminChat(UUID uuid) {
-        this.uuid = uuid;
+    public static void removeAdminChat(UUID uuid) {
+        Util.uuid = uuid;
+        adminChat.remove(uuid);
+    }
+    public static Boolean isInAdminChat(UUID uuid) {
+        Util.uuid = uuid;
         if (!adminChat.containsKey(uuid)) {
             return false;
         }
@@ -277,6 +280,6 @@ public class Util extends ConverseBase {
     }
 
     public void setUuid(UUID uuid) {
-        this.uuid = uuid;
+        Util.uuid = uuid;
     }
 }

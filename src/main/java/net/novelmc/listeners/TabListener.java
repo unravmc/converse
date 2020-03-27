@@ -61,17 +61,12 @@ public class TabListener extends ConverseBase implements Listener {
         plugin.po.tabAdd(player);
     }
 
-    @EventHandler
     private void onGroupChange(NodeMutateEvent event) {
         Bukkit.getScheduler().runTask(plugin, () ->
         {
             Player player = Objects.requireNonNull(Bukkit.getPlayer(event.getTarget().getFriendlyName()));
             String rank = plugin.lp.displayRank(player);
             ChatColor color = plugin.lp.displayRankColor(player);
-            if (player == null) {
-                throw new NullPointerException();
-            }
-
             if (plugin.lp.isStaff(player.getUniqueId())) {
                 player.setPlayerListName(ChatColor.DARK_GRAY + "["
                         + color + rank
