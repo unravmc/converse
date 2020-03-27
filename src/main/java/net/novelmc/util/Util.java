@@ -20,7 +20,10 @@ public class Util extends ConverseBase {
     private UUID uuid;
 
 
-    //honestly why tf is this here????
+    /**
+     * @return An accessible array of all players online;
+     * Why do this when you can just use the Collection class?
+     */
     public List<String> getOnlinePlayers() {
         List<String> players = new ArrayList<>();
         Bukkit.getOnlinePlayers().forEach((p) ->
@@ -28,10 +31,50 @@ public class Util extends ConverseBase {
         return players;
     }
 
+    /**
+     * @return Inventory size, for PlayersMenu;
+     */
+    public static final int size() {
+        int key = Bukkit.getOnlinePlayers().size();
+        int value;
+        if (key < 9) {
+            value = 9;
+            return value;
+        }
+        if (key > 54) {
+            value = 54;
+            return value;
+        }
+        //Check to make sure key is a multiple of nine.
+        List<Integer> list = Arrays.asList(9, 18, 27, 36, 45, 54);
+        if (list.contains(key)) {
+            for (int fuzzy : list) {
+                if (fuzzy < key) {
+                    continue;
+                }
+                if (fuzzy > key) {
+                    value = fuzzy;
+                    return value;
+                }
+                break;
+            }
+        }
+
+        value = key;
+        return value;
+    }
+
+    /**
+     * @param message Message to broadcast to the server.
+     */
     public static void action(String message) {
         Bukkit.broadcastMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "[Converse: " + message + "]");
     }
 
+    /**
+     * @param player The player who sent the action.
+     * @param message The message for the action.
+     */
     public static void action(@NotNull Player player, String message) {
         Bukkit.broadcastMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "[" + player.getName() + ": " + message + "]");
     }
