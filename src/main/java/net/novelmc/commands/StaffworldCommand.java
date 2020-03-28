@@ -27,7 +27,7 @@ public class StaffworldCommand extends ConverseBase implements CommandExecutor {
             Player player = (Player) sender;
 
             if (args.length == 0) {
-                sender.sendMessage(ChatColor.GRAY + "Teleporting to staffworld...");
+                sender.sendMessage(ChatColor.GRAY + "Teleporting to the staffworld...");
                 player.teleport(staffworld.getSpawnLocation());
                 return true;
             } else {

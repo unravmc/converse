@@ -19,7 +19,7 @@ public class CoinsCommand implements CommandExecutor {
         Player p = (Player) cs;
         int tCoins = index.getCoins(p);
         if (tCoins == 0) {
-            p.sendMessage(ChatColor.GRAY + "You don't have any coins!");
+            p.sendMessage(ChatColor.GRAY + "You don't have any coins.");
             return true;
         }
         p.sendMessage(ChatColor.GRAY + "You have " + tCoins + " coins.");

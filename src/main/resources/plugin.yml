@@ -8,7 +8,7 @@ api-version: 1.14
 commands:
   adminchat:
     usage: /<command> <message>
-    description: Talk privately with other admins
+    description: Talk privately with other staff members
     aliases: [ac, o]
   ban:
     usage: /<command> <player> <duration> [reason]
@@ -20,7 +20,7 @@ commands:
     aliases: [bl]
   blackchat:
     usage: /<command> <player>
-    description: Makes a players chat messages show up in black.
+    description: Makes a players chat messages show up in black
     aliases: [darkchat, graychat]
   coins:
     usage: /<command>
@@ -28,18 +28,21 @@ commands:
   converse:
     usage: /<command> [reload | debug]
     description: Show information about Converse
-    aliases: [tfm]
   dban:
     usage: /<command> <player> [reason]
     description: Bans a player for a day
     aliases: [dayban, gtfo]
+  enderworld:
+    usage: /<command>
+    description: Teleport to the enderworld
+    aliases: [ew]
   flatworld:
     usage: /<command>
     description: Teleport to the flatworld
-    aliases: [flatlands]
+    aliases: [flatlands, fw]
   manageshop:
     usage: /<command> <add | del | set | get> <player> [amount]
-    description: Manages the shop for admins.
+    description: Manages the shop for staff members
     aliases: [mshop, shopadmin]
   mode:
     usage: /<command> [event | dev | staff | off]
@@ -48,9 +51,17 @@ commands:
     usage: /<command> <player | purge>
     description: Mute a player or purge all mutes
     aliases: [stfu, emute]
+  netherworld:
+    usage: /<command>
+    description: Teleport to the netherworld
+    aliases: [nw]
+  overworld:
+    usage: /<command>
+    description: Teleport to the overworld
+    aliases: [ow]
   permban:
     usage: /<command> <player> [reason]
-    description: Permanently bans a player.
+    description: Permanently bans a player
   plotworld:
     usage: /<command>
     description: Teleport to the plotworld
@@ -60,12 +71,12 @@ commands:
     aliases: [umcshop]
   staff:
     usage: /<command> <add <player> <rank> | remove <player>>
-    description: Manage admins
+    description: Manage staff members
     aliases: [saconfig]
   staffworld:
     usage: /<command> <add <player> | remove <player>>
     description: Teleport to the staffworld
-    aliases: [adminworld]
+    aliases: [adminworld, aw, sw]
   unban:
     usage: /<command> <player>
     description: Unbans a banned player.
@@ -74,3 +85,7 @@ commands:
     usage: /<command>
     description: Unloads all unused chunks
     aliases: [uc]
+  voterworld:
+    usage: /<command>
+    description: Teleport to the voterworld
+    aliases: [vw]
