@@ -15,7 +15,7 @@ public class ConverseCommand extends ConverseBase implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (args.length == 0) {
             Converse.BuildProperties build = Converse.build;
-            sender.sendMessage(ChatColor.GRAY + "Converse is a plugin by which the UnraveedMC server manages operator " +
+            sender.sendMessage(ChatColor.GRAY + "Converse is a plugin by which the UnraveledMC server manages operator " +
                     "permissions, in-game functions, and staff member tools.");
             sender.sendMessage(ChatColor.GRAY + String.format("Version "
                             + ChatColor.GOLD + "%s.%s.%s",
