@@ -15,9 +15,9 @@ public class Permban extends ConverseBase {
     }
 
     public String constructBanMessage(String reason, String banID) {
-        final StringBuilder banMessage = new StringBuilder(ChatColor.BLUE + "" + ChatColor.BOLD
+        final StringBuilder banMessage = new StringBuilder(ChatColor.GRAY + "" + ChatColor.BOLD
                 + "NOVEL");
-        banMessage.append(ChatColor.WHITE + "" + ChatColor.BOLD + "MC\n");
+        banMessage.append(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + "MC\n");
         banMessage.append(ChatColor.RED + "You are permanently banned from this server!\n");
         if (!(reason.length() == 0)) {
             banMessage.append(ChatColor.DARK_GRAY + "Reason: " + ChatColor.GRAY + reason + "\n");
