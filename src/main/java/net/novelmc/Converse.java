@@ -13,6 +13,7 @@ import net.novelmc.permban.Permban;
 import net.novelmc.shop.MainMenu;
 import net.novelmc.shop.PlayersMenu;
 import net.novelmc.shop.TrailsMenu;
+import net.novelmc.util.AprilFools;
 import net.novelmc.util.CoinIndex;
 import net.novelmc.util.PlayerOrganizer;
 import net.novelmc.util.Util;
@@ -46,6 +47,7 @@ public class Converse extends JavaPlugin {
     public TrailsMenu trails;
     public PlayersMenu players;
     public ShopListener shl;
+    public AprilFools af;
     public CoinIndex coinIndex;
     // Listeners
     public BanListener bl;
@@ -71,6 +73,7 @@ public class Converse extends JavaPlugin {
     public void onEnable() {
         // Config
         registerConfigs();
+        af = new AprilFools(this);
         // BuildProperties
         build.load(this);
         // LuckPerms
@@ -122,6 +125,10 @@ public class Converse extends JavaPlugin {
         getCommand("converse").setExecutor(new ConverseCommand());
         getCommand("dban").setExecutor(new DbanCommand());
         getCommand("flatworld").setExecutor(new FlatworldCommand());
+        getCommand("enderworld").setExecutor(new EnderworldCommand());
+        getCommand("netherworld").setExecutor(new NetherworldCommand());
+        getCommand("overworld").setExecutor(new OverworldCommand());
+        getCommand("voterworld").setExecutor(new VoterworldCommand());
         getCommand("manageshop").setExecutor(new ShopAdminCommand());
         getCommand("mode").setExecutor(new ModeCommand());
         getCommand("mute").setExecutor(new MuteCommand());

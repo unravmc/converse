@@ -4,8 +4,12 @@ import net.novelmc.util.ShopIndex;
 import net.novelmc.Converse;
 import net.novelmc.util.HoverIndex;
 import net.md_5.bungee.api.ChatColor;
+import net.novelmc.util.Util;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainMenu extends ShopIndex {
     public MainMenu() {
@@ -16,38 +20,8 @@ public class MainMenu extends ShopIndex {
 
         setItem(0, is1, player -> Converse.plugin.trails.open(player));
 
-        setItem(1, is2, player -> 
-            Bukkit.getOnlinePlayers().forEach(target -> {
-                AtomicInteger x = new AtomicInteger();
-                if (Util.size() > 54) {
-                    do {
-                        ItemStack is = newPlayerHead(target);
-                        Converse.plugin.players.setItem(x.get(), is, player -> player.sendMessage("You clicked on " + target.getName()));
-                        x.getAndIncrement();
-                    } while (x.get() <= 52);
-                    AtomicInteger y = new AtomicInteger();
-                    SecondMenu second = new SecondMenu();
-                    ItemStack prev = newItem(Material.RED_WOOL, "Previous", "Return to the previous page.");
-                    ItemStack next = newItem(Material.GREEN_WOOL, "Next", "Go to the next page.");
-                    setItem(53, next, player -> {
-                        do {
-                            ItemStack is = newPlayerHead(target);
-                            second.setItem(y.get(), is, p -> player.sendMessage("You clicked on " + target.getName()));
-                            y.getAndIncrement();
-                        } while (x.get() < Util.size());
-                        second.setItem(Util.size() + , prev, p -> {
-                            Converse.plugin.players.open(p);
-                        });
-                        second.open(player);
-                    });
-                }
-                
-            ItemStack is = newPlayerHead(target);
-            setItem(x.get(), is, player -> player.sendMessage("You clicked on " + target.getName()));
-            x.getAndIncrement();
-        });
-    } Converse.plugin.players.open(player));
-
+        setItem(1, is2, player -> {});
+            //
         setItem(2, is3, player -> {
             HoverIndex hover = new HoverIndex(player, ChatColor.RED, "Hoverable Text", "This is a test for some hoverable text!!");
             hover.newChat();
