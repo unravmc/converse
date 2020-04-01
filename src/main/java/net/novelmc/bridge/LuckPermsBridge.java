@@ -89,21 +89,21 @@ public class LuckPermsBridge {
 
     public String displayRank(Player player) {
         if (player == null) {
-            return ChatColor.DARK_AQUA + "" + "C";
+            return ChatColor.DARK_AQUA + "C";
         }
 
         if (isModerator(player.getUniqueId())) {
-            return ChatColor.DARK_GREEN + "" + "M";
+            return ChatColor.DARK_GREEN + "M";
         } else if (isSeniorModerator(player.getUniqueId())) {
-            return ChatColor.GOLD + "" + "S";
+            return ChatColor.GOLD + "S";
         } else if (isDeveloper(player.getUniqueId())) {
-            return ChatColor.DARK_PURPLE + "" + "D";
+            return ChatColor.DARK_PURPLE + "D";
         } else if (isExecutive(player.getUniqueId())) {
-            return ChatColor.DARK_RED + "" + "E";
+            return ChatColor.DARK_RED + "E";
         } else if (isArchitect(player.getUniqueId())) {
-            return ChatColor.DARK_BLUE + "" + "A";
+            return ChatColor.DARK_BLUE + "A";
         } else if (isVoter(player.getUniqueId())) {
-            return ChatColor.DARK_AQUA + "" + "V";
+            return ChatColor.DARK_AQUA + "V";
         } else {
             return "";
         }

@@ -48,3 +48,9 @@ tablist:
     - "&8--+--"
     - "&7unraveledmc.com"
     - "&7discord.gg/Wab3tFq"
+
+#Configuration Settings!
+config:
+  item_drops: false
+  fluid_place: false
+  fire_place: false

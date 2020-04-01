@@ -33,6 +33,7 @@ public class PlayersMenu extends ShopIndex {
                         ItemStack is = newPlayerHead(target);
                         second.setItem(y.get(), is, p -> player.sendMessage("You clicked on " + target.getName()));
                         y.getAndIncrement();
+                        x.getAndIncrement();
                     } while (x.get() < Util.size());
                     second.setItem(Util.size() + 2, is2, p -> {
                         Converse.plugin.players.open(p);

@@ -6,6 +6,8 @@ import net.novelmc.util.CoinIndex;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import java.util.UUID;
+
 public class CoinsCommand implements CommandExecutor {
     private final CoinIndex index = Converse.plugin.coinIndex;
 
@@ -17,7 +19,8 @@ public class CoinsCommand implements CommandExecutor {
         }
 
         Player p = (Player) cs;
-        int tCoins = index.getCoins(p);
+        UUID uuid = p.getUniqueId();
+        int tCoins = index.load(uuid);
         if (tCoins == 0) {
             p.sendMessage(ChatColor.GRAY + "You don't have any coins!");
             return true;

@@ -51,7 +51,7 @@ public class PlayerData extends YamlConfiguration {
                 playerData.set("ip", Objects.requireNonNull(player.getAddress()).getHostName());
             }
             if (!playerData.isSet("coins")) {
-                playerData.set("coins", "0");
+                playerData.set("coins", 0);
             }
         }
     }

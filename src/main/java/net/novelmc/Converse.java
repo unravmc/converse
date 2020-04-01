@@ -1,24 +1,29 @@
 package net.novelmc;
 
-import net.novelmc.listeners.ShopListener;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
 import me.lucko.luckperms.api.LuckPermsApi;
 import net.novelmc.bans.Ban;
 import net.novelmc.bridge.LuckPermsBridge;
 import net.novelmc.commands.*;
-import net.novelmc.config.*;
+import net.novelmc.config.BanConfig;
+import net.novelmc.config.MainConfig;
+import net.novelmc.config.PermbanConfig;
+import net.novelmc.config.PlayerData;
 import net.novelmc.listeners.*;
 import net.novelmc.permban.Permban;
-import net.novelmc.shop.*;
-import net.novelmc.util.*;
+import net.novelmc.shop.MainMenu;
+import net.novelmc.shop.PlayersMenu;
+import net.novelmc.shop.TrailsMenu;
+import net.novelmc.util.CoinIndex;
+import net.novelmc.util.PlayerOrganizer;
+import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 public class Converse extends JavaPlugin {
     public static Converse plugin;
@@ -41,7 +46,6 @@ public class Converse extends JavaPlugin {
     public TrailsMenu trails;
     public PlayersMenu players;
     public ShopListener shl;
-    // Indexers
     public CoinIndex coinIndex;
     // Listeners
     public BanListener bl;
@@ -81,6 +85,8 @@ public class Converse extends JavaPlugin {
         permban = new Permban(this);
         // Shops
         loadShops();
+
+        coinIndex = new CoinIndex();
         util = new Util();
         //Scoreboard for Tablist
         po = new PlayerOrganizer();
@@ -98,10 +104,6 @@ public class Converse extends JavaPlugin {
         players = new PlayersMenu();
     }
 
-    private void indexer() {
-        coinIndex = new CoinIndex();
-    }
-
     public static LuckPermsApi getLuckPermsAPI() {
         RegisteredServiceProvider<LuckPermsApi> provider = Bukkit.getServicesManager()
                 .getRegistration(LuckPermsApi.class);
@@ -111,7 +113,6 @@ public class Converse extends JavaPlugin {
         return null;
     }
 
-    @SuppressWarnings("null")
     private void registerCommands() {
         getCommand("adminchat").setExecutor(new AdminchatCommand());
         getCommand("ban").setExecutor(new BanCommand());
