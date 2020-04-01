@@ -19,7 +19,7 @@ public class Permban extends ConverseBase {
         banMessage.append(ChatColor.DARK_GRAY + "MC\n");
         banMessage.append(ChatColor.RED + "You are permanently banned from this server!\n");
         if (!(reason.length() == 0)) {
-            banMessage.append(ChatColor.GRAY + "Reason: " + ChatColor.GRAY + reason + "\n");
+            banMessage.append(ChatColor.GRAY + "Reason: " + ChatColor.WHITE + reason + "\n");
         }
         banMessage.append(ChatColor.GRAY + "More Info: " + ChatColor.GOLD + ChatColor.UNDERLINE + plugin.config.getString("banurl") +
                 "\n");
