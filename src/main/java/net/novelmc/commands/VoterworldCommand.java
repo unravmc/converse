@@ -8,14 +8,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class VoterworldCommand implements CommandExecutor {
+public class FlatworldCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        if (!sender.hasPermission("converse.voterworld")) {
-            sender.sendMessage(Messages.NO_PERMISSION);
-            return true;
-        }
-        
         World voterworld = Bukkit.getWorld("voterworld");
         if (voterworld == null) {
             sender.sendMessage(ChatColor.RED +
