@@ -193,4 +193,34 @@ public class LuckPermsBridge {
             userManager.saveUser(user);
         });
     }
+    
+    public void allowVoterWorld(UUID uuid) {
+        assert api != null;
+        UserManager userManager = api.getUserManager();
+        CompletableFuture<User> userFuture = userManager.loadUser(uuid);
+
+        userFuture.thenAcceptAsync(user ->
+        {
+            Node permission = api.buildNode("multiverse.access.voterworld").build();
+            Node command = api.buildNode("converse.voterworld").build();
+            user.setPermission(permission);
+            user.setPermission(command);
+            userManager.saveUser(user);
+        });
+    }
+    
+    public void disallowVoterWorld(UUID uuid) {
+        assert api != null;
+        UserManager userManager = api.getUserManager();
+        CompletableFuture<User> userFuture = userManager.loadUser(uuid);
+
+        userFuture.thenAcceptAsync(user ->
+        {
+            Node permission = api.buildNode("multiverse.access.voterworld").build();
+            Node command = api.buildNode("converse.voterworld").build();
+            user.unsetPermission(permission);
+            user.unsetPermission(command);
+            userManager.saveUser(user);
+        });
+    }
 }
