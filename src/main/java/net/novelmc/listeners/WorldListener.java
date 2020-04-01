@@ -40,6 +40,15 @@ public class WorldListener implements Listener {
             plugin.lp.disallowStaffWorld(event.getPlayer().getUniqueId());
         }
     }
+    
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        if (event.getPlayer().hasPermission("multiverse.access.voterworld") &&
+                !plugin.lp.isStaff(event.getPlayer().getUniqueId()) ||
+                !plugin.lp.isArchitect(event.getPlayer().getUniqueId())) {
+            plugin.lp.disallowVoterWorld(event.getPlayer().getUniqueId());
+        }
+    }
 
     private boolean bool = Converse.plugin.config.getBoolean("item_drops");
 
