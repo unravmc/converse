@@ -132,6 +132,10 @@ public class Converse extends JavaPlugin {
         getCommand("staffworld").setExecutor(new StaffworldCommand());
         getCommand("unban").setExecutor(new UnbanCommand());
         getCommand("unloadchunks").setExecutor(new UnloadChunksCommand());
+        getCommand("voterworld").setExecutor(new VoterworldCommand());
+        getCommand("overworld").setExecutor(new OverworldCommand());
+        getCommand("netherworld").setExecutor(new NetherworldCommand());
+        getCommand("enderworld").setExecutor(new EnderworldCommand());
 
     }
 
