@@ -15,20 +15,20 @@ public class ConverseCommand extends ConverseBase implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (args.length == 0) {
             Converse.BuildProperties build = Converse.build;
-            sender.sendMessage(ChatColor.GOLD + "Converse is a plugin by which the NovelMC server manages operator " +
+            sender.sendMessage(ChatColor.GRAY + "Converse is a plugin by which the UnraveledMC server manages operator " +
                     "permissions, in-game functions, and staff member tools.");
-            sender.sendMessage(ChatColor.GOLD + String.format("Version "
-                            + ChatColor.BLUE + "%s.%s.%s",
+            sender.sendMessage(ChatColor.GRAY + String.format("Version "
+                            + ChatColor.GOLD + "%s.%s.%s",
                     build.version,
                     build.number,
                     build.head));
-            sender.sendMessage(String.format(ChatColor.GOLD + "Compiled on "
-                            + ChatColor.BLUE + "%s" + ChatColor.GOLD + " by "
-                            + ChatColor.BLUE + "%s",
+            sender.sendMessage(String.format(ChatColor.GRAY + "Compiled on "
+                            + ChatColor.GOLD + "%s" + ChatColor.GRAY + " by "
+                            + ChatColor.GOLD + "%s",
                     build.date,
                     build.author));
-            sender.sendMessage(ChatColor.GREEN + "Visit " + ChatColor.AQUA + "https://github.com/novelmc/converse" +
-                    ChatColor.GREEN + " for more information");
+            sender.sendMessage(ChatColor.GRAY + "Visit " + ChatColor.GOLD + "https://github.com/unravmc/converse" +
+                    ChatColor.GRAY + " for more information");
             return true;
         }
         switch (args[0].toLowerCase()) {

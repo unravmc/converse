@@ -69,12 +69,12 @@ public class ModeCommand extends ConverseBase implements CommandExecutor {
                     return false;
             }
         }
-        sender.sendMessage(ChatColor.BLUE + "Available server modes:");
-        sender.sendMessage(ChatColor.GOLD + " - Dev mode: Plugin testing for leadership and developers.");
-        sender.sendMessage(ChatColor.GOLD + " - Staff mode: Staff only mode.");
-        sender.sendMessage(ChatColor.GOLD + " - Event mode: Whitelist all online players and close the server.");
-        sender.sendMessage(ChatColor.GOLD + " - Default mode: Normal server functionality.");
-        sender.sendMessage(ChatColor.BLUE + "The server is currently running in " + mode + " mode.");
+        sender.sendMessage(ChatColor.GRAY + "Available server modes:");
+        sender.sendMessage(ChatColor.GOLD + " - Dev: Plugin testing status for leadership and developers.");
+        sender.sendMessage(ChatColor.GOLD + " - Staff: Restricts the server to staff members only.");
+        sender.sendMessage(ChatColor.GOLD + " - Event: Whitelist all online players and closes the server.");
+        sender.sendMessage(ChatColor.GOLD + " - Default: Normal server functionality.");
+        sender.sendMessage(ChatColor.GRAY + "The server is currently running in " + mode + " mode.");
         return true;
     }
 }

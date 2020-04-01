@@ -18,7 +18,7 @@ public class FlatworldCommand implements CommandExecutor {
             return true;
         } else {
             Player player = (Player) sender;
-            sender.sendMessage(ChatColor.GRAY + "Teleporting to flatworld...");
+            sender.sendMessage(ChatColor.GRAY + "Teleporting to the flatworld...");
             player.teleport(flatworld.getSpawnLocation());
         }
         return true;

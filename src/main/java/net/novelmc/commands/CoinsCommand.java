@@ -22,7 +22,7 @@ public class CoinsCommand implements CommandExecutor {
         UUID uuid = p.getUniqueId();
         int tCoins = index.load(uuid);
         if (tCoins == 0) {
-            p.sendMessage(ChatColor.GRAY + "You don't have any coins!");
+            p.sendMessage(ChatColor.GRAY + "You don't have any coins.");
             return true;
         }
         p.sendMessage(ChatColor.GRAY + "You have " + tCoins + " coins.");
