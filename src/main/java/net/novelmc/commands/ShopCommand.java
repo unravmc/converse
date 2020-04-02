@@ -2,6 +2,7 @@ package net.novelmc.commands;
 
 import net.novelmc.Converse;
 import net.novelmc.util.AprilFools;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,12 +17,16 @@ public class ShopCommand implements CommandExecutor {
             return true;
         }
 
-        if (args.length == 2) {
+        if (args.length == 1) {
             if (args[0].equalsIgnoreCase("start")) {
                 AprilFools.start();
+                Bukkit.broadcastMessage("April Fools mode has been enabled!");
+                return true;
             }
             else if (args[0].equalsIgnoreCase("stop")) {
                 AprilFools.stop();
+                Bukkit.broadcastMessage("April Fools mode has been disabled!");
+                return true;
             }
         }
 

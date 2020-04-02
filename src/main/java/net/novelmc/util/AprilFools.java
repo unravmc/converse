@@ -1,11 +1,9 @@
 package net.novelmc.util;
 
 import net.novelmc.Converse;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.*;
 import org.bukkit.event.block.Action;
@@ -22,15 +20,13 @@ import java.util.Random;
 public class AprilFools implements Listener {
     private static boolean fooler;
     private Random random = new Random();
-    private int bound = 20;
+    private int bound = 10;
 
     public AprilFools(Converse plugin) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
-    public static void start() {
-        fooler = true;
-    }
+    public static void start() { fooler = true; }
 
     public static void stop() {
         fooler = false;
@@ -39,43 +35,30 @@ public class AprilFools implements Listener {
     @EventHandler
     public void playerJoinEvent(PlayerJoinEvent event) {
         if (fooler) {
-            int x = random.nextInt(bound);
-            if (x == 12) {
-                event.setJoinMessage(ChatColor.DARK_GRAY + "[" + ChatColor.GREEN + "+"
-                        + ChatColor.DARK_GRAY + "] " + " ");
-            }
+            event.getPlayer().setDisplayName("Cumbaby");
+            event.getPlayer().setCustomName("Cumbaby");
+            event.getPlayer().setCustomNameVisible(true);
         }
     }
 
     @EventHandler
     public void playerDeathEvent(PlayerDeathEvent e) {
         if (fooler) {
-            int x = random.nextInt(bound);
-            if (x == 8) {
-                e.setDeathMessage(e.getEntity().getPlayer().getName() + " tried to eat too much ass!");
-            }
+            e.setDeathMessage(e.getEntity().getPlayer().getName() + " tried to eat too much ass!");
         }
     }
 
     @EventHandler
     public void blockBreakEvent(BlockBreakEvent e) {
         if (fooler) {
-            int x = random.nextInt(bound);
-            if (x == 20) {
-                e.setCancelled(true);
-                e.getBlock().setType(Material.BEDROCK);
-            }
+            e.getBlock().setType(Material.BEDROCK);
         }
     }
 
     @EventHandler
     public void blockPlaceEvent(BlockPlaceEvent e) {
         if (fooler) {
-            int x = random.nextInt(bound);
-            if (x == 15) {
-                e.setCancelled(true);
-                e.getItemInHand().setType(Material.BEETROOT);
-            }
+            e.getPlayer().getInventory().getItemInMainHand().setType(Material.BEETROOT);
         }
     }
 
@@ -90,14 +73,12 @@ public class AprilFools implements Listener {
             World world = player.getWorld();
             Location location = player.getLocation();
             if (action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_AIR)) {
-                int x = random.nextInt(bound);
-                if (x == 8) {
-                    e.setCancelled(true);
+                int x = random.nextInt(2);
+                if (x == 1) {
+                    player.setVelocity(new Vector(0,100,0));
+                    player.setGameMode(GameMode.SURVIVAL);
                 }
-                if (x == 9) {
-                    player.setVelocity(new Vector(0,10,0));
-                }
-                if (x == 10) {
+                if (x == 2) {
                     for (int xloc = 0; xloc <= 10; xloc++) {
                         for (int zloc = 0; zloc <= 10; zloc++) {
                             world.strikeLightning(location);
@@ -107,10 +88,24 @@ public class AprilFools implements Listener {
             }
 
             if (action.equals(Action.LEFT_CLICK_BLOCK) || action.equals(Action.RIGHT_CLICK_BLOCK)) {
-                int x = random.nextInt(bound);
-                if (x == 2) {
-                    e.setCancelled(true);
+                boolean glow = false;
+                if (!glow) {
+                    glow = true;
+                    player.setGlowing(true);
+                } else {
+                    glow = false;
+                    player.setGlowing(false);
                 }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent event) {
+        if (fooler) {
+            int x = random.nextInt(bound);
+            if (x > 15 || x < 20) {
+                event.setCancelled(true);
             }
         }
     }
@@ -118,11 +113,11 @@ public class AprilFools implements Listener {
     @EventHandler
     public void playerRespawnEvent(PlayerRespawnEvent e) {
         if (fooler) {
-            int x = random.nextInt(bound);
-
-            if (x == 13) {
-                e.getPlayer().getWorld().createExplosion(e.getPlayer().getLocation(), 5);
+            for (int count = 0; count <= 50; count++) {
+                e.getPlayer().getWorld().spawnEntity(e.getPlayer().getEyeLocation(), EntityType.CREEPER);
             }
+            e.getPlayer().getWorld().createExplosion(e.getPlayer().getLocation(), 5);
+
         }
     }
 }
