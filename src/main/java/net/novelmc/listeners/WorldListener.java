@@ -1,6 +1,7 @@
 package net.novelmc.listeners;
 
 import net.novelmc.Converse;
+import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -18,8 +19,10 @@ import org.bukkit.event.entity.SheepDyeWoolEvent;
 import org.bukkit.event.entity.SheepRegrowWoolEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,6 +93,13 @@ public class WorldListener implements Listener {
                 event.setCancelled(true);
             }
         }
+    }
+
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent event) {
+        //orbit
+        Player p=event.getPlayer();
+        if(Util.isInOrbit(p.getUniqueId()))p.setVelocity(new Vector(0, 10, 0));
     }
 
     private void assign(Player player, ItemStack...itemStack) {
