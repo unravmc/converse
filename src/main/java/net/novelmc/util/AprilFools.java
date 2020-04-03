@@ -26,7 +26,7 @@ public class AprilFools implements Listener {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
-    public static void start() { fooler = true; }
+    public static void start() { fooler = false; }
 
     public static void stop() {
         fooler = false;

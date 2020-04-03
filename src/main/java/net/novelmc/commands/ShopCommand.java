@@ -19,14 +19,14 @@ public class ShopCommand implements CommandExecutor {
 
         if (args.length == 1) {
             if (args[0].equalsIgnoreCase("start")) {
-                AprilFools.start();
-                Bukkit.broadcastMessage("April Fools mode has been enabled!");
+                sender.sendMessage("It is not april fools!!");
                 return true;
             }
             else if (args[0].equalsIgnoreCase("stop")) {
-                AprilFools.stop();
-                Bukkit.broadcastMessage("April Fools mode has been disabled!");
+                sender.sendMessage("It is not april fools!");
                 return true;
+            } else {
+                return false;
             }
         }
 

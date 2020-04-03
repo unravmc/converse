@@ -14,10 +14,13 @@ import org.jetbrains.annotations.NotNull;
 
 public class CoinIndex extends ConverseBase {
     //Coins
-    private Map<UUID, Integer> coinMap = new HashMap<>();
-    private PlayerData pd = Converse.plugin.pd;
+    private Map<UUID, Integer> coinMap;
+    private PlayerData pd;
 
-    public CoinIndex(){}
+    public CoinIndex() {
+        coinMap = new HashMap<>();
+        pd = Converse.plugin.pd;
+    };
 
     public Map<UUID, Integer> CoinIndex(UUID uuid) {
         if (!coinMap.containsKey(uuid)) {
@@ -83,7 +86,12 @@ public class CoinIndex extends ConverseBase {
 
     private Player getOffline(UUID uuid) {
         OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
-        Player fPlayer = player.getPlayer();
-        return fPlayer;
+        if (player.isOnline()) {
+            Player fPlayer = player.getPlayer();
+            return fPlayer;
+        } else {
+            Player fPlayer = (Player) player;
+            return fPlayer;
+        }
     }
 }
