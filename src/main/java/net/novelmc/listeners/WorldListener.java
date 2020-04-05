@@ -77,7 +77,7 @@ public class WorldListener implements Listener {
     public void BlockPlacement(BlockPlaceEvent event) {
         Material m = event.getBlockPlaced().getType();
         if (Converse.plugin.config.getBoolean("fluid_place") == false) {
-            if(mats().contains(m)) {
+            if (mats().contains(m)) {
                 event.setCancelled(true);
             }
         }
@@ -85,14 +85,13 @@ public class WorldListener implements Listener {
         if (Converse.plugin.config.getBoolean("fire_place") == false) {
             if (m == Material.FIRE) {
                 event.setCancelled(true);
-            }
-            else if (m == Material.FIRE_CHARGE) {
+            } else if (m == Material.FIRE_CHARGE) {
                 event.setCancelled(true);
             }
         }
     }
 
-    private void assign(Player player, ItemStack...itemStack) {
+    private void assign(Player player, ItemStack... itemStack) {
         player.getInventory().addItem(itemStack);
     }
 

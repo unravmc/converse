@@ -19,11 +19,10 @@ public class ShopCommand implements CommandExecutor {
 
         if (args.length == 1) {
             if (args[0].equalsIgnoreCase("start")) {
-                sender.sendMessage("It is not april fools!!");
+                AprilFools.start();
                 return true;
-            }
-            else if (args[0].equalsIgnoreCase("stop")) {
-                sender.sendMessage("It is not april fools!");
+            } else if (args[0].equalsIgnoreCase("stop")) {
+                AprilFools.stop();
                 return true;
             } else {
                 return false;

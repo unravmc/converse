@@ -39,10 +39,7 @@ public final class Referencer {
             return false;
         }
         Referencer other = (Referencer) object;
-        if (!name.equals(other.name)) {
-            return false;
-        }
-        return true;
+        return name.equals(other.name);
     }
 
     public String getName() {

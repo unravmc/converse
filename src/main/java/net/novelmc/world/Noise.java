@@ -4,7 +4,7 @@ import org.bukkit.block.data.BlockData;
 import org.jetbrains.annotations.Nullable;
 
 public interface Noise {
-    public static final class TerrainSettings {
+    final class TerrainSettings {
         @Nullable
         public BlockData stoneBlock = null;
 

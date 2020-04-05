@@ -136,7 +136,7 @@ public class Property<T> implements Keyed {
         Objects.requireNonNull(value, "value");
 
         synchronized (mutationLock) {
-            List<T> worldValues =this.allWorldValues.get(world);
+            List<T> worldValues = this.allWorldValues.get(world);
             if (worldValues == null) {
                 worldValues = singletonArrayList(value);
                 this.allWorldValues.put(world, worldValues);

@@ -85,7 +85,7 @@ public class FloatProperty implements Keyed {
     public void setBiomeDefault(Biome biome, float value) {
         if (defaultValues.length == 1) {
             float globalDefault = defaultValues[0];
-            defaultValues = new float[biome.values().length + 1];
+            defaultValues = new float[Biome.values().length + 1];
             Arrays.fill(defaultValues, Float.NaN);
             defaultValues[defaultValues.length - 1] = globalDefault;
         }

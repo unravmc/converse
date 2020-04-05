@@ -21,7 +21,8 @@ public class Permban extends ConverseBase {
         if (!(reason.length() == 0)) {
             banMessage.append(ChatColor.GRAY + "Reason: " + ChatColor.WHITE + reason + "\n");
         }
-        banMessage.append(ChatColor.GRAY + "More Info: " + ChatColor.GOLD + ChatColor.UNDERLINE + plugin.config.getString("banurl") +
+        banMessage.append(ChatColor.GRAY + "More Info: " + ChatColor.GOLD + ChatColor.UNDERLINE +
+                plugin.config.getString("banurl") +
                 "\n");
         banMessage.append(ChatColor.GRAY + "Permban ID: " + ChatColor.WHITE + "#" + banID);
         return banMessage.toString();

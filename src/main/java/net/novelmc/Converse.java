@@ -19,7 +19,6 @@ import net.novelmc.util.PlayerOrganizer;
 import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
-import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -166,7 +165,6 @@ public class Converse extends JavaPlugin {
         config.save();
         permbanConfig.save();
     }
-
 
 
     public static class BuildProperties {

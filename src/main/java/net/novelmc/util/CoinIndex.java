@@ -2,96 +2,62 @@ package net.novelmc.util;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
 
 import net.novelmc.Converse;
-import net.novelmc.config.PlayerData;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
-public class CoinIndex extends ConverseBase {
+public class CoinIndex {
     //Coins
-    private Map<UUID, Integer> coinMap;
-    private PlayerData pd;
+    private Map<Player, Integer> coinMap;
 
     public CoinIndex() {
         coinMap = new HashMap<>();
-        pd = Converse.plugin.pd;
-    };
+    }
 
-    public Map<UUID, Integer> CoinIndex(UUID uuid) {
-        if (!coinMap.containsKey(uuid)) {
-            coinMap.put(uuid, load(uuid));
-        } else {
-            coinMap.replace(uuid, load(uuid));
+    private Map<Player, Integer> coinIndex(Player player) {
+        if (!coinMap.containsKey(player)) {
+            coinMap.put(player, load(player));
         }
         return coinMap;
     }
 
-    public void setCoins(UUID uuid, int x) {
-        load(uuid);
-        if (!coinMap.containsKey(uuid)) {
-            coinMap.put(uuid, x);
-        } else {
-            coinMap.replace(uuid, x);
-        }
-        save(uuid, coinMap);
+    public void setCoins(Player player, int value) {
+        coinIndex(player).replace(player, value);
+        save(player, coinIndex(player).get(player));
     }
 
-    public void addCoins(UUID uuid, int x) {
-        if (!coinMap.containsKey(uuid)) {
-            coinMap.put(uuid, load(uuid));
-        } else {
-            int y = load(uuid);
-            int z = x + y;
-            coinMap.replace(uuid, z);
-            save(uuid, coinMap);
-        }
+    public void addCoins(Player player, int x) {
+        int y = load(player);
+        int z = x + y;
+        coinIndex(player).replace(player, z);
+        save(player, coinIndex(player).get(player));
     }
 
-    public void removeCoins(UUID uuid, int index) {
-        if (!coinMap.containsKey(uuid)) return;
+    public void removeCoins(Player player, int index) {
+        if (!coinMap.containsKey(player)) return;
 
         //do nothing if it's 0 or less.
         if (index < 1) return;
 
-        if (index > load(uuid)) {
-            coinMap.replace(uuid, 0);
-            save(uuid, coinMap);
+        if (index > load(player)) {
+            coinIndex(player).replace(player, 0);
+            save(player, coinIndex(player).get(player));
         }
 
         //Takes the difference then updates the map value.
-        if (index < load(uuid)) {
-            int x = load(uuid);
-            int newIndex = index - x;
-            coinMap.replace(uuid, newIndex);
-            save(uuid, coinMap);
+        if (index < load(player)) {
+            int newIndex = load(player) - index;
+            coinIndex(player).replace(player, newIndex);
+            save(player, newIndex);
         }
     }
 
-    public void save(UUID uuid, @NotNull Map<UUID, Integer> map) {
-        Player player = getOffline(uuid);
-        Converse.plugin.pd.getPlayer(player).set("coins", map.get(player.getUniqueId()));
+    public void save(Player player, int value) {
+        Converse.plugin.pd.getPlayer(player).set("coins", value);
         Converse.plugin.pd.savePlayer(player);
     }
 
-    public Integer load(UUID uuid) {
-        Player player = getOffline(uuid);
-        return (Integer) Objects.requireNonNull(Converse.plugin.pd.getPlayer(player)
-                .get("coins"));
-    }
-
-    private Player getOffline(UUID uuid) {
-        OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
-        if (player.isOnline()) {
-            Player fPlayer = player.getPlayer();
-            return fPlayer;
-        } else {
-            Player fPlayer = (Player) player;
-            return fPlayer;
-        }
+    public int load(Player player) {
+        return Converse.plugin.pd.getPlayer(player).getInt("coins");
     }
 }

@@ -6,7 +6,7 @@ import org.bukkit.block.BlockState;
 import org.bukkit.block.data.BlockData;
 
 public interface DecorArea {
-    public static final int DECORATION_RADIUS= 8;
+    int DECORATION_RADIUS = 8;
 
     Biome getBiome(int x, int z);
 
