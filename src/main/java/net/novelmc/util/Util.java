@@ -144,6 +144,28 @@ public class Util extends ConverseBase {
         return adminChat.get(uuid);
     }
 
+    //orbit
+    private static ArrayList<UUID> orbit = new ArrayList<>();
+
+    public static Boolean toggleOrbit(UUID uuid){
+        if(isInOrbit(uuid)){
+            orbit.remove(uuid);
+            return false;
+        }
+        orbit.add(uuid);
+        return true;
+    }
+
+    public static Boolean setOrbit(UUID uuid, Boolean orbitStatus){
+        Boolean isOrbiting=isInOrbit(uuid);
+        if(orbitStatus==isOrbiting)return orbitStatus;
+        return toggleOrbit(uuid);
+    }
+
+    public static Boolean isInOrbit(UUID uuid){
+        return orbit.contains(uuid);
+    }
+
     // Rewrote this a bit to be a little more functional.
     @Nullable
     public static Date parseDateOffset(String time) {
