@@ -17,7 +17,7 @@ public class CoinsCommand implements CommandExecutor {
         }
 
         Player p = (Player) cs;
-        int tCoins = Converse.plugin.coinIndex.load(p);
+        int tCoins = Converse.plugin.pd.getPlayer(p).getInt("coins");
         if (tCoins == 0) {
             p.sendMessage(ChatColor.GRAY + "You don't have any coins.");
             return true;

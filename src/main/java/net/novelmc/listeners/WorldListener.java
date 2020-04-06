@@ -1,6 +1,8 @@
 package net.novelmc.listeners;
 
 import net.novelmc.Converse;
+import net.novelmc.util.ShopIndex;
+import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -18,11 +20,14 @@ import org.bukkit.event.entity.SheepDyeWoolEvent;
 import org.bukkit.event.entity.SheepRegrowWoolEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class WorldListener implements Listener {
     private Converse plugin;
@@ -39,6 +44,8 @@ public class WorldListener implements Listener {
                 !plugin.lp.isArchitect(event.getPlayer().getUniqueId())) {
             plugin.lp.disallowStaffWorld(event.getPlayer().getUniqueId());
         }
+        UUID playerUUID = event.getPlayer().getUniqueId();
+        ShopIndex.openInventories.remove(playerUUID);
     }
 
     private boolean bool = Converse.plugin.config.getBoolean("item_drops");
@@ -71,6 +78,14 @@ public class WorldListener implements Listener {
     @EventHandler
     public void EntityDrops(EntityDropItemEvent e) {
         e.setCancelled(!bool);
+    }
+
+    @EventHandler
+    public void orbiter(PlayerMoveEvent event) {
+        Player player = event.getPlayer();
+        if (Util.isInOrbit(player.getUniqueId())) {
+            player.setVelocity(new Vector(0,10,0));
+        }
     }
 
     @EventHandler

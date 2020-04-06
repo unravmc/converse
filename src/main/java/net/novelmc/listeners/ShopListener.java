@@ -48,11 +48,4 @@ public class ShopListener implements Listener {
         ShopIndex.openInventories.remove(playerUUID);
     }
 
-    @EventHandler
-    public void onQuit(PlayerQuitEvent e) {
-        Player player = e.getPlayer();
-        UUID playerUUID = player.getUniqueId();
-
-        ShopIndex.openInventories.remove(playerUUID);
-    }
 }

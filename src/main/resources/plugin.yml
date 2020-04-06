@@ -59,6 +59,9 @@ commands:
     usage: /<command>
     description: Teleport to the overworld
     aliases: [ow]
+  orbit:
+    usage: /<command> <player> <on | off>
+    description: Toggles a player's orbited state
   permban:
     usage: /<command> <player> [reason]
     description: Permanently bans a player

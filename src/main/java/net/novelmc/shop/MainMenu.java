@@ -7,6 +7,7 @@ import net.md_5.bungee.api.ChatColor;
 import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -21,35 +22,8 @@ public class MainMenu extends ShopIndex {
         setItem(0, is1, player -> Converse.plugin.trails.open(player));
 
         setItem(1, is2, player -> {
-            Bukkit.getOnlinePlayers().forEach(target -> {
-                AtomicInteger x = new AtomicInteger();
-                if (Util.size() > 54) {
-                    do {
-                        ItemStack is = newPlayerHead(target);
-                        setItem(x.get(), is, pl -> pl.sendMessage("You clicked on " + target.getName()));
-                        x.getAndIncrement();
-                    } while (x.get() <= 52);
-                    AtomicInteger y = new AtomicInteger();
-                    SecondMenu second = new SecondMenu();
-                    ItemStack is4 = newItem(Material.RED_WOOL, "Previous", "Return to the previous page.");
-                    ItemStack is5 = newItem(Material.GREEN_WOOL, "Next", "Go to the next page.");
-                    setItem(53, is5, pl -> {
-                        do {
-                            ItemStack is = newPlayerHead(target);
-                            second.setItem(y.get(), is, p -> p.sendMessage("You clicked on " + target.getName()));
-                            y.getAndIncrement();
-                            x.getAndIncrement();
-                        } while (x.get() < Util.size());
-                        second.setItem(Util.size() + 2, is4, p -> {
-                            Converse.plugin.players.open(p);
-                        });
-                        second.open(pl);
-                    });
-                }
-                ItemStack is = newPlayerHead(target);
-                setItem(x.get(), is, pl -> pl.sendMessage("You clicked on " + target.getName()));
-                x.getAndIncrement();
-            });
+            registerPlayers();
+            Converse.plugin.players.open(player);
         });
         //
         setItem(2, is3, player -> {
@@ -57,6 +31,41 @@ public class MainMenu extends ShopIndex {
             hover.newChat();
             Converse.plugin.shop.open(player);
         });
+    }
+
+    private void registerPlayers() {
+        for (Player target : Bukkit.getOnlinePlayers()) {
+            final int[] x = {0};
+            if (Util.size() > 54) {
+                while (x[0] <= 52) {
+                    ItemStack is = newPlayerHead(target);
+                    Converse.plugin.players
+                            .setItem(x[0], is, pl -> pl.sendMessage("You clicked on " + target.getName()));
+                    x[0]++;
+                }
+                final int[] y = {0};
+                SecondMenu second = new SecondMenu();
+                ItemStack is4 = newItem(Material.RED_WOOL, "Previous", "Return to the previous page.");
+                ItemStack is5 = newItem(Material.GREEN_WOOL, "Next", "Go to the next page.");
+                setItem(53, is5, pl -> {
+                    while (x[0] < Util.size()) {
+                        ItemStack is = newPlayerHead(target);
+                        second.setItem(y[0], is, p -> p.sendMessage("You clicked on " + target.getName()));
+                        y[0]++;
+                        x[0]++;
+                    }
+                    second.setItem(Util.size() + 2, is4, p -> {
+                        Converse.plugin.players.open(p);
+                    });
+                    second.open(pl);
+                });
+            } else {
+                ItemStack is = newPlayerHead(target);
+                Converse.plugin.players
+                        .setItem(x[0], is, pl -> pl.sendMessage("You clicked on " + target.getName()));
+                x[0]++;
+            }
+        }
     }
 
     private class SecondMenu extends ShopIndex {

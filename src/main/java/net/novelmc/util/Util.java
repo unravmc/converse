@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Particle;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Contract;
@@ -273,6 +274,13 @@ public class Util extends ConverseBase {
 
         return result;
     }
+
+    public static String getNmsVersion() {
+        String packageName = Bukkit.getServer().getClass().getPackage().getName();
+        return packageName.substring(packageName.lastIndexOf(".") + 1);
+    }
+
+    public static Map<Player, Particle> map = new HashMap<>();
 
     public static String getTime() {
         return time;
