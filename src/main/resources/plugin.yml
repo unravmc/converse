@@ -68,6 +68,9 @@ commands:
   plotworld:
     usage: /<command>
     description: Teleport to the plotworld
+  say:
+    usage: /<command> <msg>
+    description: Moderator announcements
   shop:
     usage: /<command>
     description: Opens the shop menu.
