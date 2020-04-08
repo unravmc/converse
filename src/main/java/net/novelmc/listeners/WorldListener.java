@@ -6,6 +6,7 @@ import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -81,10 +82,16 @@ public class WorldListener implements Listener {
     }
 
     @EventHandler
-    public void orbiter(PlayerMoveEvent event) {
+    public void onPlayerMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         if (Util.isInOrbit(player.getUniqueId())) {
             player.setVelocity(new Vector(0,10,0));
+        }
+
+        if (Util.map.containsKey(player)) {
+            for (int x = 0; x <= 5; x++)
+                for (int z = 0; z <= 5; z++)
+                    player.spawnParticle(Particle.DRAGON_BREATH, player.getLocation(), (x * z) + 1);
         }
     }
 
