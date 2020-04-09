@@ -98,3 +98,6 @@ commands:
   cage:
     usage: /<command> <<player> [block] | purge>
     description: Create a cage around a player
+  playtime:
+    usage: /<command> [player]
+    description: View player playtime

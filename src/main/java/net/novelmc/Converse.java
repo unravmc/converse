@@ -59,6 +59,7 @@ public class Converse extends JavaPlugin {
     public TabListener sl;
     public WorldListener wl;
     public CageListener cgl;
+    public PlaytimeListener ptl;
 
 
     @Override
@@ -104,6 +105,10 @@ public class Converse extends JavaPlugin {
 
         // Undo cages
         for(UUID u : cgl.cages.keySet()) { CageCommand.Cage cage = cgl.cages.get(u); cage.undo(); } cgl.cages.clear();
+
+        // Playtime Handler
+        ptl.schedular.cancel();
+        ptl.saveData();
     }
 
     private void loadShops() {
@@ -147,6 +152,8 @@ public class Converse extends JavaPlugin {
         getCommand("orbit").setExecutor(new OrbitCommand());
         getCommand("say").setExecutor(new SayCommand());
         getCommand("cage").setExecutor(new CageCommand());
+        getCommand("playtime").setExecutor(new PlaytimeCommand());
+
 
     }
 
@@ -160,6 +167,7 @@ public class Converse extends JavaPlugin {
         wl = new WorldListener(this);
         shl = new ShopListener(this);
         cgl = new CageListener(this);
+        ptl = new PlaytimeListener(this);
     }
 
     public void registerConfigs() {
