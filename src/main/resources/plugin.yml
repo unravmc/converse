@@ -95,3 +95,6 @@ commands:
     usage: /<command>
     description: Teleport to the voterworld
     aliases: [vw]
+  cage:
+    usage: /<command> <<player> [block] | purge>
+    description: Create a cage around a player
