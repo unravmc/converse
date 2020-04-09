@@ -7,14 +7,14 @@ import net.novelmc.commands.*;
 import net.novelmc.config.BanConfig;
 import net.novelmc.config.MainConfig;
 import net.novelmc.config.PermbanConfig;
-import net.novelmc.config.PlayerData;
 import net.novelmc.listeners.*;
 import net.novelmc.permban.Permban;
+import net.novelmc.playerdata.PlayerDataListener;
+import net.novelmc.playerdata.PlayerDataManager;
 import net.novelmc.shop.MainMenu;
 import net.novelmc.shop.PlayersMenu;
 import net.novelmc.shop.TrailsMenu;
 import net.novelmc.util.AprilFools;
-import net.novelmc.util.CoinIndex;
 import net.novelmc.util.PlayerOrganizer;
 import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
@@ -36,7 +36,6 @@ public class Converse extends JavaPlugin {
     public BanConfig banConfig;
     public MainConfig config;
     public PermbanConfig permbanConfig;
-    public PlayerData pd;
     public PlayerOrganizer po;
     // Banning
     public Ban ban;
@@ -49,17 +48,19 @@ public class Converse extends JavaPlugin {
     public PlayersMenu players;
     public ShopListener shl;
     public AprilFools af;
-    public CoinIndex coinIndex;
     // Listeners
     public BanListener bl;
     public ChatListener cl;
     public ModeListener ml;
     public MuteListener mul;
-    public PlayerDataListener pdl;
     public TabListener sl;
     public WorldListener wl;
     public CageListener cgl;
     public PlaytimeListener ptl;
+    public PlayerDataListener pdl;
+
+    // Player Data
+    public PlayerDataManager playerDataManager;
 
 
     @Override
@@ -69,7 +70,6 @@ public class Converse extends JavaPlugin {
         banConfig = new BanConfig(this);
         config = new MainConfig(this);
         permbanConfig = new PermbanConfig(this);
-        pd = new PlayerData(this);
     }
 
     @Override
@@ -82,6 +82,8 @@ public class Converse extends JavaPlugin {
         // LuckPerms
         getLuckPermsAPI();
         lp = new LuckPermsBridge(this);
+        // Player Data Manager
+        playerDataManager = new PlayerDataManager();
         // Commands
         registerCommands();
         // Listener
@@ -92,7 +94,6 @@ public class Converse extends JavaPlugin {
         // Shops
         loadShops();
 
-        coinIndex = new CoinIndex();
         util = new Util();
         //Scoreboard for Tablist
         po = new PlayerOrganizer();
@@ -107,8 +108,10 @@ public class Converse extends JavaPlugin {
         for(UUID u : cgl.cages.keySet()) { CageCommand.Cage cage = cgl.cages.get(u); cage.undo(); } cgl.cages.clear();
 
         // Playtime Handler
-        ptl.schedular.cancel();
-        ptl.saveData();
+        ptl.scheduler.cancel();
+
+        // Player Data Handler
+        playerDataManager.scheduler.cancel();
     }
 
     private void loadShops() {
