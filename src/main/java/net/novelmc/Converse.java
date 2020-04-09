@@ -25,6 +25,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.UUID;
 
 public class Converse extends JavaPlugin {
     public static Converse plugin;
@@ -57,6 +58,8 @@ public class Converse extends JavaPlugin {
     public PlayerDataListener pdl;
     public TabListener sl;
     public WorldListener wl;
+    public CageListener cgl;
+    public PlaytimeListener ptl;
 
 
     @Override
@@ -99,6 +102,13 @@ public class Converse extends JavaPlugin {
     public void onDisable() {
         // Unregister configs
         unregisterConfigs();
+
+        // Undo cages
+        for(UUID u : cgl.cages.keySet()) { CageCommand.Cage cage = cgl.cages.get(u); cage.undo(); } cgl.cages.clear();
+
+        // Playtime Handler
+        ptl.schedular.cancel();
+        ptl.saveData();
     }
 
     private void loadShops() {
@@ -141,6 +151,9 @@ public class Converse extends JavaPlugin {
         getCommand("unloadchunks").setExecutor(new UnloadChunksCommand());
         getCommand("orbit").setExecutor(new OrbitCommand());
         getCommand("say").setExecutor(new SayCommand());
+        getCommand("cage").setExecutor(new CageCommand());
+        getCommand("playtime").setExecutor(new PlaytimeCommand());
+
 
     }
 
@@ -153,7 +166,8 @@ public class Converse extends JavaPlugin {
         sl = new TabListener(this);
         wl = new WorldListener(this);
         shl = new ShopListener(this);
-
+        cgl = new CageListener(this);
+        ptl = new PlaytimeListener(this);
     }
 
     public void registerConfigs() {
