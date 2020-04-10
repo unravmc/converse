@@ -13,7 +13,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -21,6 +20,7 @@ import java.util.UUID;
 
 public class PlaytimeListener implements Listener {
     public BukkitTask scheduler;
+    public Map<UUID, Long> playtime = new HashMap<>();
     public Map<UUID, Long> timeLoggedIn = new HashMap<>();
     public Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private final Converse plugin;
@@ -29,6 +29,9 @@ public class PlaytimeListener implements Listener {
     public PlaytimeListener(Converse plugin) {
         this.plugin = plugin;
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
+
+        if(new File(plugin.getDataFolder(), "playtime.json").exists()) loadData();
+
         beginScheduler();
     }
 
@@ -38,6 +41,8 @@ public class PlaytimeListener implements Listener {
                 for(Player player : Bukkit.getOnlinePlayers()) {
                     cachePlayerPlaytime(player);
                 }
+
+                saveData();
             }
         }.runTaskTimerAsynchronously(plugin, 0L, 6000L);
     }
