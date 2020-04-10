@@ -28,7 +28,7 @@ public class SayCommand extends ConverseBase implements CommandExecutor
             return false;
         } else {
             StringBuilder builder = new StringBuilder();
-            builder.append(ChatColor.RED + "[" + sender.getName() + "] ");
+            builder.append(ChatColor.GOLD + "[" + "Server:" + sender.getName() + "] ");
             Arrays.stream(args).forEach(argument -> {
                builder.append(argument);
             });
