@@ -71,6 +71,7 @@ commands:
   say:
     usage: /<command> <msg>
     description: Moderator announcements
+    aliases: [shout, announce, broadcast]
   shop:
     usage: /<command>
     description: Opens the shop menu.
