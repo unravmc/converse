@@ -40,9 +40,9 @@ public class PlaytimeCommand extends ConverseBase implements CommandExecutor {
 
     public String formattedTime(Long timeMillis) {
         long seconds = timeMillis / 1000;
-        long days = (int)TimeUnit.SECONDS.toDays(seconds);
-        long hours = TimeUnit.SECONDS.toHours(seconds) - (days *24);
-        long minutes = TimeUnit.SECONDS.toMinutes(seconds) - (TimeUnit.SECONDS.toHours(seconds)* 60);
+        long days = (int) TimeUnit.SECONDS.toDays(seconds);
+        long hours = TimeUnit.SECONDS.toHours(seconds) - (days * 24);
+        long minutes = TimeUnit.SECONDS.toMinutes(seconds) - (TimeUnit.SECONDS.toHours(seconds) * 60);
         return String.format("%d day(s), %d hour(s), %d minute(s)", days, hours, minutes);
     }
 }
