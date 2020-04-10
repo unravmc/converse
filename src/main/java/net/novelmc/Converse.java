@@ -105,7 +105,11 @@ public class Converse extends JavaPlugin {
         unregisterConfigs();
 
         // Undo cages
-        for(UUID u : cgl.cages.keySet()) { CageCommand.Cage cage = cgl.cages.get(u); cage.undo(); } cgl.cages.clear();
+        for(UUID u : cgl.cages.keySet()) {
+            CageCommand.Cage cage = cgl.cages.get(u);
+            cage.undo();
+        }
+        cgl.cages.clear();
 
         // Playtime Handler
         ptl.scheduler.cancel();
