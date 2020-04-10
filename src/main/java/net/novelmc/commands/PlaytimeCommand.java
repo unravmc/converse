@@ -4,6 +4,7 @@ import net.novelmc.playerdata.PlayerData;
 import net.novelmc.util.ConverseBase;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -31,7 +32,14 @@ public class PlaytimeCommand extends ConverseBase implements CommandExecutor {
                 sender.sendMessage(ChatColor.AQUA + target.getName()+ "'s playtime: " + ChatColor.WHITE +
                         formattedTime(pData.getPlaytime()));
             } else {
-                sender.sendMessage(Messages.PLAYER_NOT_FOUND);
+                OfflinePlayer offlineTarget = Bukkit.getOfflinePlayer(args[0]);
+                if (plugin.playerDataManager.doesPlayerDataExist(offlineTarget.getUniqueId())) {
+                    PlayerData pData = plugin.playerDataManager.getPlayerData(offlineTarget);
+                    sender.sendMessage(ChatColor.AQUA + offlineTarget.getName() + "'s playtime: " + ChatColor.WHITE +
+                            formattedTime(pData.getPlaytime()));
+                } else {
+                    sender.sendMessage(Messages.PLAYER_NOT_FOUND);
+                }
             }
         }
 
@@ -42,6 +50,7 @@ public class PlaytimeCommand extends ConverseBase implements CommandExecutor {
         long seconds = timeMillis / 1000;
         long days = (int) TimeUnit.SECONDS.toDays(seconds);
         long hours = TimeUnit.SECONDS.toHours(seconds) - (days * 24);
+        long minutes = TimeUnit.SECONDS.toMinutes(seconds) - (TimeUnit.SECONDS.toHours(seconds) * 60);
         return String.format("%d day(s), %d hour(s), %d minute(s)", days, hours, minutes);
     }
 }
