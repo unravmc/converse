@@ -16,54 +16,54 @@ public class PlayerOrganizer {
     //TabList Sorting Methods
     private final LuckPermsBridge LPB = Converse.plugin.lp;
     private Scoreboard sb;
+    Team op;
+    Team voter;
+    Team arc;
+    Team mod;
+    Team srmod;
+    Team dev;
+    Team exec;
 
     public PlayerOrganizer() {
-        sb = Objects.requireNonNull(Bukkit.getScoreboardManager()).getNewScoreboard();
-        Team player = sb.registerNewTeam("07G");
-        Team voter = sb.registerNewTeam("06V");
-        Team arc = sb.registerNewTeam("05A");
-        Team mod = sb.registerNewTeam("04M");
-        Team srmod = sb.registerNewTeam("03S");
-        Team dev = sb.registerNewTeam("02D");
-        Team exec = sb.registerNewTeam("01E");
+        sb = Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard();
+        sb.getTeams().forEach(Team::unregister);
+        op = sb.registerNewTeam("G-OP");
+        voter = sb.registerNewTeam("F-Voter");
+        arc = sb.registerNewTeam("E-Arch");
+        mod = sb.registerNewTeam("D-Mod");
+        srmod = sb.registerNewTeam("C-SMod");
+        dev = sb.registerNewTeam("B-Dev");
+        exec = sb.registerNewTeam("A-Exec");
 
-        Objects.requireNonNull(sb.getTeam("01E")).setPrefix("&8[&4E&8] &r");
-        Objects.requireNonNull(sb.getTeam("02D")).setPrefix("&8[&5D&8] &r");
-        Objects.requireNonNull(sb.getTeam("03S")).setPrefix("&8[&6S&8] &r");
-        Objects.requireNonNull(sb.getTeam("04M")).setPrefix("&8[&2M&8] &r");
-        Objects.requireNonNull(sb.getTeam("05A")).setPrefix("&8[&9A&8] &r");
-        Objects.requireNonNull(sb.getTeam("06V")).setPrefix("&8[&3V&8] &r");
-        Objects.requireNonNull(sb.getTeam("07G")).setPrefix("&r");
+        exec.setPrefix("&8[&4E&8] &r");
+        dev.setPrefix("&8[&5D&8] &r");
+        srmod.setPrefix("&8[&6S&8] &r");
+        mod.setPrefix("&8[&2M&8] &r");
+        arc.setPrefix("&8[&9A&8] &r");
+        voter.setPrefix("&8[&3V&8] &r");
+        op.setPrefix("&r");
     }
 
     public void tabAdd(@NotNull Player p) {
 
-        String team;
-        String uuid = p.getUniqueId().toString().trim();
+        String pName = p.getName();
         //
         //
         if (LPB.isModerator(p.getUniqueId())) {
-            team = "04M";
+            mod.addEntry(pName);
         } else if (LPB.isSeniorModerator(p.getUniqueId())) {
-            team = "03S";
+            srmod.addEntry(pName);
         } else if (LPB.isDeveloper(p.getUniqueId())) {
-            team = "02D";
+            dev.addEntry(pName);
         } else if (LPB.isExecutive(p.getUniqueId())) {
-            team = "01E";
+            exec.addEntry(pName);
         } else if (LPB.isArchitect(p.getUniqueId())) {
-            team = "05A";
+            arc.addEntry(pName);
         } else if (LPB.isVoter(p.getUniqueId())) {
-            team = "06V";
+            voter.addEntry(pName);
         } else {
-            team = "07G";
+            op.addEntry(pName);
         }
-        //
-        try {
-            Objects.requireNonNull(sb.getTeam(team)).addEntry(uuid);
-        } catch (NullPointerException ex) {
-            //possible null pointer; just do nothing for the logs.
-        }
-        Bukkit.getOnlinePlayers().forEach(pl -> pl.setScoreboard(sb));
     }
 
     public void tabRemove(Player p) {
