@@ -3,6 +3,7 @@ package net.novelmc.util;
 import net.novelmc.Converse;
 import net.novelmc.bridge.LuckPermsBridge;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -35,13 +36,13 @@ public class PlayerOrganizer {
         dev = sb.registerNewTeam("B-Dev");
         exec = sb.registerNewTeam("A-Exec");
 
-        exec.setPrefix("&8[&4E&8] &r");
-        dev.setPrefix("&8[&5D&8] &r");
-        srmod.setPrefix("&8[&6S&8] &r");
-        mod.setPrefix("&8[&2M&8] &r");
-        arc.setPrefix("&8[&9A&8] &r");
-        voter.setPrefix("&8[&3V&8] &r");
-        op.setPrefix("&r");
+        exec.setPrefix(colorize("&8[&4E&8] &r"));
+        dev.setPrefix(colorize("&8[&5D&8] &r"));
+        srmod.setPrefix(colorize("&8[&6S&8] &r"));
+        mod.setPrefix(colorize("&8[&2M&8] &r"));
+        arc.setPrefix(colorize("&8[&9A&8] &r"));
+        voter.setPrefix(colorize("&8[&3V&8] &r"));
+        op.setPrefix(colorize("&r"));
     }
 
     public void tabAdd(@NotNull Player p) {
@@ -74,6 +75,9 @@ public class PlayerOrganizer {
             assert team != null;
             team.removeEntry(uuid);
         }
+    }
 
+    private String colorize(String msg) {
+        return ChatColor.translateAlternateColorCodes('&', msg);
     }
 }

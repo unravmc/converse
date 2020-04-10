@@ -3,14 +3,13 @@ package net.novelmc.listeners;
 import net.novelmc.Converse;
 import net.novelmc.util.ShopIndex;
 import net.novelmc.util.Util;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
-import org.bukkit.Particle;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockDropItemEvent;
@@ -19,10 +18,7 @@ import org.bukkit.event.entity.EntityDropItemEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.entity.SheepDyeWoolEvent;
 import org.bukkit.event.entity.SheepRegrowWoolEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
@@ -38,7 +34,32 @@ public class WorldListener implements Listener {
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        //Custom Join Message
+        Player player = event.getPlayer();
+        ChatColor rankColor = Converse.plugin.lp.displayRankColor(player);
+        ChatColor nameColor = Converse.plugin.lp.nameColor(player);
+        String rank = Converse.plugin.lp.displayRank(player);
+        StringBuilder sb = new StringBuilder();
+        if (Converse.plugin.lp.isStaff(player.getUniqueId())
+                || Converse.plugin.lp.isArchitect(player.getUniqueId())
+                || Converse.plugin.lp.isVoter(player.getUniqueId())) {
+                sb.append(ChatColor.DARK_GRAY + "[")
+                        .append(ChatColor.GREEN + "+")
+                        .append(ChatColor.DARK_GRAY + "] ")
+                        .append("[" + rankColor + rank + ChatColor.DARK_GRAY + "] ")
+                        .append(nameColor + player.getName());
+        } else {
+            sb.append(ChatColor.DARK_GRAY + "[")
+                    .append(ChatColor.GREEN + "+")
+                    .append(ChatColor.DARK_GRAY + "] ")
+                    .append(nameColor + player.getName());
+        }
+        event.setJoinMessage(sb.toString());
+    }
+
+    @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerQuit(PlayerQuitEvent event) {
         if (event.getPlayer().hasPermission("multiverse.access.staffworld") &&
                 !plugin.lp.isStaff(event.getPlayer().getUniqueId()) ||
@@ -47,6 +68,16 @@ public class WorldListener implements Listener {
         }
         UUID playerUUID = event.getPlayer().getUniqueId();
         ShopIndex.openInventories.remove(playerUUID);
+
+        //custom leave
+        Player player = event.getPlayer();
+        ChatColor nameColor = Converse.plugin.lp.nameColor(player);
+        StringBuilder sb = new StringBuilder();
+        sb.append(ChatColor.DARK_GRAY + "[")
+                .append(ChatColor.RED + "-")
+                .append(ChatColor.DARK_GRAY + "] ")
+                .append(nameColor + player.getName());
+        event.setQuitMessage(sb.toString());
     }
 
     private boolean bool = Converse.plugin.config.getBoolean("item_drops");

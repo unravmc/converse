@@ -55,9 +55,9 @@ public class ShopAdminCommand extends ConverseBase implements CommandExecutor {
                         Bukkit.getOnlinePlayers().forEach(p -> {
                             PlayerData pData = plugin.playerDataManager.getPlayerData(p);
                             pData.addCoins(x);
-                            p.sendMessage(ChatColor.YELLOW + "You now have " + x + " coins!");
+                            p.sendMessage(ChatColor.YELLOW + "You now have " + pData.getCoins() + " coins!");
                         });
-                        sender.sendMessage("Everyone now has " + x + " coins!");
+                        sender.sendMessage("Everyone has been given " + x + " coins!");
                         if (sender instanceof Player)
                             Util.action(sender, "Added " + x + " coins to everyone's balance.");
                         return true;
@@ -82,10 +82,10 @@ public class ShopAdminCommand extends ConverseBase implements CommandExecutor {
                     return true;
                 case "add":
                     pData.addCoins(x);
-                    sender.sendMessage(p.getName() + " now has " + x + " coins!");
-                    p.sendMessage(ChatColor.YELLOW + "You now have " + x + " coins!");
+                    sender.sendMessage(p.getName() + " now has " + pData.getCoins() + " coins!");
+                    p.sendMessage(ChatColor.YELLOW + "You now have " + pData.getCoins() + " coins!");
                     if (sender instanceof Player)
-                        Util.action(sender, "Added " + x + " coins to " + p.getName() + "'s balance.");
+                        Util.action(sender, "Added " + pData.getCoins() + " coins to " + p.getName() + "'s balance.");
                     return true;
                 case "del":
                     pData.removeCoins(x);
