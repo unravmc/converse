@@ -9,7 +9,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.Date;
-import java.util.Objects;
 
 
 public class PlayerDataListener extends ConverseBase implements Listener {
@@ -27,6 +26,7 @@ public class PlayerDataListener extends ConverseBase implements Listener {
             mgr.cacheExplicitPlayerData(new PlayerData(e.getPlayer()));
         }
         mgr.getPlayerData(e.getPlayer()).setLastLoggedIn(new Date());
+        mgr.getPlayerData(e.getPlayer()).setLastKnownName(e.getPlayer().getName());
         mgr.save(mgr.getPlayerData(e.getPlayer()));
     }
 

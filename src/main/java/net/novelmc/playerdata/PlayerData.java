@@ -7,6 +7,7 @@ import java.util.UUID;
 
 public class PlayerData {
     private UUID UUID;
+    private String lastKnownName;
     private String ip;
     private long playtime;
     private int coins;
@@ -18,6 +19,7 @@ public class PlayerData {
         this.coins = 0;
         this.playtime = 0;
         this.lastLoggedIn = new Date();
+        this.lastKnownName = player.getName();
     }
 
     public void setCoins(int coins) {
@@ -36,6 +38,10 @@ public class PlayerData {
         this.lastLoggedIn = lastLoggedIn;
     }
 
+    public void setLastKnownName(String lastKnownName) {
+        this.lastKnownName = lastKnownName;
+    }
+
     public void setUUID(java.util.UUID UUID) {
         this.UUID = UUID;
     }
@@ -46,6 +52,10 @@ public class PlayerData {
 
     public long getPlaytime() {
         return playtime;
+    }
+
+    public String getLastKnownName() {
+        return lastKnownName;
     }
 
     public Date getLastLoggedIn() {
