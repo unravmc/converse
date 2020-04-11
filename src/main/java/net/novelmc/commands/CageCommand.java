@@ -10,6 +10,7 @@ import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -64,7 +65,7 @@ public class CageCommand extends ConverseBase implements CommandExecutor {
                     Player target = Bukkit.getPlayer(args[0]);
                     if (target != null) {
                         if (!plugin.cgl.cages.containsKey(target.getUniqueId())) {
-                            if (!target.hasPermission("converse.cage")) {
+                            if (sender instanceof ConsoleCommandSender || Util.canInteract(((Player) sender).getUniqueId(), target.getUniqueId())) {
                                 Material cageMaterial = Material.GLASS;
                                 if (args.length > 1) {
                                     Material matchedMaterial = Material.matchMaterial(args[1]);

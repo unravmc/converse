@@ -9,11 +9,13 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 public class ManageCommand extends ConverseBase implements CommandExecutor {
     public static class ManagedSettings {
@@ -70,10 +72,7 @@ public class ManageCommand extends ConverseBase implements CommandExecutor {
                 Player target = Bukkit.getPlayer(args[0]);
                 OfflinePlayer oTarget = Bukkit.getOfflinePlayer(args[0]);
                 if (target != null) {
-                    if (target.getName().equals(sender.getName())) {
-                        sender.sendMessage(ChatColor.RED + "You can not set restrictions for yourself!");
-                        return true;
-                    } else if (target.hasPermission("converse.manageplayer")) {
+                    if (!(sender instanceof ConsoleCommandSender) && !Util.canInteract(((Player) sender).getUniqueId(), target.getUniqueId())) {
                         sender.sendMessage(ChatColor.RED + "You can not set restrictions for this player!");
                         return true;
                     }

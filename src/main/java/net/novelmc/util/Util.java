@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import net.novelmc.Converse;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Particle;
@@ -143,6 +144,16 @@ public class Util extends ConverseBase {
         }
 
         return adminChat.get(uuid);
+    }
+
+    public static boolean canInteract(UUID executor, UUID target) {
+        List<String> orderedRoles = Arrays.asList("default", "voter", "architect", "mod", "seniormod", "developer", "executive");
+        assert Converse.getLuckPermsAPI() != null;
+        String executorRank = Objects.requireNonNull(Objects.requireNonNull(Converse.getLuckPermsAPI().getUserManager().getUser(executor)).getPrimaryGroup());
+        String targetRank = Objects.requireNonNull(Objects.requireNonNull(Converse.getLuckPermsAPI().getUserManager().getUser(target)).getPrimaryGroup());
+        int executorIndex = orderedRoles.indexOf(executorRank);
+        int targetIndex = orderedRoles.indexOf(targetRank);
+        return (executorIndex > targetIndex);
     }
 
     //orbit
