@@ -76,7 +76,7 @@ public class CageCommand extends ConverseBase implements CommandExecutor {
                                 cage.createCage();
 
                                 plugin.cgl.cages.put(target.getUniqueId(), cage);
-                                Util.action(sender, "Caged " + target.getName());
+                                Util.action(sender, "Caging " + target.getName());
                             } else {
                                 sender.sendMessage(ChatColor.RED + "You can't cage this person!");
                             }
@@ -89,7 +89,7 @@ public class CageCommand extends ConverseBase implements CommandExecutor {
                         sender.sendMessage(Messages.PLAYER_NOT_FOUND);
                     }
                 } else {
-                    Util.action(sender, "Removing all cages");
+                    Util.action(sender, "Uncaging all players");
                     for (UUID u : plugin.cgl.cages.keySet()) {
                         Cage cage = plugin.cgl.cages.get(u);
                         cage.undo();
