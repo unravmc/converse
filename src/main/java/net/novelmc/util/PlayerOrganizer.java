@@ -40,7 +40,7 @@ public class PlayerOrganizer {
         dev.setPrefix(colorize("&8[&5D&8] &r"));
         srmod.setPrefix(colorize("&8[&6S&8] &r"));
         mod.setPrefix(colorize("&8[&2M&8] &r"));
-        arc.setPrefix(colorize("&8[&9A&8] &r"));
+        arc.setPrefix(colorize("&8[&1A&8] &r"));
         voter.setPrefix(colorize("&8[&3V&8] &r"));
         op.setPrefix(colorize("&r"));
     }

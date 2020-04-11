@@ -102,3 +102,6 @@ commands:
   playtime:
     usage: /<command> [player]
     description: View player playtime
+  manage:
+    usage: /<command> <<player> <setting> <on|off> | reset <player> | resetall | list>
+    description: Manage certain player powers

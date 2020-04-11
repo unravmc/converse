@@ -26,25 +26,25 @@ public class PlayerDataManager extends ConverseBase {
         scheduler = new BukkitRunnable() {
             public void run() {
                 for (Player p : Bukkit.getOnlinePlayers()) {
-                    if(loadedData.containsKey(p.getUniqueId())) save(loadedData.get(p.getUniqueId()));
+                    if (loadedData.containsKey(p.getUniqueId())) save(loadedData.get(p.getUniqueId()));
                 }
             }
         }.runTaskTimerAsynchronously(plugin, 6000L, 6000L);
     }
 
     public PlayerData getPlayerData(UUID uuid) {
-        if(loadedData.containsKey(uuid)) {
+        if (loadedData.containsKey(uuid)) {
             return loadedData.get(uuid);
         } else {
             File file = new File(plugin.getDataFolder().toString() + "/players/", uuid + ".json");
-            if(file.exists()) {
+            if (file.exists()) {
                 try {
                     FileReader fr = new FileReader(file);
-                    PlayerData pd =  gson.fromJson(fr, PlayerData.class);
+                    PlayerData pd = gson.fromJson(fr, PlayerData.class);
                     fr.close();
 
                     return pd;
-                } catch(Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -54,7 +54,7 @@ public class PlayerDataManager extends ConverseBase {
     }
 
     public boolean doesPlayerDataExist(UUID uuid) {
-        if(plugin.playerDataManager.loadedData.containsKey(uuid)) {
+        if (plugin.playerDataManager.loadedData.containsKey(uuid)) {
             return true;
         } else {
             File file = new File(plugin.getDataFolder().toString() + "/players/", uuid + ".json");
@@ -72,7 +72,7 @@ public class PlayerDataManager extends ConverseBase {
     }
 
     public void cacheExplicitPlayerData(PlayerData data) {
-        if(data.getUUID() != null) {
+        if (data.getUUID() != null) {
             loadedData.put(data.getUUID(), data);
         } else {
             throw new InvalidPlayerDataException();
@@ -80,7 +80,7 @@ public class PlayerDataManager extends ConverseBase {
     }
 
     public void save(PlayerData data) {
-        if(data.getUUID() != null) {
+        if (data.getUUID() != null) {
             UUID uuid = data.getUUID();
             try {
                 File file = new File(plugin.getDataFolder().toString() + "/players/", uuid + ".json");
@@ -97,6 +97,6 @@ public class PlayerDataManager extends ConverseBase {
 
     public void saveAndRemoveCache(PlayerData data) {
         save(data);
-        if(data.getUUID() != null) loadedData.remove(data.getUUID());
+        if (data.getUUID() != null) loadedData.remove(data.getUUID());
     }
 }

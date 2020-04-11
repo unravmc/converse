@@ -21,7 +21,7 @@ public class CageCommand extends ConverseBase implements CommandExecutor {
     public class Cage {
         private UUID uuid;
         private Material cageMaterial;
-        private Map<Location, Material> previousBlocks = new HashMap<>();
+        public final Map<Location, Material> previousBlocks = new HashMap<>();
 
         public Cage(Player player, Material cageMaterial) {
             this.uuid = player.getUniqueId();
@@ -33,17 +33,23 @@ public class CageCommand extends ConverseBase implements CommandExecutor {
             for (int xOffset = -2; xOffset <= 2; xOffset++) {
                 for (int yOffset = -2; yOffset <= 2; yOffset++) {
                     for (int zOffset = -2; zOffset <= 2; zOffset++) {
-                        if (Math.abs(xOffset) != 2 && Math.abs(yOffset) != 2 && Math.abs(zOffset) != 2) continue;
-                        final Block block = center.getRelative(xOffset, yOffset, zOffset);
-                        previousBlocks.put(block.getLocation(), block.getType());
-                        block.setType(cageMaterial);
+                        if (Math.abs(xOffset) != 2 && Math.abs(yOffset) != 2 && Math.abs(zOffset) != 2) {
+                            final Block block = center.getRelative(xOffset, yOffset, zOffset);
+                            previousBlocks.put(block.getLocation(), block.getType());
+                            block.setType(Material.AIR);
+                        } else {
+                            final Block block = center.getRelative(xOffset, yOffset, zOffset);
+                            previousBlocks.put(block.getLocation(), block.getType());
+                            block.setType(cageMaterial);
+                        }
                     }
                 }
             }
+
         }
 
         public void undo() {
-            for(Location loc : previousBlocks.keySet()) {
+            for (Location loc : previousBlocks.keySet()) {
                 loc.getBlock().setType(previousBlocks.get(loc));
             }
         }
@@ -51,10 +57,10 @@ public class CageCommand extends ConverseBase implements CommandExecutor {
 
     // Usage: /cage <player> [block]
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if(sender.hasPermission("converse.cage")) {
+        if (sender.hasPermission("converse.cage")) {
             if (args.length == 0) return false;
             else {
-                if(!args[0].equalsIgnoreCase("purge")) {
+                if (!args[0].equalsIgnoreCase("purge")) {
                     Player target = Bukkit.getPlayer(args[0]);
                     if (target != null) {
                         if (!plugin.cgl.cages.containsKey(target.getUniqueId())) {
@@ -84,7 +90,7 @@ public class CageCommand extends ConverseBase implements CommandExecutor {
                     }
                 } else {
                     Util.action(sender, "Removing all cages");
-                    for(UUID u : plugin.cgl.cages.keySet()) {
+                    for (UUID u : plugin.cgl.cages.keySet()) {
                         Cage cage = plugin.cgl.cages.get(u);
                         cage.undo();
                     }

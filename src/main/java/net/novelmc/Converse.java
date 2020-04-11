@@ -58,6 +58,7 @@ public class Converse extends JavaPlugin {
     public CageListener cgl;
     public PlaytimeListener ptl;
     public PlayerDataListener pdl;
+    public ManageListener mgrl;
 
     // Player Data
     public PlayerDataManager playerDataManager;
@@ -160,6 +161,7 @@ public class Converse extends JavaPlugin {
         getCommand("say").setExecutor(new SayCommand());
         getCommand("cage").setExecutor(new CageCommand());
         getCommand("playtime").setExecutor(new PlaytimeCommand());
+        getCommand("manage").setExecutor(new ManageCommand());
 
 
     }
@@ -175,6 +177,7 @@ public class Converse extends JavaPlugin {
         shl = new ShopListener(this);
         cgl = new CageListener(this);
         ptl = new PlaytimeListener(this);
+        mgrl = new ManageListener(this);
     }
 
     public void registerConfigs() {
