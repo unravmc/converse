@@ -88,14 +88,14 @@ public class ManageCommand extends ConverseBase implements CommandExecutor {
                         boolean processed = manageSetting(sender, target, oTarget, matchedSetting, false);
                         if (!processed) sender.sendMessage(Messages.PLAYER_NOT_FOUND);
                     } else {
-                        sender.sendMessage(ChatColor.RED + "Acceptable values: " + ChatColor.WHITE + "on or off, enabled or disabled, true or false");
+                        sender.sendMessage(ChatColor.GRAY + "Acceptable values: " + ChatColor.GOLD + "on or off, enabled or disabled, true or false");
                     }
                 } else {
-                    sender.sendMessage(ChatColor.AQUA + "Available settings: " + ChatColor.WHITE + Arrays.toString(ManageableSetting.values()));
+                    sender.sendMessage(ChatColor.GRAY + "Available settings: " + ChatColor.GOLD + Arrays.toString(ManageableSetting.values()));
                 }
                 return true;
             } else if (args.length == 1 && args[0].equalsIgnoreCase("list")) {
-                sender.sendMessage(ChatColor.AQUA + "Available settings: " + ChatColor.WHITE + Arrays.toString(ManageableSetting.values()));
+                sender.sendMessage(ChatColor.GRAY + "Available settings: " + ChatColor.GOLD + Arrays.toString(ManageableSetting.values()));
                 return true;
             } else if (args.length == 1 && args[0].equalsIgnoreCase("resetall")) {
                 for (Player p : Bukkit.getOnlinePlayers()) {
@@ -103,7 +103,7 @@ public class ManageCommand extends ConverseBase implements CommandExecutor {
                     pData.setManagedSettings(new ManagedSettings());
                 }
 
-                Util.action(sender, "Removed restrictions for all online players");
+                Util.action(sender, "Removing restrictions for all players");
                 return true;
             } else if (args.length == 2 && args[0].equalsIgnoreCase("reset")) {
                 Player target = Bukkit.getPlayer(args[1]);
@@ -111,7 +111,7 @@ public class ManageCommand extends ConverseBase implements CommandExecutor {
                     PlayerData pData = plugin.playerDataManager.getPlayerData(target);
                     pData.setManagedSettings(new ManagedSettings());
 
-                    Util.action(sender, "Removed restrictions for " + target.getName());
+                    Util.action(sender, "Removing restrictions for " + target.getName());
                 } else {
                     sender.sendMessage(Messages.PLAYER_NOT_FOUND);
                 }
@@ -152,7 +152,7 @@ public class ManageCommand extends ConverseBase implements CommandExecutor {
                     break;
             }
 
-            Util.action(executor, (value ? "Disabled" : "Enabled") + " " + Bukkit.getOfflinePlayer(pData.getUUID()).getName() + "'s restriction for " + setting.toString().toUpperCase());
+            Util.action(executor, (value ? "Disabling" : "Enabling") + " " + Bukkit.getOfflinePlayer(pData.getUUID()).getName() + "'s restriction for " + setting.toString().toUpperCase());
         } else {
             return false;
         }
