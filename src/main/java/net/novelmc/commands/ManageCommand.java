@@ -59,7 +59,7 @@ public class ManageCommand extends ConverseBase implements CommandExecutor {
     }
 
     public enum ManageableSetting {
-        commands, blockedit, movement, pvp
+        COMMANDS, BLOCKEDIT, MOVEMENT, PVP
     }
 
     // Usage: /manage <player> <setting> <on|off>
