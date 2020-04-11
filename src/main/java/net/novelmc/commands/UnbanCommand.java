@@ -30,7 +30,7 @@ public class UnbanCommand extends ConverseBase implements CommandExecutor {
             Util.action(sender, "Unbanning " + offlinePlayer.getName());
             return true;
         } else {
-            sender.sendMessage(ChatColor.GRAY + "Converse could not find a ban under that name.");
+            sender.sendMessage(ChatColor.RED + "Converse could not find a ban under that name!");
         }
         return true;
     }
