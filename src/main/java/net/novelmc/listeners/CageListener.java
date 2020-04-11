@@ -59,7 +59,7 @@ public class CageListener implements Listener {
     @EventHandler(priority = EventPriority.HIGH)
     public void onProcessCommand(PlayerCommandPreprocessEvent e) {
         if (cages.containsKey(e.getPlayer().getUniqueId())) {
-            e.getPlayer().sendMessage(ChatColor.RED + "While caged, you can not use any commands!");
+            e.getPlayer().sendMessage(ChatColor.RED + "You may not use any commands while caged!");
             e.setCancelled(true);
         }
     }
