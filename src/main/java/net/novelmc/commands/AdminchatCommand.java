@@ -1,19 +1,15 @@
 package net.novelmc.commands;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
-import net.novelmc.Converse;
 import net.novelmc.util.Util;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class AdminchatCommand implements CommandExecutor {
+//This is how every command should look from now on!
+@CommandParameters(description = "Sends a message in adminchat, also toggles it on or off.", usage = "/<command> [message]", aliases = "o, ac")
+public class AdminchatCommand extends CommandBase {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (!sender.hasPermission("converse.adminchat")) {
