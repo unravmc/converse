@@ -151,7 +151,7 @@ public class ManageCommand extends ConverseBase implements CommandExecutor {
                     break;
             }
 
-            Util.action(executor, (value ? "Disabled" : "Enabled") + " " + Bukkit.getOfflinePlayer(pData.getUUID()).getName() + "'s restriction for " + setting.toString().toUpperCase());
+            Util.action(executor, (value ? "Disabling" : "Enabling") + " " + Bukkit.getOfflinePlayer(pData.getUUID()).getName() + "'s restriction for " + setting.toString().toUpperCase());
         } else {
             return false;
         }

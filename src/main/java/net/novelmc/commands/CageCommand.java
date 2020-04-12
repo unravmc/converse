@@ -84,7 +84,7 @@ public class CageCommand extends ConverseBase implements CommandExecutor {
                         } else {
                             plugin.cgl.cages.get(target.getUniqueId()).undo();
                             plugin.cgl.cages.remove(target.getUniqueId());
-                            Util.action(sender, "Uncaged " + target.getName());
+                            Util.action(sender, "Uncaging " + target.getName());
                         }
                     } else {
                         sender.sendMessage(Messages.PLAYER_NOT_FOUND);

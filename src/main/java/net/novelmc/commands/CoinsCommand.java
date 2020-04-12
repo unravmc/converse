@@ -10,7 +10,7 @@ public class CoinsCommand extends ConverseBase implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender cs, Command cmd, String lbl, String[] args) {
         if (!(cs instanceof Player)) {
-            cs.sendMessage("You can't do that!");
+            cs.sendMessage(ChatColor.RED + "You can't do that!");
             return true;
         }
 

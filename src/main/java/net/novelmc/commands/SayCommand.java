@@ -24,11 +24,11 @@ public class SayCommand extends ConverseBase implements CommandExecutor
 
         if (args.length == 0)
         {
-            sender.sendMessage(ChatColor.RED + "Incorrect usage: /say <text>");
+            sender.sendMessage(ChatColor.RED + "Incorrect usage!");
             return false;
         } else {
             StringBuilder builder = new StringBuilder();
-            builder.append(ChatColor.GOLD + "[" + "Server:" + sender.getName() + "] ");
+            builder.append(ChatColor.AQUA + "[" + "Server:" + sender.getName() + "] ");
             builder.append(StringUtils.join(args, ' '));
             Bukkit.broadcastMessage(builder.toString());
 
