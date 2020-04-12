@@ -13,8 +13,8 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class ShopAdminCommand extends ConverseBase implements CommandExecutor {
-    private final String PLAYER_NOT_FOUND = ChatColor.GRAY + "That player cannot be found!";
-    private final String INVALID_NUMBER = ChatColor.GRAY + "That is not a valid integer!";
+    private final String PLAYER_NOT_FOUND = ChatColor.RED + "That player cannot be found!";
+    private final String INVALID_NUMBER = ChatColor.RED + "That is not a valid integer!";
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String lbl, String[] args) {
@@ -46,23 +46,23 @@ public class ShopAdminCommand extends ConverseBase implements CommandExecutor {
                         Bukkit.getOnlinePlayers().forEach(p -> {
                             PlayerData pData = plugin.playerDataManager.getPlayerData(p);
                             pData.setCoins(x);
-                            p.sendMessage(ChatColor.YELLOW + "You now have " + x + " coins!");
+                            p.sendMessage(ChatColor.GRAY + "Your now have " + x + " coins.");
                         });
-                        sender.sendMessage(ChatColor.GRAY + "Everyone now has " + x + " coins!");
-                        if (sender instanceof Player) Util.action(sender, "Set everyone's coins to " + x);
+                        sender.sendMessage(ChatColor.GRAY + "Everyone now has " + x + " coins.");
+                        if (sender instanceof Player) Util.action(sender, "Set everyone's balance to " + x);
                         return true;
                     case "add":
                         Bukkit.getOnlinePlayers().forEach(p -> {
                             PlayerData pData = plugin.playerDataManager.getPlayerData(p);
                             pData.addCoins(x);
-                            p.sendMessage(ChatColor.YELLOW + "You now have " + pData.getCoins() + " coins!");
+                            p.sendMessage(ChatColor.GRAY + "Your now have " + pData.getCoins() + " coins.");
                         });
-                        sender.sendMessage("Everyone has been given " + x + " coins!");
+                        sender.sendMessage(ChatColor.GRAY + "Everyone has been given " + x + " coins.");
                         if (sender instanceof Player)
-                            Util.action(sender, "Added " + x + " coins to everyone's balance.");
+                            Util.action(sender, "Adding " + x + " coins to everyone's balance");
                         return true;
                     case "del":
-                        sender.sendMessage("You cannot remove everyone's coins.");
+                        sender.sendMessage(ChatColor.RED + "You cannot remove everyone's coins!");
                         return true;
                 }
             }
@@ -76,28 +76,28 @@ public class ShopAdminCommand extends ConverseBase implements CommandExecutor {
             switch (args[0].toLowerCase()) {
                 case "set":
                     pData.setCoins(x);
-                    sender.sendMessage(ChatColor.GRAY + p.getName() + " now has " + x + " coins!");
-                    p.sendMessage(ChatColor.YELLOW + "You now have " + x + " coins!");
-                    if (sender instanceof Player) Util.action(sender, "Set " + p.getName() + "'s coins to " + x);
+                    sender.sendMessage(ChatColor.GRAY + p.getName() + " now has " + x + " coins.");
+                    p.sendMessage(ChatColor.GRAY + "You now have " + x + " coins.");
+                    if (sender instanceof Player) Util.action(sender, "Setting " + p.getName() + "'s coins to " + x);
                     return true;
                 case "add":
                     pData.addCoins(x);
-                    sender.sendMessage(p.getName() + " now has " + pData.getCoins() + " coins!");
-                    p.sendMessage(ChatColor.YELLOW + "You now have " + pData.getCoins() + " coins!");
+                    sender.sendMessage(ChatColor.GRAY + p.getName() + " now has " + pData.getCoins() + " coins.");
+                    p.sendMessage(ChatColor.GRAY + "You now have " + pData.getCoins() + " coins.");
                     if (sender instanceof Player)
-                        Util.action(sender, "Added " + pData.getCoins() + " coins to " + p.getName() + "'s balance.");
+                        Util.action(sender, "Adding " + pData.getCoins() + " coins to " + p.getName() + "'s balance.");
                     return true;
                 case "del":
                     pData.removeCoins(x);
                     int index = pData.getCoins();
                     if (index == 0) {
-                        sender.sendMessage(ChatColor.YELLOW + "This player no longer has any coins!");
+                        sender.sendMessage(ChatColor.RED + "This player no longer has any coins!");
                         return true;
                     }
                     sender.sendMessage(
-                            ChatColor.GRAY + "You have removed " + x + " amount of coins from " + p.getName() + "\n"
-                                    + ChatColor.GRAY + "This player now has " + index + " coins!");
-                    p.sendMessage(ChatColor.YELLOW + "Your coin balance has been updated. It is now " + index +
+                            ChatColor.GRAY + "You have removed " + x + " coins from " + p.getName() + "\n"
+                                    + ChatColor.GRAY + "This player now has " + index + " coins.");
+                    p.sendMessage(ChatColor.GRAY + "Your coin balance has been updated to " + index +
                             " coins.");
                     return true;
                 default:
@@ -113,7 +113,7 @@ public class ShopAdminCommand extends ConverseBase implements CommandExecutor {
                     int tCoins = pData.getCoins();
                     if (tCoins == 0) {
                         sender.sendMessage(
-                                ChatColor.GRAY + "There are no entries for that player, or their balance is 0.");
+                                ChatColor.GRAY + "This player has 0 coins.");
                         return true;
                     }
                     sender.sendMessage(ChatColor.GRAY + player.getName() + " has " + tCoins + " coins.");

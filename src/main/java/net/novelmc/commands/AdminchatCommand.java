@@ -23,12 +23,12 @@ public class AdminchatCommand implements CommandExecutor {
         String message = StringUtils.join(args, " ");
         if (message.length() == 0) {
             if (!(sender instanceof Player)) {
-                sender.sendMessage("Adminchat can only be toggled in game.");
+                sender.sendMessage("Adminchat can only be toggled in-game.");
                 return true;
             }
             Player p = (Player) sender;
             Util.putAdminChat(p.getUniqueId());
-            p.sendMessage("Toggled adminchat " + (Util.isInAdminChat(p.getUniqueId()) ? "on" : "off"));
+            p.sendMessage(ChatColor.GRAY + "Toggled adminchat " + (Util.isInAdminChat(p.getUniqueId()) ? "on" : "off"));
             return true;
         }
         Util.adminchat(sender, message);
