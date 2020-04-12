@@ -80,21 +80,21 @@ public class WorldListener implements Listener {
         event.setQuitMessage(sb.toString());
     }
 
-    private boolean bool = Converse.plugin.config.getBoolean("item_drops");
+    public boolean isDropsAllowed = Converse.plugin.config.getBoolean("item_drops");
 
     @EventHandler
     public void PlayerDrops(PlayerDropItemEvent e) {
-        e.setCancelled(!bool);
+        e.setCancelled(!isDropsAllowed);
     }
 
     @EventHandler
     public void ItemSpawn(ItemSpawnEvent e) {
-        e.setCancelled(!bool);
+        e.setCancelled(!isDropsAllowed);
     }
 
     @EventHandler
     public void BlockDrops(BlockDropItemEvent e) {
-        e.setCancelled(!bool);
+        e.setCancelled(!isDropsAllowed);
         Player p = e.getPlayer();
         GameMode gm = p.getGameMode();
         if (gm.equals(GameMode.SURVIVAL)) {
@@ -109,7 +109,7 @@ public class WorldListener implements Listener {
 
     @EventHandler
     public void EntityDrops(EntityDropItemEvent e) {
-        e.setCancelled(!bool);
+        e.setCancelled(!isDropsAllowed);
     }
 
     @EventHandler

@@ -72,7 +72,7 @@ public class ManageCommand extends ConverseBase implements CommandExecutor {
                 Player target = Bukkit.getPlayer(args[0]);
                 OfflinePlayer oTarget = Bukkit.getOfflinePlayer(args[0]);
                 if (target != null) {
-                    if (!(sender instanceof ConsoleCommandSender) && !Util.canInteract(((Player) sender).getUniqueId(), target.getUniqueId())) {
+                    if (!Util.canInteract(sender, target.getUniqueId())) {
                         sender.sendMessage(ChatColor.RED + "You can not set restrictions for this player!");
                         return true;
                     }

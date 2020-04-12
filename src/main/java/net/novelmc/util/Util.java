@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Particle;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -154,6 +155,17 @@ public class Util extends ConverseBase {
         int executorIndex = orderedRoles.indexOf(executorRank);
         int targetIndex = orderedRoles.indexOf(targetRank);
         return (executorIndex > targetIndex);
+    }
+
+    public static boolean canInteract(CommandSender executor, UUID target) {
+        if (executor instanceof ConsoleCommandSender) {
+            return true;
+        } else if (executor instanceof Player) {
+            Player p = (Player) executor;
+            return canInteract(p.getUniqueId(), target);
+        } else {
+            return false;
+        }
     }
 
     //orbit

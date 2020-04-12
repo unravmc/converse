@@ -65,7 +65,7 @@ public class CageCommand extends ConverseBase implements CommandExecutor {
                     Player target = Bukkit.getPlayer(args[0]);
                     if (target != null) {
                         if (!plugin.cgl.cages.containsKey(target.getUniqueId())) {
-                            if (sender instanceof ConsoleCommandSender || Util.canInteract(((Player) sender).getUniqueId(), target.getUniqueId())) {
+                            if (Util.canInteract(sender, target.getUniqueId())) {
                                 Material cageMaterial = Material.GLASS;
                                 if (args.length > 1) {
                                     Material matchedMaterial = Material.matchMaterial(args[1]);
