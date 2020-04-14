@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 
 public class CommandHandler {
     public static final String COMMAND_PATH = CommandBase.class.getPackage().getName();
-    public static final String COMMAND_PREFIX = "Command";
+    public static final String DEFINER = "Command";
 
     public static boolean handle(CommandSender sender, Command cmd, String lbl, String[] args) {
         final Player player;
@@ -39,7 +39,7 @@ public class CommandHandler {
         final CommandBase base;
         try {
             final ClassLoader loader = Converse.class.getClassLoader();
-            base = (CommandBase) loader.loadClass(String.format("%s.%s%s", COMMAND_PATH, COMMAND_PREFIX, cmd.getName().toLowerCase())).newInstance();
+            base = (CommandBase) loader.loadClass(String.format("%s.%s%s", COMMAND_PATH, DEFINER, cmd.getName().toLowerCase())).newInstance();
             base.setup(Converse.plugin, sender, base.getClass());
         } catch (Exception ex) {
             Bukkit.getLogger().severe("Could not load command: " + cmd.getName());

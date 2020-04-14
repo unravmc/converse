@@ -16,13 +16,12 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class CommandLoader {
-    public static final Pattern COMMAND_PATTERM;
+    public static final Pattern COMMAND_PATTERN;
     private final List<Commander> commandList;
 
     static {
-        COMMAND_PATTERM = Pattern.compile(CommandHandler.COMMAND_PATH.replace('.', '/')
-                + "/(" + CommandHandler.COMMAND_PREFIX
-                + "[^$]+)\\.class");
+        COMMAND_PATTERN = Pattern.compile(CommandHandler.COMMAND_PATH.replace('.', '/')
+                + "/([^$]+)" + CommandHandler.DEFINER + "\\.class");
     }
 
     private CommandLoader() {
@@ -115,7 +114,7 @@ public class CommandLoader {
                 ZipEntry entry;
                 while ((entry = stream.getNextEntry()) != null) {
                     String name = entry.getName();
-                    Matcher matcher = COMMAND_PATTERM.matcher(name);
+                    Matcher matcher = COMMAND_PATTERN.matcher(name);
                     if (matcher.find()) {
                         try {
                             Class<?> clazz = Class.forName(CommandHandler.COMMAND_PATH + "." + matcher.group(1));
