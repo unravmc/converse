@@ -5,15 +5,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
+import org.reflections.Reflections;
 
-import java.io.IOException;
 import java.lang.reflect.Field;
-import java.security.CodeSource;
 import java.util.*;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 public class CommandLoader {
     public static final Pattern COMMAND_PATTERN;
@@ -27,6 +23,8 @@ public class CommandLoader {
     private CommandLoader() {
         commandList = new ArrayList<>();
     }
+
+
 
     public void scan() {
         CommandMap map = getCommandMap();
@@ -107,34 +105,31 @@ public class CommandLoader {
 
     private Collection<? extends Commander> getCommands() {
         List<Commander> commanderList = new ArrayList<>();
-        try {
-            CodeSource cs = Converse.class.getProtectionDomain().getCodeSource();
-            if (cs != null) {
-                ZipInputStream stream = new ZipInputStream(cs.getLocation().openStream());
-                ZipEntry entry;
-                while ((entry = stream.getNextEntry()) != null) {
-                    String name = entry.getName();
-                    Matcher matcher = COMMAND_PATTERN.matcher(name);
-                    if (matcher.find()) {
-                        try {
-                            Class<?> clazz = Class.forName(CommandHandler.COMMAND_PATH + "." + matcher.group(1));
-                            CommandParameters cp = clazz.getAnnotation(CommandParameters.class);
-                            if (cp != null) {
-                                Commander commander = new Commander(
-                                        clazz,
-                                        matcher.group(1).split("_")[1],
-                                        cp.description(),
-                                        cp.usage(),
-                                        cp.aliases());
-                                commandList.add(commander);
-                            }
-                        } catch (ClassNotFoundException ex) { Bukkit.getLogger().severe(ex.getLocalizedMessage()); }
-                    }
-                }
+        getCommandBaseClasses().forEach(clazz -> {
+            CommandParameters cp = clazz.getAnnotation(CommandParameters.class);
+            if (cp != null) {
+                Commander commander = new Commander(
+                        clazz,
+                        remove(clazz, "Command"),
+                        cp.description(),
+                        cp.usage(),
+                        cp.aliases());
+                commandList.add(commander);
             }
-        } catch (IOException ex) { Bukkit.getLogger().severe(ex.getLocalizedMessage()); }
+        });
 
         return Collections.unmodifiableCollection(commanderList);
+    }
+
+    private String remove(Class clazz, String removal) {
+        StringBuilder sb = new StringBuilder();
+           String name = clazz.getName();
+           if (name.contains(removal)) {
+               String temp = "" + removal;
+               String finals = name.replaceAll(temp, "");
+               sb.append(finals);
+           }
+        return sb.toString();
     }
 
     @SuppressWarnings("unchecked")
@@ -245,6 +240,11 @@ public class CommandLoader {
 
     private static class InstanceHolder {
         private static final CommandLoader INSTANCE = new CommandLoader();
+    }
+
+    private Set<Class<? extends CommandBase>> getCommandBaseClasses() {
+        Reflections reflections = new Reflections("net.novelmc.commands");
+        return reflections.getSubTypesOf(CommandBase.class);
     }
 
     @SuppressWarnings("unchecked")
