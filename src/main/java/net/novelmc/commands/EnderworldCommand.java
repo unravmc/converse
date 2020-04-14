@@ -8,7 +8,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class EnderworldCommand implements CommandExecutor {
+@CommandParameters(description = "Teleport to the enderworld", usage = "/<command>", aliases = "ew")
+public class EnderworldCommand extends CommandBase {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         World world_the_end = Bukkit.getWorld("world_the_end");

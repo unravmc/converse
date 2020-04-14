@@ -8,7 +8,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-public class ModeCommand extends ConverseBase implements CommandExecutor {
+@CommandParameters(description = "Change the server mode", usage = "/<command> [event | dev | staff | off]")
+public class ModeCommand extends CommandBase {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (args.length > 1) {

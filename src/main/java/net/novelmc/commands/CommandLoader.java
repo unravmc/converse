@@ -21,7 +21,7 @@ public class CommandLoader {
 
     static {
         COMMAND_PATTERN = Pattern.compile(CommandHandler.COMMAND_PATH.replace('.', '/')
-                + "/([^$]+)" + CommandHandler.DEFINER + "\\.class");
+                + "/([^$]" + CommandHandler.DEFINER + "+)\\.class");
     }
 
     private CommandLoader() {

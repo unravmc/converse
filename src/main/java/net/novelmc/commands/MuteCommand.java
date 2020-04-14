@@ -10,7 +10,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class MuteCommand extends ConverseBase implements CommandExecutor {
+@CommandParameters(description = "Mute a player or purge all mutes", usage = "/<command> <player | purge>", aliases = "stfu, emute")
+public class MuteCommand extends CommandBase {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (!sender.hasPermission("converse.mute")) {

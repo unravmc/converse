@@ -8,7 +8,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class FlatworldCommand implements CommandExecutor {
+@CommandParameters(description = "Teleport to the flatworld", usage = "/<command>", aliases = "fw")
+public class FlatworldCommand extends CommandBase {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         World flatworld = Bukkit.getWorld("flatworld");

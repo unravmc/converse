@@ -15,7 +15,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
 
-public class DbanCommand extends ConverseBase implements CommandExecutor {
+@CommandParameters(description = "Bans a player for a day", usage = "/<command> <player> [reason]", aliases = "dayban, gtfo")
+public class DbanCommand extends CommandBase {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (!sender.hasPermission("converse.dban")) {

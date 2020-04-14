@@ -1,16 +1,15 @@
 package net.novelmc.commands;
 
-import java.io.File;
-
 import net.novelmc.Converse;
-import net.novelmc.util.ConverseBase;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class ConverseCommand extends ConverseBase implements CommandExecutor {
+import java.io.File;
+
+@CommandParameters(description = "Show information about Converse", usage = "/<command> [reload | debug]")
+public class ConverseCommand extends CommandBase {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (args.length == 0) {

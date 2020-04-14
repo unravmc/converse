@@ -1,12 +1,12 @@
 package net.novelmc.commands;
 
-import net.novelmc.Converse;
-import net.novelmc.util.ConverseBase;
-import org.bukkit.command.*;
 import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class CoinsCommand extends ConverseBase implements CommandExecutor {
+@CommandParameters(description = "Check your coin balance.", usage = "/<command>")
+public class CoinsCommand extends CommandBase {
     @Override
     public boolean onCommand(CommandSender cs, Command cmd, String lbl, String[] args) {
         if (!(cs instanceof Player)) {

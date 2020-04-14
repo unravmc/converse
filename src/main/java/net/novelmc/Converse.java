@@ -150,19 +150,7 @@ public class Converse extends JavaPlugin {
     }
     //Unneeded soon!
     private void registerCommands() {
-        getCommand("banlookup").setExecutor(new BanLookupCommand());
-        getCommand("blackchat").setExecutor(new BlackChatCommand());
-        getCommand("coins").setExecutor(new CoinsCommand());
-        getCommand("converse").setExecutor(new ConverseCommand());
-        getCommand("dban").setExecutor(new DbanCommand());
-        getCommand("flatworld").setExecutor(new FlatworldCommand());
-        getCommand("enderworld").setExecutor(new EnderworldCommand());
-        getCommand("netherworld").setExecutor(new NetherworldCommand());
-        getCommand("overworld").setExecutor(new OverworldCommand());
         getCommand("voterworld").setExecutor(new VoterworldCommand());
-        getCommand("manageshop").setExecutor(new ShopAdminCommand());
-        getCommand("mode").setExecutor(new ModeCommand());
-        getCommand("mute").setExecutor(new MuteCommand());
         getCommand("permban").setExecutor(new PermbanCommand());
         getCommand("plotworld").setExecutor(new PlotworldCommand());
         getCommand("shop").setExecutor(new ShopCommand());
@@ -170,11 +158,8 @@ public class Converse extends JavaPlugin {
         getCommand("staffworld").setExecutor(new StaffworldCommand());
         getCommand("unban").setExecutor(new UnbanCommand());
         getCommand("unloadchunks").setExecutor(new UnloadChunksCommand());
-        getCommand("orbit").setExecutor(new OrbitCommand());
         getCommand("say").setExecutor(new SayCommand());
-        getCommand("cage").setExecutor(new CageCommand());
         getCommand("playtime").setExecutor(new PlaytimeCommand());
-        getCommand("manage").setExecutor(new ManageCommand());
 
 
     }

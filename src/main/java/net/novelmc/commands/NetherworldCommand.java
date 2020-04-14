@@ -8,7 +8,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class NetherworldCommand implements CommandExecutor {
+@CommandParameters(description = "Teleport to the netherworld", usage = "/<command>", aliases = "nw")
+public class NetherworldCommand extends CommandBase {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         World world_nether = Bukkit.getWorld("world_nether");

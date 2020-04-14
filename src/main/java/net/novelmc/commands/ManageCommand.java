@@ -17,7 +17,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Arrays;
 import java.util.UUID;
 
-public class ManageCommand extends ConverseBase implements CommandExecutor {
+@CommandParameters(description = "Manage certain player powers",
+        usage = "/<command> <<player> <setting> <on|off> | reset <player> | resetall | list>")
+public class ManageCommand extends CommandBase {
     public static class ManagedSettings {
         private boolean commands = true;
         private boolean blockedit = true;

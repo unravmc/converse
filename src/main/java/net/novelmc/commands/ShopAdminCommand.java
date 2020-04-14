@@ -1,18 +1,17 @@
 package net.novelmc.commands;
 
-import net.novelmc.Converse;
 import net.novelmc.playerdata.PlayerData;
-import net.novelmc.util.ConverseBase;
 import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
-public class ShopAdminCommand extends ConverseBase implements CommandExecutor {
+@CommandParameters(description = "Manages the shop (STAFF ONLY)",
+        usage = "/<command> <add | del | set | get> <player | all> [amount]",
+        aliases = "manageshop, mshop")
+public class ShopAdminCommand extends CommandBase {
     private final String PLAYER_NOT_FOUND = ChatColor.RED + "That player cannot be found!";
     private final String INVALID_NUMBER = ChatColor.RED + "That is not a valid integer!";
 

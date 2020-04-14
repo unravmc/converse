@@ -10,7 +10,8 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class OrbitCommand implements CommandExecutor {
+@CommandParameters(description = "Toggles a player's orbited state", usage = "/<command> <player> <on | off>")
+public class OrbitCommand extends CommandBase {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (!sender.hasPermission("converse.orbit")) {

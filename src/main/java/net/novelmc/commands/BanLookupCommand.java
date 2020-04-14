@@ -10,7 +10,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-public class BanLookupCommand extends ConverseBase implements CommandExecutor {
+@CommandParameters(description = "Look up a player ban", usage = "/<command> <player>", aliases = "bl")
+public class BanLookupCommand extends CommandBase {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (!sender.hasPermission("converse.banlookup")) {

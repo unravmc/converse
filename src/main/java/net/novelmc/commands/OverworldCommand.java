@@ -8,7 +8,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class OverworldCommand implements CommandExecutor {
+@CommandParameters(description = "Teleport to the overworld", usage = "/<command>", aliases = "ow")
+public class OverworldCommand extends CommandBase {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         World world = Bukkit.getWorld("world");

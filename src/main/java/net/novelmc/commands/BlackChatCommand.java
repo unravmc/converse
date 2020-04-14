@@ -8,7 +8,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class BlackChatCommand implements CommandExecutor {
+@CommandParameters(description = "Makes a player's chat messages show up in black", usage = "/<command> <player>", aliases = "darkchat, graychat")
+public class BlackChatCommand extends CommandBase {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (!sender.hasPermission("converse.blackchat")) {

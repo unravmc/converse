@@ -6,54 +6,6 @@ main: net.novelmc.Converse
 depend: [LuckPerms]
 api-version: 1.14
 commands:
-  banlookup:
-    usage: /<command> <player>
-    description: Look up a player ban
-    aliases: [bl]
-  blackchat:
-    usage: /<command> <player>
-    description: Makes a players chat messages show up in black
-    aliases: [darkchat, graychat]
-  coins:
-    usage: /<command>
-    description: Check your coin balance.
-  converse:
-    usage: /<command> [reload | debug]
-    description: Show information about Converse
-  dban:
-    usage: /<command> <player> [reason]
-    description: Bans a player for a day
-    aliases: [dayban, gtfo]
-  enderworld:
-    usage: /<command>
-    description: Teleport to the enderworld
-    aliases: [ew]
-  flatworld:
-    usage: /<command>
-    description: Teleport to the flatworld
-    aliases: [flatlands, fw]
-  manageshop:
-    usage: /<command> <add | del | set | get> <player> [amount]
-    description: Manages the shop for staff members
-    aliases: [mshop, shopadmin]
-  mode:
-    usage: /<command> [event | dev | staff | off]
-    description: Change the server mode
-  mute:
-    usage: /<command> <player | purge>
-    description: Mute a player or purge all mutes
-    aliases: [stfu, emute]
-  netherworld:
-    usage: /<command>
-    description: Teleport to the netherworld
-    aliases: [nw]
-  overworld:
-    usage: /<command>
-    description: Teleport to the overworld
-    aliases: [ow]
-  orbit:
-    usage: /<command> <player> <on | off>
-    description: Toggles a player's orbited state
   permban:
     usage: /<command> <player> [reason]
     description: Permanently bans a player
@@ -88,12 +40,6 @@ commands:
     usage: /<command>
     description: Teleport to the voterworld
     aliases: [vw]
-  cage:
-    usage: /<command> <<player> [block] | purge>
-    description: Create a cage around a player
   playtime:
     usage: /<command> [player]
     description: View player playtime
-  manage:
-    usage: /<command> <<player> <setting> <on|off> | reset <player> | resetall | list>
-    description: Manage certain player powers

@@ -18,7 +18,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
-public class CageCommand extends ConverseBase implements CommandExecutor {
+@CommandParameters(description = "Create a cage around a player", usage = "/<command> <<player> [block] | purge>")
+public class CageCommand extends CommandBase {
     public class Cage {
         private UUID uuid;
         private Material cageMaterial;
