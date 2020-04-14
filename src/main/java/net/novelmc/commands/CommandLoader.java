@@ -82,6 +82,30 @@ public class CommandLoader {
         return null;
     }
 
+    /*
+    public Collection<? extends String> getPermissions() {
+        List<String> permissions = new ArrayList<>();
+        try {
+            CodeSource cs = Converse.class.getProtectionDomain().getCodeSource();
+            if (cs != null) {
+                ZipInputStream stream = new ZipInputStream(cs.getLocation().openStream());
+                ZipEntry entry;
+                while ((entry = stream.getNextEntry()) != null) {
+                    String name = entry.getName();
+                    Matcher matcher = COMMAND_PATTERM.matcher(name);
+                    if (matcher.find()) {
+                        String permissionName = matcher.group(1).replaceAll("Command", "").toLowerCase();
+                        permissions.add(permissionName);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Collections.unmodifiableCollection(permissions);
+    }
+     */
+
     private Collection<? extends Commander> getCommands() {
         List<Commander> commanderList = new ArrayList<>();
         try {

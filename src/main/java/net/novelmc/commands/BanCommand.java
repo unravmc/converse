@@ -15,7 +15,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class BanCommand extends ConverseBase implements CommandExecutor {
+@CommandParameters(description = "Temporarily ban a player.", usage = "/<command> <player> <duration> [reason]", aliases = "eban, banip, ebanip, tempban, etempban")
+public class BanCommand extends CommandBase {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (!sender.hasPermission("converse.ban")) {

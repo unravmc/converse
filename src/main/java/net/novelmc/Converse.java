@@ -19,8 +19,11 @@ import net.novelmc.util.PlayerOrganizer;
 import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -98,6 +101,13 @@ public class Converse extends JavaPlugin {
         util = new Util();
         //Scoreboard for Tablist
         po = new PlayerOrganizer();
+
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                CommandLoader.getInstance().scan();
+            }
+        }.runTaskLater(this, 20L);
     }
 
     @Override
@@ -119,6 +129,11 @@ public class Converse extends JavaPlugin {
         playerDataManager.scheduler.cancel();
     }
 
+    @Override
+    public boolean onCommand(CommandSender sender, Command cmd, String lbl, String[] args) {
+        return CommandHandler.handle(sender, cmd, lbl, args);
+    }
+
     private void loadShops() {
         shop = new MainMenu();
         trails = new TrailsMenu();
@@ -133,10 +148,8 @@ public class Converse extends JavaPlugin {
         }
         return null;
     }
-
+    //Unneeded soon!
     private void registerCommands() {
-        getCommand("adminchat").setExecutor(new AdminchatCommand());
-        getCommand("ban").setExecutor(new BanCommand());
         getCommand("banlookup").setExecutor(new BanLookupCommand());
         getCommand("blackchat").setExecutor(new BlackChatCommand());
         getCommand("coins").setExecutor(new CoinsCommand());

@@ -16,7 +16,12 @@ public class CommandHandler {
         final Player player;
         if (sender instanceof Player) {
             player = (Player) sender;
-
+            /*
+            * if (!CommandBase.hasPermission(player, cmd.getName().toLowerCase())) {
+            *     player.sendMessage("You do not have permission to execute this command");
+            *     return true;
+            * }
+            */
             Bukkit.getLogger().info(String.format("[PLAYER COMMAND] %s (%s): /%s %s",
                     player.getName(),
                     ChatColor.stripColor(player.getDisplayName()),

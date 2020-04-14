@@ -6,14 +6,6 @@ main: net.novelmc.Converse
 depend: [LuckPerms]
 api-version: 1.14
 commands:
-  adminchat:
-    usage: /<command> <message>
-    description: Talk privately with other staff members
-    aliases: [ac, o]
-  ban:
-    usage: /<command> <player> <duration> [reason]
-    description: Temporarily bans a player
-    aliases: [eban, banip, ebanip, tempban, etempban]
   banlookup:
     usage: /<command> <player>
     description: Look up a player ban

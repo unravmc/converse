@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 //This is how every command should look from now on!
-@CommandParameters(description = "Sends a message in adminchat, also toggles it on or off.", usage = "/<command> [message]", aliases = "o, ac")
+@CommandParameters(description = "Talk privately with other staff members\\; also toggles it on or off.", usage = "/<command> [message]", aliases = "o, ac")
 public class AdminchatCommand extends CommandBase {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
