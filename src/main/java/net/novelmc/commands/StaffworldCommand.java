@@ -10,7 +10,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class StaffworldCommand extends ConverseBase implements CommandExecutor {
+@CommandParameters(description = "Teleport to the staff world.",
+        usage = "/<command> <add <player> | remove <player>>",
+        aliases = "adminworld, aw, sw")
+public class StaffworldCommand extends CommandBase {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (!sender.hasPermission("converse.staffworld")) {

@@ -11,7 +11,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class StaffCommand extends ConverseBase implements CommandExecutor {
+@CommandParameters(description = "Manage staff members",
+        usage = "/<command> <add <player> <rank> | remove <player>>",
+        aliases = "saconfig")
+public class StaffCommand extends CommandBase {
     private static LuckPermsApi api = Converse.getLuckPermsAPI();
 
     @Override

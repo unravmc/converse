@@ -8,7 +8,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class PlotworldCommand implements CommandExecutor {
+@CommandParameters(description = "Teleport to the plotworld", usage = "/<command>")
+public class PlotworldCommand extends CommandBase {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         World plotworld = Bukkit.getWorld("plotworld");

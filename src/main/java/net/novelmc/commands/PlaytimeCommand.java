@@ -12,7 +12,8 @@ import org.bukkit.entity.Player;
 
 import java.util.concurrent.TimeUnit;
 
-public class PlaytimeCommand extends ConverseBase implements CommandExecutor {
+@CommandParameters(description = "View player playtime", usage = "/<command> [player]")
+public class PlaytimeCommand extends CommandBase {
     @SuppressWarnings("deprecated")
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if(args.length == 0) {

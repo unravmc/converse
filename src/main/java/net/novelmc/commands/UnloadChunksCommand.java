@@ -9,7 +9,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-public class UnloadChunksCommand extends ConverseBase implements CommandExecutor {
+@CommandParameters(description = "Unload all unused chunks.", usage = "/<command>", aliases = "uc")
+public class UnloadChunksCommand extends CommandBase {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         int numChunks = 0;

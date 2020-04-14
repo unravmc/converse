@@ -1,6 +1,5 @@
 package net.novelmc.commands;
 
-import net.novelmc.util.ConverseBase;
 import net.novelmc.util.Util;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.RandomStringUtils;
@@ -8,12 +7,11 @@ import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-@CommandParameters(description = "", usage = "/<command> <player> [reason]", aliases = "")
-public class PermbanCommand extends ConverseBase implements CommandExecutor {
+@CommandParameters(description = "Permanently ban a player", usage = "/<command> <player> [reason]")
+public class PermbanCommand extends CommandBase {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (!sender.hasPermission("converse.permban")) {

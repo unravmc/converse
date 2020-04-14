@@ -88,8 +88,6 @@ public class Converse extends JavaPlugin {
         lp = new LuckPermsBridge(this);
         // Player Data Manager
         playerDataManager = new PlayerDataManager();
-        // Commands
-        registerCommands();
         // Listener
         registerListeners();
         // Banning
@@ -97,11 +95,10 @@ public class Converse extends JavaPlugin {
         permban = new Permban(this);
         // Shops
         loadShops();
-
         util = new Util();
         //Scoreboard for Tablist
         po = new PlayerOrganizer();
-
+        //Commands
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -147,21 +144,6 @@ public class Converse extends JavaPlugin {
             return provider.getProvider();
         }
         return null;
-    }
-    //Unneeded soon!
-    private void registerCommands() {
-        getCommand("voterworld").setExecutor(new VoterworldCommand());
-        getCommand("permban").setExecutor(new PermbanCommand());
-        getCommand("plotworld").setExecutor(new PlotworldCommand());
-        getCommand("shop").setExecutor(new ShopCommand());
-        getCommand("staff").setExecutor(new StaffCommand());
-        getCommand("staffworld").setExecutor(new StaffworldCommand());
-        getCommand("unban").setExecutor(new UnbanCommand());
-        getCommand("unloadchunks").setExecutor(new UnloadChunksCommand());
-        getCommand("say").setExecutor(new SayCommand());
-        getCommand("playtime").setExecutor(new PlaytimeCommand());
-
-
     }
 
     private void registerListeners() {

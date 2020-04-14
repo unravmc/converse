@@ -10,7 +10,10 @@ import org.bukkit.command.CommandSender;
 
 import java.util.Arrays;
 
-public class SayCommand extends ConverseBase implements CommandExecutor
+@CommandParameters(description = "Broadcast a message to the server",
+        usage = "/<command> <message>",
+        aliases = "shout, announce, broadcast")
+public class SayCommand extends CommandBase
 {
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args)
     {
