@@ -105,7 +105,7 @@ public class CommandLoader {
 
     private Collection<? extends Commander> getCommands() {
         List<Commander> commanderList = new ArrayList<>();
-        getCommandBaseClasses().forEach(clazz -> {
+        getAnnotatedClasses("net.novelmc.commands").forEach(clazz -> {
             CommandParameters cp = clazz.getAnnotation(CommandParameters.class);
             if (cp != null) {
                 Commander commander = new Commander(
@@ -114,7 +114,7 @@ public class CommandLoader {
                         cp.description(),
                         cp.usage(),
                         cp.aliases());
-                commandList.add(commander);
+                commanderList.add(commander);
             }
         });
 
@@ -129,7 +129,7 @@ public class CommandLoader {
                String finals = name.replaceAll(temp, "");
                sb.append(finals);
            }
-        return sb.toString();
+        return sb.toString().toLowerCase();
     }
 
     @SuppressWarnings("unchecked")
@@ -242,9 +242,9 @@ public class CommandLoader {
         private static final CommandLoader INSTANCE = new CommandLoader();
     }
 
-    private Set<Class<? extends CommandBase>> getCommandBaseClasses() {
-        Reflections reflections = new Reflections("net.novelmc.commands");
-        return reflections.getSubTypesOf(CommandBase.class);
+    private Set<Class<?>> getAnnotatedClasses(String location) {
+        Reflections reflections = new Reflections(location);
+        return reflections.getTypesAnnotatedWith(CommandParameters.class);
     }
 
     @SuppressWarnings("unchecked")
