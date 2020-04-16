@@ -2,6 +2,7 @@ package net.novelmc.commands.loader;
 
 import net.novelmc.ConversePlugin;
 import net.novelmc.commands.Adminchat;
+import net.novelmc.commands.Converse;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -10,7 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class CommandHandler {
-    public static final String COMMAND_PATH = Adminchat.class.getPackage().getName();
+    public static final String COMMAND_PATH = Converse.class.getPackage().getName();
     public static final String DEFINER = "Command";
 
     public static boolean handle(CommandSender sender, Command cmd, String lbl, String[] args) {
