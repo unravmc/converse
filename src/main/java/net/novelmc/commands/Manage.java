@@ -18,7 +18,7 @@ import java.util.Arrays;
 
 @CommandParameters(description = "Manage certain player powers",
         usage = "/<command> <<player> <setting> <on|off> | reset <player> | resetall | list>")
-public class Message extends CommandBase {
+public class Manage extends CommandBase {
     public static class ManagedSettings {
         private boolean commands = true;
         private boolean blockedit = true;

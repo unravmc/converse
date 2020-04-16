@@ -26,8 +26,6 @@ public class CommandLoader {
         commandList = new ArrayList<>();
     }
 
-
-
     public void scan() {
         CommandMap map = getCommandMap();
         if (map == null) {

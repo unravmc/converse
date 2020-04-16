@@ -31,7 +31,7 @@ public class WorldListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerJoin(PlayerJoinEvent event) {
-        //Custom Join Message
+        //Custom Join Manage
         Player player = event.getPlayer();
         ChatColor rankColor = ConversePlugin.plugin.lp.displayRankColor(player);
         ChatColor nameColor = ConversePlugin.plugin.lp.nameColor(player);

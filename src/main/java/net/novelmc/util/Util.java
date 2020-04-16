@@ -68,7 +68,7 @@ public class Util extends ConverseBase {
     }
 
     /**
-     * @param message Message to broadcast to the server.
+     * @param message Manage to broadcast to the server.
      */
     public static void action(String message) {
         Bukkit.broadcastMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "[ConversePlugin: " + message + "]");

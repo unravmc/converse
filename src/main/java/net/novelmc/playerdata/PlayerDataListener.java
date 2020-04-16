@@ -1,7 +1,7 @@
 package net.novelmc.playerdata;
 
 import net.novelmc.ConversePlugin;
-import net.novelmc.commands.Message;
+import net.novelmc.commands.Manage;
 import net.novelmc.util.ConverseBase;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -30,7 +30,7 @@ public class PlayerDataListener extends ConverseBase implements Listener {
         mgr.getPlayerData(e.getPlayer()).setLastLoggedIn(new Date());
         mgr.getPlayerData(e.getPlayer()).setLastKnownName(e.getPlayer().getName());
         if (mgr.getPlayerData(e.getPlayer()).getManagedSettings() == null)
-            mgr.getPlayerData(e.getPlayer()).setManagedSettings(new Message.ManagedSettings());
+            mgr.getPlayerData(e.getPlayer()).setManagedSettings(new Manage.ManagedSettings());
         mgr.save(mgr.getPlayerData(e.getPlayer()));
     }
 
