@@ -1,6 +1,6 @@
 package net.novelmc.permban;
 
-import net.novelmc.Converse;
+import net.novelmc.ConversePlugin;
 import net.novelmc.util.ConverseBase;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -8,9 +8,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class Permban extends ConverseBase {
-    private Converse plugin;
+    private ConversePlugin plugin;
 
-    public Permban(Converse plugin) {
+    public Permban(ConversePlugin plugin) {
         this.plugin = plugin;
     }
 

@@ -1,23 +1,18 @@
 package net.novelmc.listeners;
 
-import net.novelmc.Converse;
+import net.novelmc.ConversePlugin;
 import net.novelmc.util.ShopIndex;
 import net.novelmc.util.Util;
 import org.bukkit.*;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDropItemEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
-import org.bukkit.event.entity.SheepDyeWoolEvent;
-import org.bukkit.event.entity.SheepRegrowWoolEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
@@ -27,9 +22,9 @@ import java.util.List;
 import java.util.UUID;
 
 public class WorldListener implements Listener {
-    private Converse plugin;
+    private ConversePlugin plugin;
 
-    public WorldListener(Converse plugin) {
+    public WorldListener(ConversePlugin plugin) {
         this.plugin = plugin;
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
     }
@@ -38,13 +33,13 @@ public class WorldListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         //Custom Join Message
         Player player = event.getPlayer();
-        ChatColor rankColor = Converse.plugin.lp.displayRankColor(player);
-        ChatColor nameColor = Converse.plugin.lp.nameColor(player);
-        String rank = Converse.plugin.lp.displayRank(player);
+        ChatColor rankColor = ConversePlugin.plugin.lp.displayRankColor(player);
+        ChatColor nameColor = ConversePlugin.plugin.lp.nameColor(player);
+        String rank = ConversePlugin.plugin.lp.displayRank(player);
         StringBuilder sb = new StringBuilder();
-        if (Converse.plugin.lp.isStaff(player.getUniqueId())
-                || Converse.plugin.lp.isArchitect(player.getUniqueId())
-                || Converse.plugin.lp.isVoter(player.getUniqueId())) {
+        if (ConversePlugin.plugin.lp.isStaff(player.getUniqueId())
+                || ConversePlugin.plugin.lp.isArchitect(player.getUniqueId())
+                || ConversePlugin.plugin.lp.isVoter(player.getUniqueId())) {
                 sb.append(ChatColor.DARK_GRAY + "[")
                         .append(ChatColor.GREEN + "+")
                         .append(ChatColor.DARK_GRAY + "] ")
@@ -71,7 +66,7 @@ public class WorldListener implements Listener {
 
         //custom leave
         Player player = event.getPlayer();
-        ChatColor nameColor = Converse.plugin.lp.nameColor(player);
+        ChatColor nameColor = ConversePlugin.plugin.lp.nameColor(player);
         StringBuilder sb = new StringBuilder();
         sb.append(ChatColor.DARK_GRAY + "[")
                 .append(ChatColor.RED + "-")
@@ -80,7 +75,7 @@ public class WorldListener implements Listener {
         event.setQuitMessage(sb.toString());
     }
 
-    public boolean isDropsAllowed = Converse.plugin.config.getBoolean("item_drops");
+    public boolean isDropsAllowed = ConversePlugin.plugin.config.getBoolean("item_drops");
 
     @EventHandler
     public void PlayerDrops(PlayerDropItemEvent e) {
@@ -129,13 +124,13 @@ public class WorldListener implements Listener {
     @EventHandler
     public void BlockPlacement(BlockPlaceEvent event) {
         Material m = event.getBlockPlaced().getType();
-        if (Converse.plugin.config.getBoolean("fluid_place") == false) {
+        if (ConversePlugin.plugin.config.getBoolean("fluid_place") == false) {
             if (mats().contains(m)) {
                 event.setCancelled(true);
             }
         }
 
-        if (Converse.plugin.config.getBoolean("fire_place") == false) {
+        if (ConversePlugin.plugin.config.getBoolean("fire_place") == false) {
             if (m == Material.FIRE) {
                 event.setCancelled(true);
             } else if (m == Material.FIRE_CHARGE) {

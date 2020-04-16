@@ -1,11 +1,11 @@
 package net.novelmc.util;
 
 import me.lucko.luckperms.api.LuckPermsApi;
-import net.novelmc.Converse;
+import net.novelmc.ConversePlugin;
 import org.bukkit.Server;
 
 public class ConverseBase {
-    protected static Converse plugin = Converse.plugin;
-    protected Server server = Converse.server;
-    protected LuckPermsApi api = Converse.getLuckPermsAPI();
+    protected static ConversePlugin plugin = ConversePlugin.plugin;
+    protected Server server = ConversePlugin.server;
+    protected LuckPermsApi api = ConversePlugin.getLuckPermsAPI();
 }

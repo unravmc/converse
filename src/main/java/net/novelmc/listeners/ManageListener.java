@@ -1,6 +1,6 @@
 package net.novelmc.listeners;
 
-import net.novelmc.Converse;
+import net.novelmc.ConversePlugin;
 import net.novelmc.playerdata.PlayerData;
 import net.novelmc.util.ConverseBase;
 import org.bukkit.ChatColor;
@@ -18,7 +18,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 
 @SuppressWarnings("unused")
 public class ManageListener extends ConverseBase implements Listener {
-    public ManageListener(Converse plugin) {
+    public ManageListener(ConversePlugin plugin) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 

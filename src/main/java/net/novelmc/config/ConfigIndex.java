@@ -1,6 +1,6 @@
 package net.novelmc.config;
 
-import net.novelmc.Converse;
+import net.novelmc.ConversePlugin;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class ConfigIndex {
     public static void createDefaultConfiguration(final String fileName) {
-        final File targetFile = new File(Converse.plugin.getDataFolder(), fileName);
+        final File targetFile = new File(ConversePlugin.plugin.getDataFolder(), fileName);
 
         if (targetFile.exists()) {
             return;
@@ -21,7 +21,7 @@ public class ConfigIndex {
         Bukkit.getLogger().info("Installing default configuration file template: " + targetFile.getPath());
 
         try {
-            final InputStream inputStream = Converse.plugin.getResource(fileName);
+            final InputStream inputStream = ConversePlugin.plugin.getResource(fileName);
             FileUtils.copyInputStreamToFile(inputStream, targetFile);
             inputStream.close();
         } catch (IOException ex) {
@@ -66,7 +66,7 @@ public class ConfigIndex {
 
     public static Map<String, Boolean> getSavedFlags() {
         Map<String, Boolean> flags = null;
-        File input = new File(Converse.plugin.getDataFolder(), "flags.yml");
+        File input = new File(ConversePlugin.plugin.getDataFolder(), "flags.yml");
         if (input.exists()) {
             try {
                 FileInputStream inputStream = new FileInputStream(input);
@@ -110,7 +110,7 @@ public class ConfigIndex {
         flags.put(flag, value);
 
         try {
-            final FileOutputStream outputStream = new FileOutputStream((new File(Converse.plugin.getDataFolder(), "flags.yml")));
+            final FileOutputStream outputStream = new FileOutputStream((new File(ConversePlugin.plugin.getDataFolder(), "flags.yml")));
             final ObjectOutputStream objectStream = new ObjectOutputStream(outputStream);
             objectStream.writeObject(flags);
             objectStream.close();

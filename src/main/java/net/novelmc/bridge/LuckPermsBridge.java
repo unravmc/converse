@@ -4,7 +4,7 @@ import me.lucko.luckperms.api.LuckPermsApi;
 import me.lucko.luckperms.api.Node;
 import me.lucko.luckperms.api.User;
 import me.lucko.luckperms.api.manager.UserManager;
-import net.novelmc.Converse;
+import net.novelmc.ConversePlugin;
 import net.novelmc.util.Util;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -14,10 +14,10 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 public class LuckPermsBridge {
-    private final Converse plugin;
-    private final LuckPermsApi api = Converse.getLuckPermsAPI();
+    private final ConversePlugin plugin;
+    private final LuckPermsApi api = ConversePlugin.getLuckPermsAPI();
 
-    public LuckPermsBridge(Converse plugin) {
+    public LuckPermsBridge(ConversePlugin plugin) {
         this.plugin = plugin;
     }
 

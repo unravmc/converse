@@ -1,6 +1,6 @@
 package net.novelmc.playerdata;
 
-import net.novelmc.commands.ManageCommand;
+import net.novelmc.commands.Message;
 import org.bukkit.entity.Player;
 
 import java.util.Date;
@@ -13,7 +13,7 @@ public class PlayerData {
     private long playtime;
     private int coins;
     private Date lastLoggedIn;
-    private ManageCommand.ManagedSettings managedSettings;
+    private Message.ManagedSettings managedSettings;
 
     public PlayerData(Player player) {
         this.UUID = player.getUniqueId();
@@ -22,10 +22,10 @@ public class PlayerData {
         this.playtime = 0;
         this.lastLoggedIn = new Date();
         this.lastKnownName = player.getName();
-        this.managedSettings = new ManageCommand.ManagedSettings();
+        this.managedSettings = new Message.ManagedSettings();
     }
 
-    public void setManagedSettings(ManageCommand.ManagedSettings managedSettings) {
+    public void setManagedSettings(Message.ManagedSettings managedSettings) {
         this.managedSettings = managedSettings;
     }
 
@@ -53,7 +53,7 @@ public class PlayerData {
         this.UUID = UUID;
     }
 
-    public ManageCommand.ManagedSettings getManagedSettings() {
+    public Message.ManagedSettings getManagedSettings() {
         return managedSettings;
     }
 

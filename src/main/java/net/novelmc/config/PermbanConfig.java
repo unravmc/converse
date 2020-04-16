@@ -2,15 +2,15 @@ package net.novelmc.config;
 
 import java.io.File;
 
-import net.novelmc.Converse;
+import net.novelmc.ConversePlugin;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 public class PermbanConfig extends YamlConfiguration {
     private static PermbanConfig config;
-    private Converse plugin;
+    private ConversePlugin plugin;
     private File file;
 
-    public PermbanConfig(Converse plugin) {
+    public PermbanConfig(ConversePlugin plugin) {
         this.plugin = plugin;
         this.file = new File(plugin.getDataFolder(), "permbans.yml");
 

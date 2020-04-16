@@ -1,19 +1,11 @@
 package net.novelmc.util;
 
-import net.novelmc.Converse;
+import net.novelmc.ConversePlugin;
 import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.block.data.BlockData;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.*;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.*;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.util.Vector;
 
 import java.util.Random;
 
@@ -23,7 +15,7 @@ public class AprilFools implements Listener {
     private Random random = new Random();
     private int bound = 10;
 
-    public AprilFools(Converse plugin) {
+    public AprilFools(ConversePlugin plugin) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 

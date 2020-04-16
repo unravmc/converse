@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
-import net.novelmc.Converse;
+import net.novelmc.ConversePlugin;
 import net.novelmc.util.Util;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -14,9 +14,9 @@ import org.bukkit.entity.Player;
 
 public class Ban {
     private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
-    private final Converse plugin;
+    private final ConversePlugin plugin;
 
-    public Ban(Converse plugin) {
+    public Ban(ConversePlugin plugin) {
         this.plugin = plugin;
     }
 

@@ -1,6 +1,6 @@
 package net.novelmc.listeners;
 
-import net.novelmc.Converse;
+import net.novelmc.ConversePlugin;
 import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -14,10 +14,10 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class ModeListener implements Listener {
-    private final Converse plugin;
+    private final ConversePlugin plugin;
 
     @SuppressWarnings("")
-    public ModeListener(Converse plugin) {
+    public ModeListener(ConversePlugin plugin) {
         this.plugin = plugin;
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
     }

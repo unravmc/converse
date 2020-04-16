@@ -1,6 +1,6 @@
 package net.novelmc.listeners;
 
-import net.novelmc.Converse;
+import net.novelmc.ConversePlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,10 +9,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 
 public class BanListener implements Listener {
-    private final Converse plugin;
+    private final ConversePlugin plugin;
 
     @SuppressWarnings("")
-    public BanListener(Converse plugin) {
+    public BanListener(ConversePlugin plugin) {
         this.plugin = plugin;
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
     }

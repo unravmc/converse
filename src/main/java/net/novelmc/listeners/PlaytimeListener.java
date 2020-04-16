@@ -1,9 +1,6 @@
 package net.novelmc.listeners;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import net.novelmc.Converse;
-import net.novelmc.commands.CageCommand;
+import net.novelmc.ConversePlugin;
 import net.novelmc.playerdata.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -21,9 +18,9 @@ import java.util.UUID;
 public class PlaytimeListener implements Listener {
     public BukkitTask scheduler;
     public Map<UUID, Long> timeLoggedIn = new HashMap<>();
-    private final Converse plugin;
+    private final ConversePlugin plugin;
 
-    public PlaytimeListener(Converse plugin) {
+    public PlaytimeListener(ConversePlugin plugin) {
         this.plugin = plugin;
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
 

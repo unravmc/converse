@@ -1,7 +1,7 @@
 package net.novelmc.shop;
 
 import net.novelmc.util.ShopIndex;
-import net.novelmc.Converse;
+import net.novelmc.ConversePlugin;
 import net.novelmc.util.HoverIndex;
 import net.md_5.bungee.api.ChatColor;
 import net.novelmc.util.Util;
@@ -10,8 +10,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 public class MainMenu extends ShopIndex {
     public MainMenu() {
         super(9, "UnraveledMC Shop");
@@ -19,17 +17,17 @@ public class MainMenu extends ShopIndex {
         ItemStack is2 = newItem(Material.PLAYER_HEAD, "Players", "Use this to open a list of all players.");
         ItemStack is3 = newItem(Material.FEATHER, "Hover Chat", "Hover chat test. Click this to close the gui and print a hoverable text block!");
 
-        setItem(0, is1, player -> Converse.plugin.trails.open(player));
+        setItem(0, is1, player -> ConversePlugin.plugin.trails.open(player));
 
         setItem(1, is2, player -> {
             registerPlayers();
-            Converse.plugin.players.open(player);
+            ConversePlugin.plugin.players.open(player);
         });
         //
         setItem(2, is3, player -> {
             HoverIndex hover = new HoverIndex(player, ChatColor.RED, "Hoverable Text", "This is a test for some hoverable text!!");
             hover.newChat();
-            Converse.plugin.shop.open(player);
+            ConversePlugin.plugin.shop.open(player);
         });
     }
 
@@ -39,7 +37,7 @@ public class MainMenu extends ShopIndex {
             if (Util.size() > 54) {
                 while (x[0] <= 52) {
                     ItemStack is = newPlayerHead(target);
-                    Converse.plugin.players
+                    ConversePlugin.plugin.players
                             .setItem(x[0], is, pl -> pl.sendMessage("You clicked on " + target.getName()));
                     x[0]++;
                 }
@@ -55,13 +53,13 @@ public class MainMenu extends ShopIndex {
                         x[0]++;
                     }
                     second.setItem(Util.size() + 2, is4, p -> {
-                        Converse.plugin.players.open(p);
+                        ConversePlugin.plugin.players.open(p);
                     });
                     second.open(pl);
                 });
             } else {
                 ItemStack is = newPlayerHead(target);
-                Converse.plugin.players
+                ConversePlugin.plugin.players
                         .setItem(x[0], is, pl -> pl.sendMessage("You clicked on " + target.getName()));
                 x[0]++;
             }

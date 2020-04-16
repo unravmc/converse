@@ -1,12 +1,10 @@
 package net.novelmc.util;
 
-import net.novelmc.Converse;
+import net.novelmc.ConversePlugin;
 import net.novelmc.bridge.LuckPermsBridge;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 import org.jetbrains.annotations.NotNull;
@@ -15,7 +13,7 @@ import java.util.Objects;
 
 public class PlayerOrganizer {
     //TabList Sorting Methods
-    private final LuckPermsBridge LPB = Converse.plugin.lp;
+    private final LuckPermsBridge LPB = ConversePlugin.plugin.lp;
     private Scoreboard sb;
     Team op;
     Team voter;

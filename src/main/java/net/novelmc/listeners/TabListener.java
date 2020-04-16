@@ -1,14 +1,10 @@
 package net.novelmc.listeners;
 
 import com.keenant.tabbed.Tabbed;
-import com.keenant.tabbed.item.PlayerTabItem;
-import com.keenant.tabbed.item.TabItem;
-import com.keenant.tabbed.tablist.SimpleTabList;
 import com.keenant.tabbed.tablist.TitledTabList;
-import com.keenant.tabbed.util.Skins;
 import me.lucko.luckperms.api.event.EventBus;
 import me.lucko.luckperms.api.event.node.NodeMutateEvent;
-import net.novelmc.Converse;
+import net.novelmc.ConversePlugin;
 import net.novelmc.util.ConverseBase;
 import net.novelmc.util.Util;
 import org.apache.commons.lang.StringUtils;
@@ -19,15 +15,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class TabListener extends ConverseBase implements Listener {
-    private Converse plugin;
+    private ConversePlugin plugin;
     private Tabbed tabbed;
 
-    public TabListener(Converse plugin) {
+    public TabListener(ConversePlugin plugin) {
         this.plugin = plugin;
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
         EventBus eventBus = api.getEventBus();

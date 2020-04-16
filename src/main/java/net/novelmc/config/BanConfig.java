@@ -3,16 +3,16 @@ package net.novelmc.config;
 import java.io.File;
 import java.io.IOException;
 
-import net.novelmc.Converse;
+import net.novelmc.ConversePlugin;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 public class BanConfig extends YamlConfiguration {
     private static BanConfig config;
-    private final Converse plugin;
+    private final ConversePlugin plugin;
     private final File file;
 
-    public BanConfig(Converse plugin) {
+    public BanConfig(ConversePlugin plugin) {
         this.plugin = plugin;
         this.file = new File(plugin.getDataFolder(), "bans.yml");
 

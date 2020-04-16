@@ -1,10 +1,9 @@
 package net.novelmc.listeners;
 
-import net.novelmc.Converse;
-import net.novelmc.commands.CageCommand;
+import net.novelmc.ConversePlugin;
+import net.novelmc.commands.Cage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -18,10 +17,10 @@ import java.util.Map;
 import java.util.UUID;
 
 public class CageListener implements Listener {
-    private final Converse plugin;
-    public final Map<UUID, CageCommand.Cage> cages = new HashMap<>();
+    private final ConversePlugin plugin;
+    public final Map<UUID, Cage.Cager> cages = new HashMap<>();
 
-    public CageListener(Converse plugin) {
+    public CageListener(ConversePlugin plugin) {
         this.plugin = plugin;
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
     }
@@ -29,7 +28,7 @@ public class CageListener implements Listener {
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
         if (cages.containsKey(e.getPlayer().getUniqueId())) {
-            CageCommand.Cage cage = cages.get(e.getPlayer().getUniqueId());
+            Cage.Cager cage = cages.get(e.getPlayer().getUniqueId());
             cage.undo();
         }
     }
@@ -37,7 +36,7 @@ public class CageListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         if (cages.containsKey(e.getPlayer().getUniqueId())) {
-            CageCommand.Cage cage = cages.get(e.getPlayer().getUniqueId());
+            Cage.Cager cage = cages.get(e.getPlayer().getUniqueId());
             cage.createCage();
         }
     }
@@ -48,7 +47,7 @@ public class CageListener implements Listener {
             e.setCancelled(true);
         } else if (!cages.isEmpty()) {
             for (UUID u : cages.keySet()) {
-                CageCommand.Cage c = cages.get(u);
+                Cage.Cager c = cages.get(u);
                 if (c.previousBlocks.containsKey(e.getBlock().getLocation())) {
                     e.setCancelled(true);
                 }

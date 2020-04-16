@@ -2,6 +2,6 @@ name: ${project.name}
 version: ${project.version}
 description: Plugin for UnraveledMC
 author: UnraveledMC
-main: net.novelmc.Converse
+main: net.novelmc.ConversePlugin
 depend: [LuckPerms]
 api-version: 1.14
