@@ -107,7 +107,7 @@ public class CommandLoader {
 
     private Collection<? extends Commander> getCommands() {
         List<Commander> commanderList = new ArrayList<>();
-        getAnnotatedClasses(Converse.class.getPackage().getName()).forEach(clazz -> {
+        getAnnotatedClasses(CommandHandler.COMMAND_PATH).forEach(clazz -> {
             CommandParameters cp = clazz.getAnnotation(CommandParameters.class);
             if (cp != null) {
                 Commander commander = new Commander(

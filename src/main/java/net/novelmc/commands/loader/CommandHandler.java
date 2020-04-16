@@ -34,7 +34,7 @@ public class CommandHandler {
         final CommandBase base;
         try {
             final ClassLoader loader = ConversePlugin.class.getClassLoader();
-            base = (CommandBase) loader.loadClass(COMMAND_PATH + cmd.getName()).newInstance();
+            base = (CommandBase) loader.loadClass(COMMAND_PATH + "." + cmd.getName()).newInstance();
             base.setup(ConversePlugin.plugin, sender, base.getClass());
         } catch (Exception ex) {
             Bukkit.getLogger().severe("Could not load command: " + cmd.getName());
