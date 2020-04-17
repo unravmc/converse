@@ -48,7 +48,7 @@ public class CommandHandler {
             return base.onCommand(sender, cmd, lbl, args);
         } catch (Exception ex) {
             Bukkit.getLogger().severe("Command Error: " + lbl);
-            Bukkit.getLogger().severe(ex.getMessage());
+            ex.printStackTrace();
             sender.sendMessage(ChatColor.RED + "COMMAND ERROR: " + ex.getMessage());
         }
 

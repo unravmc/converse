@@ -1,20 +1,23 @@
 package net.novelmc.commands;
 
-import java.util.UUID;
-
+import net.novelmc.bans.BanData;
+import net.novelmc.bans.BanType;
 import net.novelmc.commands.loader.CommandBase;
 import net.novelmc.commands.loader.CommandParameters;
 import net.novelmc.commands.loader.Messages;
+import net.novelmc.playerdata.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-@CommandParameters(description = "Look up a player ban", usage = "/<command> <player>", aliases = "bl")
+import java.util.UUID;
+
+@CommandParameters(description = "Lookup a ban by id", usage = "/<command> <id>", aliases = "bl")
 public class BanLookup extends CommandBase {
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!sender.hasPermission("converse.banlookup")) {
             sender.sendMessage(Messages.NO_PERMISSION);
             return true;
@@ -24,33 +27,27 @@ public class BanLookup extends CommandBase {
             return false;
         }
 
-        OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
-        UUID targetUUID = target.getUniqueId();
-
-        if (plugin.ban.getPlayer(targetUUID)) {
-            StringBuilder output = new StringBuilder();
-            output.append(ChatColor.GOLD + "------- " + ChatColor.RED + target.getName() + ChatColor.GOLD + " -------" +
-                    "\n");
-            if (plugin.ban.hasIP(target)) {
-                output.append(ChatColor.GOLD + " > IP Address: " + plugin.ban.getIP(target) + "\n");
-            }
-            output.append(ChatColor.GOLD + " > Banned by: " + plugin.ban.getBannedBy(target) + "\n");
-            if (plugin.ban.hasReason(target)) {
-                output.append(ChatColor.GOLD + " > Reason: " + plugin.ban.getReason(target) + "\n");
-            }
-            if (plugin.ban.hasExpiry(target)) {
-                output.append(ChatColor.GOLD + " > Duration: " + plugin.ban.formatDate(target) + "\n");
-            }
-            output.append(ChatColor.GOLD + " > Ban ID: " + plugin.ban.getBanID(target) + "\n");
-            sender.sendMessage(output.toString());
+        String id = args[0];
+        if (plugin.banManager.getBanFromID(id) == null) {
+            sender.sendMessage(ChatColor.RED + "That ID does not have an associated ban!");
             return true;
-        } else if (plugin.permban.isBanned(target)) {
-            StringBuilder output = new StringBuilder();
-            output.append(ChatColor.GOLD + "------- " + ChatColor.RED + target.getName() + ChatColor.GOLD + " -------" +
-                    "\n");
-
         }
 
+        BanData ban = plugin.banManager.getBanFromID(id);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(ChatColor.DARK_GRAY + "[ " + ChatColor.GOLD + "#" + ban.getBanID() + ChatColor.DARK_GRAY + " ]");
+        sb.append("\n");
+        sb.append(ChatColor.GRAY + "Staff Member: " + ChatColor.GOLD + (ban.getStaffUUID() != null ? Bukkit.getOfflinePlayer(ban.getStaffUUID()) : "CONSOLE"));
+        sb.append("\n");
+        sb.append(ChatColor.GRAY + "Expiration: " + ChatColor.GOLD + (ban.getBanType() != BanType.PERMANENT ? plugin.banManager.formatDate(ban.getBanExpiration()) : "Never"));
+        sb.append("\n");
+        sb.append(ChatColor.GRAY + "Issued At: " + ChatColor.GOLD + plugin.banManager.formatDate(ban.getDateIssued()));
+        sb.append("\n");
+        sb.append(ChatColor.GRAY + "Reason: " + ChatColor.GOLD + (ban.getReason() != null ? ban.getReason() : "No reason"));
+        sb.append("\n");
+
+        sender.sendMessage(sb.toString());
 
         return true;
     }

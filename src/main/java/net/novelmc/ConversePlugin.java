@@ -1,16 +1,13 @@
 package net.novelmc;
 
 import me.lucko.luckperms.api.LuckPermsApi;
-import net.novelmc.bans.Ban;
+import net.novelmc.bans.BanManager;
 import net.novelmc.bridge.LuckPermsBridge;
 import net.novelmc.commands.*;
 import net.novelmc.commands.loader.CommandHandler;
 import net.novelmc.commands.loader.CommandLoader;
-import net.novelmc.config.BanConfig;
 import net.novelmc.config.MainConfig;
-import net.novelmc.config.PermbanConfig;
 import net.novelmc.listeners.*;
-import net.novelmc.permban.Permban;
 import net.novelmc.playerdata.PlayerDataListener;
 import net.novelmc.playerdata.PlayerDataManager;
 import net.novelmc.shop.MainMenu;
@@ -38,13 +35,10 @@ public class ConversePlugin extends JavaPlugin {
     public static Server server;
     public static Util util;
     // Configs
-    public BanConfig banConfig;
     public MainConfig config;
-    public PermbanConfig permbanConfig;
     public PlayerOrganizer po;
     // Banning
-    public Ban ban;
-    public Permban permban;
+    public BanManager banManager;
     // LuckPerms
     public LuckPermsBridge lp;
     // Shop
@@ -73,9 +67,7 @@ public class ConversePlugin extends JavaPlugin {
     public void onLoad() {
         plugin = this;
         server = plugin.getServer();
-        banConfig = new BanConfig(this);
         config = new MainConfig(this);
-        permbanConfig = new PermbanConfig(this);
     }
 
     @Override
@@ -93,8 +85,7 @@ public class ConversePlugin extends JavaPlugin {
         // Listener
         registerListeners();
         // Banning
-        ban = new Ban(this);
-        permban = new Permban(this);
+        banManager = new BanManager();
         // Shops
         loadShops();
         util = new Util();
@@ -115,7 +106,7 @@ public class ConversePlugin extends JavaPlugin {
         unregisterConfigs();
 
         // Undo cages
-        for(UUID u : cgl.cages.keySet()) {
+        for (UUID u : cgl.cages.keySet()) {
             Cage.Cager cage = cgl.cages.get(u);
             cage.undo();
         }
@@ -163,15 +154,11 @@ public class ConversePlugin extends JavaPlugin {
     }
 
     public void registerConfigs() {
-        banConfig.load();
         config.load();
-        permbanConfig.load();
     }
 
     private void unregisterConfigs() {
-        banConfig.save();
         config.save();
-        permbanConfig.save();
     }
 
 

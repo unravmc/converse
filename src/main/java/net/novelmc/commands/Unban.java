@@ -3,6 +3,7 @@ package net.novelmc.commands;
 import net.novelmc.commands.loader.CommandBase;
 import net.novelmc.commands.loader.CommandParameters;
 import net.novelmc.commands.loader.Messages;
+import net.novelmc.playerdata.PlayerData;
 import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -26,16 +27,18 @@ public class Unban extends CommandBase {
         }
 
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
-
-        if (plugin.ban.removeBan(offlinePlayer)) {
-            Util.action(sender, "Unbanning " + offlinePlayer.getName());
+        if (!plugin.playerDataManager.doesPlayerDataExist(offlinePlayer.getUniqueId())) {
+            sender.sendMessage(Messages.PLAYER_NOT_FOUND);
             return true;
-        } else if (plugin.permban.removePermban(offlinePlayer)) {
-            Util.action(sender, "Unbanning " + offlinePlayer.getName());
-            return true;
-        } else {
-            sender.sendMessage(ChatColor.RED + "ConversePlugin could not find a ban under that name!");
         }
+
+        if (!plugin.banManager.isPlayerBanned(offlinePlayer.getUniqueId())) {
+            sender.sendMessage(ChatColor.RED + "That player does not have an active ban!");
+            return true;
+        }
+
+        Util.action(sender, "Unbanning " + offlinePlayer.getName());
+        plugin.banManager.removeBanFromHistory(plugin.banManager.getLatestBan(offlinePlayer.getUniqueId()));
         return true;
     }
 }

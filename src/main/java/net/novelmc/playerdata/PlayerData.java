@@ -1,9 +1,12 @@
 package net.novelmc.playerdata;
 
+import net.novelmc.bans.BanData;
 import net.novelmc.commands.Manage;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class PlayerData {
@@ -13,6 +16,7 @@ public class PlayerData {
     private long playtime;
     private int coins;
     private Date lastLoggedIn;
+    private List<BanData> bans;
     private Manage.ManagedSettings managedSettings;
 
     public PlayerData(Player player) {
@@ -23,7 +27,17 @@ public class PlayerData {
         this.lastLoggedIn = new Date();
         this.lastKnownName = player.getName();
         this.managedSettings = new Manage.ManagedSettings();
+        this.bans = new ArrayList<>();
     }
+
+    public List<BanData> getBans() {
+        return bans;
+    }
+
+    public void setBans(List<BanData> bans) {
+        this.bans = bans;
+    }
+
 
     public void setManagedSettings(Manage.ManagedSettings managedSettings) {
         this.managedSettings = managedSettings;

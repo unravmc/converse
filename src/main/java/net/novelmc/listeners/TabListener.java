@@ -17,6 +17,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 public class TabListener extends ConverseBase implements Listener {
     private ConversePlugin plugin;
@@ -64,25 +65,28 @@ public class TabListener extends ConverseBase implements Listener {
     private void onGroupChange(NodeMutateEvent event) {
         Bukkit.getScheduler().runTask(plugin, () ->
         {
-            Player player = Objects.requireNonNull(Bukkit.getPlayer(event.getTarget().getFriendlyName()));
-            String rank = plugin.lp.displayRank(player);
-            ChatColor color = plugin.lp.displayRankColor(player);
-            if (plugin.lp.isStaff(player.getUniqueId())) {
-                player.setPlayerListName(ChatColor.DARK_GRAY + "["
-                        + color + rank
-                        + ChatColor.DARK_GRAY + "]"
-                        + plugin.lp.nameColor(player) + " " + player.getName());
-            } else if (plugin.lp.isArchitect(player.getUniqueId()) || plugin.lp.isVoter(player.getUniqueId())) {
-                player.setPlayerListName(ChatColor.DARK_GRAY + "["
-                        + color + rank
-                        + ChatColor.DARK_GRAY + "]"
-                        + plugin.lp.nameColor(player) + " " + player.getName());
-            } else {
-                player.setPlayerListName(plugin.lp.nameColor(player) + player.getName());
-            }
+            if(Bukkit.getOnlinePlayers().stream().anyMatch(p -> p.getName().equals(event.getTarget().getFriendlyName()))) {
+                Player player = Bukkit.getPlayer(event.getTarget().getFriendlyName());
+                assert player != null;
+                String rank = plugin.lp.displayRank(player);
+                ChatColor color = plugin.lp.displayRankColor(player);
+                if (plugin.lp.isStaff(player.getUniqueId())) {
+                    player.setPlayerListName(ChatColor.DARK_GRAY + "["
+                            + color + rank
+                            + ChatColor.DARK_GRAY + "]"
+                            + plugin.lp.nameColor(player) + " " + player.getName());
+                } else if (plugin.lp.isArchitect(player.getUniqueId()) || plugin.lp.isVoter(player.getUniqueId())) {
+                    player.setPlayerListName(ChatColor.DARK_GRAY + "["
+                            + color + rank
+                            + ChatColor.DARK_GRAY + "]"
+                            + plugin.lp.nameColor(player) + " " + player.getName());
+                } else {
+                    player.setPlayerListName(plugin.lp.nameColor(player) + player.getName());
+                }
 
-            plugin.po.tabRemove(player);
-            plugin.po.tabAdd(player);
+                plugin.po.tabRemove(player);
+                plugin.po.tabAdd(player);
+            }
         });
     }
 }

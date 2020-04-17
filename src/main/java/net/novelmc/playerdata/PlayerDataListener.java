@@ -9,6 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -31,6 +32,8 @@ public class PlayerDataListener extends ConverseBase implements Listener {
         mgr.getPlayerData(e.getPlayer()).setLastKnownName(e.getPlayer().getName());
         if (mgr.getPlayerData(e.getPlayer()).getManagedSettings() == null)
             mgr.getPlayerData(e.getPlayer()).setManagedSettings(new Manage.ManagedSettings());
+        if (mgr.getPlayerData(e.getPlayer()).getBans() == null)
+            mgr.getPlayerData(e.getPlayer()).setBans(new ArrayList<>());
         mgr.save(mgr.getPlayerData(e.getPlayer()));
     }
 
