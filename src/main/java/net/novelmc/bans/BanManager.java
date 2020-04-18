@@ -117,14 +117,17 @@ public class BanManager extends ConverseBase {
     }
 
     public boolean isPlayerBanned(UUID u) {
-        if (plugin.playerDataManager.doesPlayerDataExist(u)) {
-            PlayerData pData = plugin.playerDataManager.getPlayerData(u);
-            BanData latest = getLatestBan(u);
-            if (latest == null) return false;
-            if (latest.getBanType() == BanType.PERMANENT) return true;
-            return latest.getBanExpiration().after(new Date());
+        try {
+            if (plugin.playerDataManager.doesPlayerDataExist(u)) {
+                PlayerData pData = plugin.playerDataManager.getPlayerData(u);
+                BanData latest = getLatestBan(u);
+                if (latest == null) return false;
+                if (latest.getBanType() == BanType.PERMANENT) return true;
+                return latest.getBanExpiration().after(new Date());
+            }
+        } catch (NullPointerException e) {
+            return false;
         }
-
         return false;
     }
 

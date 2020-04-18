@@ -46,7 +46,7 @@ public class History extends CommandBase {
         for (BanData ban : reversedBans) {
             sb.append(ChatColor.DARK_GRAY + "[ " + ChatColor.GOLD + "#" + ban.getBanID() + ChatColor.DARK_GRAY + " ]");
             sb.append("\n");
-            sb.append(ChatColor.GRAY + "Staff Member: " + ChatColor.GOLD + (ban.getStaffUUID() != null ? Bukkit.getOfflinePlayer(ban.getStaffUUID()) : "CONSOLE"));
+            sb.append(ChatColor.GRAY + "Staff Member: " + ChatColor.GOLD + (ban.getStaffUUID() != null ? Bukkit.getOfflinePlayer(ban.getStaffUUID()).getName() : "CONSOLE"));
             sb.append("\n");
             sb.append(ChatColor.GRAY + "Expiration: " + ChatColor.GOLD + (ban.getBanType() != BanType.PERMANENT ? plugin.banManager.formatDate(ban.getBanExpiration()) : "Never"));
             sb.append("\n");

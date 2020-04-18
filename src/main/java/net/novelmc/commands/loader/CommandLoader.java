@@ -167,7 +167,7 @@ public class CommandLoader {
             this.commandClass = clazz;
             this.description = description;
             this.usage = usage;
-            this.aliases = ("".equals(aliases) ? new ArrayList<>() : Arrays.asList(aliases.split(",")));
+            this.aliases = ("".equals(aliases) ? new ArrayList<>() : Arrays.asList(aliases.split(", ")));
         }
 
         public List<String> getAliases() {
