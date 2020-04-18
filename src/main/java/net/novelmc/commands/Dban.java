@@ -27,7 +27,7 @@ public class Dban extends CommandBase {
             sender.sendMessage(Messages.NO_PERMISSION);
             return true;
         }
-        if (args.length >= 2) {
+        if (args.length >= 1) {
             OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
             if (!player.hasPlayedBefore() && !player.isOnline()) {
                 sender.sendMessage(ChatColor.RED + "That player does not exist");
