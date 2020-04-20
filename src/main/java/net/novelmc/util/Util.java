@@ -1,6 +1,7 @@
 package net.novelmc.util;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -151,7 +152,7 @@ public class Util extends ConverseBase {
         List<String> orderedRoles = Arrays.asList("default", "voter", "architect", "mod", "seniormod", "developer", "executive");
         assert ConversePlugin.getLuckPermsAPI() != null;
         String executorRank = Objects.requireNonNull(Objects.requireNonNull(ConversePlugin.getLuckPermsAPI().getUserManager().getUser(executor)).getPrimaryGroup());
-        String targetRank = Objects.requireNonNull(Objects.requireNonNull(ConversePlugin.getLuckPermsAPI().getUserManager().getUser(target)).getPrimaryGroup());
+        String targetRank = plugin.playerDataManager.getPlayerData(target).getLastKnownRank();
         int executorIndex = orderedRoles.indexOf(executorRank);
         int targetIndex = orderedRoles.indexOf(targetRank);
         return (executorIndex > targetIndex);

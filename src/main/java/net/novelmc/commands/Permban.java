@@ -26,7 +26,7 @@ public class Permban extends CommandBase {
             return true;
         }
         if (args.length >= 1) {
-            OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
+            OfflinePlayer player = getOfflinePlayer(args[0]);
             if (!player.hasPlayedBefore() && !player.isOnline()) {
                 sender.sendMessage(ChatColor.RED + "That player does not exist");
                 return true;

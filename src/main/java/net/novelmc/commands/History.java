@@ -31,7 +31,7 @@ public class History extends CommandBase {
             return false;
         }
 
-        OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
+        OfflinePlayer target = getOfflinePlayer(args[0]);
         if ((!target.hasPlayedBefore() && !target.isOnline()) || !plugin.playerDataManager.doesPlayerDataExist(target.getUniqueId())) {
             sender.sendMessage(Messages.PLAYER_NOT_FOUND);
             return true;
@@ -39,6 +39,10 @@ public class History extends CommandBase {
 
         UUID targetUUID = target.getUniqueId();
         PlayerData pData = plugin.playerDataManager.getPlayerData(targetUUID);
+        if (pData.getBans() == null || pData.getBans().isEmpty()) {
+            sender.sendMessage(ChatColor.RED + "That player has no history!");
+            return true;
+        }
 
         StringBuilder sb = new StringBuilder();
         List<BanData> reversedBans = new ArrayList(pData.getBans());

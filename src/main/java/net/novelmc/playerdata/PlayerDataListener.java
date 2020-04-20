@@ -30,6 +30,7 @@ public class PlayerDataListener extends ConverseBase implements Listener {
         }
         mgr.getPlayerData(e.getPlayer()).setLastLoggedIn(new Date());
         mgr.getPlayerData(e.getPlayer()).setLastKnownName(e.getPlayer().getName());
+        mgr.getPlayerData(e.getPlayer()).setLastKnownRank(ConversePlugin.getLuckPermsAPI().getUserManager().getUser(e.getPlayer().getUniqueId()).getPrimaryGroup());
         if (mgr.getPlayerData(e.getPlayer()).getManagedSettings() == null)
             mgr.getPlayerData(e.getPlayer()).setManagedSettings(new Manage.ManagedSettings());
         if (mgr.getPlayerData(e.getPlayer()).getBans() == null)

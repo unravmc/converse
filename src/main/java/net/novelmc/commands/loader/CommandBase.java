@@ -1,6 +1,8 @@
 package net.novelmc.commands.loader;
 
 import net.novelmc.ConversePlugin;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -59,5 +61,11 @@ public abstract class CommandBase {
         } else {
             return matcher.get(0);
         }
+    }
+
+    public OfflinePlayer getOfflinePlayer(final String name) {
+        Player p = getPlayer(name);
+        if (p != null) return p;
+        return Bukkit.getOfflinePlayer(name);
     }
 }

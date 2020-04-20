@@ -11,6 +11,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.UUID;
 
@@ -37,6 +38,8 @@ public class BanLookup extends CommandBase {
 
         StringBuilder sb = new StringBuilder();
         sb.append(ChatColor.DARK_GRAY + "[ " + ChatColor.GOLD + "#" + ban.getBanID() + ChatColor.DARK_GRAY + " ]");
+        sb.append("\n");
+        sb.append(ChatColor.GRAY + "Player: " + ChatColor.GOLD + Bukkit.getOfflinePlayer(ban.getPlayerUUID()).getName());
         sb.append("\n");
         sb.append(ChatColor.GRAY + "Staff Member: " + ChatColor.GOLD + (ban.getStaffUUID() != null ? Bukkit.getOfflinePlayer(ban.getStaffUUID()).getName() : "CONSOLE"));
         sb.append("\n");

@@ -1,5 +1,6 @@
 package net.novelmc.playerdata;
 
+import net.novelmc.ConversePlugin;
 import net.novelmc.bans.BanData;
 import net.novelmc.commands.Manage;
 import org.bukkit.entity.Player;
@@ -11,6 +12,7 @@ import java.util.UUID;
 
 public class PlayerData {
     private UUID UUID;
+    private String lastKnownRank;
     private String lastKnownName;
     private String ip;
     private long playtime;
@@ -21,6 +23,7 @@ public class PlayerData {
 
     public PlayerData(Player player) {
         this.UUID = player.getUniqueId();
+        this.lastKnownRank = ConversePlugin.getLuckPermsAPI().getUserManager().getUser(player.getUniqueId()).getPrimaryGroup();
         this.ip = player.getAddress().getAddress().getHostAddress().replace("\\.", "\\_");
         this.coins = 0;
         this.playtime = 0;
@@ -38,6 +41,9 @@ public class PlayerData {
         this.bans = bans;
     }
 
+    public void setLastKnownRank(String lastKnownRank) {
+        this.lastKnownRank = lastKnownRank;
+    }
 
     public void setManagedSettings(Manage.ManagedSettings managedSettings) {
         this.managedSettings = managedSettings;
@@ -73,6 +79,10 @@ public class PlayerData {
 
     public int getCoins() {
         return coins;
+    }
+
+    public String getLastKnownRank() {
+        return lastKnownRank;
     }
 
     public long getPlaytime() {
