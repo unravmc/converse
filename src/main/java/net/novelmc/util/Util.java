@@ -6,8 +6,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import net.novelmc.ConversePlugin;
+import net.novelmc.playerdata.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.Particle;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
@@ -148,8 +150,8 @@ public class Util extends ConverseBase {
         return adminChat.get(uuid);
     }
 
+    public static final List<String> orderedRoles = Arrays.asList("default", "voter", "architect", "mod", "seniormod", "developer", "executive");
     public static boolean canInteract(UUID executor, UUID target) {
-        List<String> orderedRoles = Arrays.asList("default", "voter", "architect", "mod", "seniormod", "developer", "executive");
         assert ConversePlugin.getLuckPermsAPI() != null;
         String executorRank = Objects.requireNonNull(Objects.requireNonNull(ConversePlugin.getLuckPermsAPI().getUserManager().getUser(executor)).getPrimaryGroup());
         String targetRank = plugin.playerDataManager.getPlayerData(target).getLastKnownRank();
@@ -167,6 +169,11 @@ public class Util extends ConverseBase {
         } else {
             return false;
         }
+    }
+
+    public static boolean isStaff(OfflinePlayer target) {
+        PlayerData pData = plugin.playerDataManager.getPlayerData(target);
+        return orderedRoles.indexOf(pData.getLastKnownRank()) > 2;
     }
 
     //orbit

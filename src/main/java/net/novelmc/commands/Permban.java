@@ -32,7 +32,7 @@ public class Permban extends CommandBase {
                 return true;
             }
 
-            if (!Util.canInteract(sender, player.getUniqueId())) {
+            if (!Util.isStaff(player)) {
                 sender.sendMessage(ChatColor.RED + "You can not ban that player!");
                 return true;
             }

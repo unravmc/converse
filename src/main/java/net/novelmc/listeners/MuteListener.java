@@ -2,6 +2,7 @@ package net.novelmc.listeners;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import net.novelmc.ConversePlugin;
 import org.bukkit.Bukkit;
@@ -23,19 +24,19 @@ public class MuteListener implements Listener {
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
-    private final List<Player> muted = new ArrayList<>();
+    private final List<UUID> muted = new ArrayList<>();
     private final List<String> blockedCommands = ConversePlugin.plugin.config.getStringList("muted_commands");
 
     public boolean isMuted(Player player) {
-        return muted.contains(player);
+        return muted.contains(player.getUniqueId());
     }
 
     public void setMuted(Player player, boolean mute) {
         if (mute) {
-            muted.add(player);
+            muted.add(player.getUniqueId());
             return;
         }
-        muted.remove(player);
+        muted.remove(player.getUniqueId());
     }
 
     public int getMutedAmount() {
