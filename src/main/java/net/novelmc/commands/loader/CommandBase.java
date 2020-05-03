@@ -15,7 +15,6 @@ public abstract class CommandBase {
     protected Server server;
     private CommandSender commandSender;
     private Class<?> commandClass;
-    private static String permissionPrefix = "converse\\.";
 
     public CommandBase() {}
 
@@ -27,27 +26,6 @@ public abstract class CommandBase {
         this.commandSender = cs;
         this.commandClass = clazz;
     }
-
-    /*
-    public static boolean hasPermission(CommandSender sender, String permission) {
-        Collection<? extends String> col = CommandLoader.getInstance().getPermissions();
-        if (col.contains(permission)) {
-            if (!(sender instanceof Player)) {
-                return true;
-            }
-
-            if (!sender.hasPermission(permissionPrefix + permission)) {
-                return false;
-            }
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean hasPermission(Player player, String permission) {
-        return hasPermission((CommandSender) player, permission);
-    }
-     */
 
     public Player getPlayer(final String partial) {
         List<Player> matcher = server.matchPlayer(partial);

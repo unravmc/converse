@@ -15,6 +15,7 @@ import net.novelmc.shop.PlayersMenu;
 import net.novelmc.shop.TrailsMenu;
 import net.novelmc.util.AprilFools;
 import net.novelmc.util.PlayerOrganizer;
+import net.novelmc.util.Reflect;
 import net.novelmc.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
@@ -61,6 +62,8 @@ public class ConversePlugin extends JavaPlugin {
 
     // Player Data
     public PlayerDataManager playerDataManager;
+    // Reflections
+    public Reflect reflect;
 
 
     @Override
@@ -68,6 +71,7 @@ public class ConversePlugin extends JavaPlugin {
         plugin = this;
         server = plugin.getServer();
         config = new MainConfig(this);
+        reflect = new Reflect(Converse.class);
     }
 
     @Override

@@ -1,26 +1,16 @@
 package net.novelmc.commands.loader;
 
-import net.novelmc.ConversePlugin;
-import net.novelmc.commands.Adminchat;
-import net.novelmc.commands.Converse;
+import net.novelmc.util.ConverseBase;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
-import org.reflections.Reflections;
 
-import java.lang.reflect.Field;
 import java.util.*;
-import java.util.regex.Pattern;
 
-public class CommandLoader {
-    public static final Pattern COMMAND_PATTERN;
+
+public class CommandLoader extends ConverseBase {
     private final List<Commander> commandList;
-
-    static {
-        COMMAND_PATTERN = Pattern.compile(CommandHandler.COMMAND_PATH.replace('.', '/')
-                + "/([^$]+)\\.class");
-    }
 
     private CommandLoader() {
         commandList = new ArrayList<>();
@@ -41,7 +31,7 @@ public class CommandLoader {
            if (existing != null) {
                unregisterCommand(existing, map);
            }
-           map.register(ConversePlugin.plugin.getDescription().getName(), dynamic);
+           map.register(plugin.getDescription().getName(), dynamic);
         });
         Bukkit.getLogger().info("Successfully loaded all commands!");
     }
@@ -70,7 +60,7 @@ public class CommandLoader {
     }
 
     public CommandMap getCommandMap() {
-        Object commandMap = getField(Bukkit.getServer().getPluginManager(), "commandMap");
+        Object commandMap = plugin.reflect.getField(Bukkit.getServer().getPluginManager(), "commandMap");
         if (commandMap != null) {
             if (commandMap instanceof CommandMap) {
                 return (CommandMap) commandMap;
@@ -79,33 +69,9 @@ public class CommandLoader {
         return null;
     }
 
-    /*
-    public Collection<? extends String> getPermissions() {
-        List<String> permissions = new ArrayList<>();
-        try {
-            CodeSource cs = ConversePlugin.class.getProtectionDomain().getCodeSource();
-            if (cs != null) {
-                ZipInputStream stream = new ZipInputStream(cs.getLocation().openStream());
-                ZipEntry entry;
-                while ((entry = stream.getNextEntry()) != null) {
-                    String name = entry.getName();
-                    Matcher matcher = COMMAND_PATTERM.matcher(name);
-                    if (matcher.find()) {
-                        String permissionName = matcher.group(1).replaceAll("Command", "").toLowerCase();
-                        permissions.add(permissionName);
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return Collections.unmodifiableCollection(permissions);
-    }
-     */
-
     private Collection<? extends Commander> getCommands() {
         List<Commander> commanderList = new ArrayList<>();
-        getAnnotatedClasses(CommandHandler.COMMAND_PATH).forEach(clazz -> {
+        plugin.reflect.getAnnotatedClasses(CommandParameters.class).forEach(clazz -> {
             CommandParameters cp = clazz.getAnnotation(CommandParameters.class);
             if (cp != null) {
                 Commander commander = new Commander(
@@ -120,31 +86,9 @@ public class CommandLoader {
         return Collections.unmodifiableCollection(commanderList);
     }
 
-    public static String remove(String name, String removal) {
-        StringBuilder sb = new StringBuilder();
-        String fName = name.toLowerCase();
-        String fRemoval = removal.toLowerCase();
-           if (fName.contains(fRemoval)) {
-               // Check for the word at the beginning or in the middle
-               String temp = fRemoval + " ";
-               String finals = fName.replaceAll(temp, "");
-               // Now check the end for the word;
-               temp = " " + fRemoval;
-               finals = finals.replaceAll(temp, "");
-               // Return finally the end result which should no longer
-               // have any instances of whatever word you removed.
-               sb.append(finals);
-           } else {
-               // This will prevent StringBuilder from returning an empty string.
-               sb.append(fName);
-           }
-        return sb.toString().toLowerCase();
-    }
-
-    // This is a reflective method.
     @SuppressWarnings("unchecked")
     public HashMap<String, Command> getKnownCommands(CommandMap commandMap) {
-        Object knownCommands = getField(commandMap, "knownCommands");
+        Object knownCommands = plugin.reflect.getField(commandMap, "knownCommands");
         if (knownCommands != null) {
             if (knownCommands instanceof HashMap) {
                 return (HashMap<String, Command>) knownCommands;
@@ -236,7 +180,7 @@ public class CommandLoader {
         @NotNull
         @Override
         public Plugin getPlugin() {
-            return ConversePlugin.plugin;
+            return plugin;
         }
 
         public Commander getCommander() {
@@ -250,25 +194,5 @@ public class CommandLoader {
 
     private static class InstanceHolder {
         private static final CommandLoader INSTANCE = new CommandLoader();
-    }
-
-    private Set<Class<?>> getAnnotatedClasses(String location) {
-        Reflections reflections = new Reflections(location);
-        return reflections.getTypesAnnotatedWith(CommandParameters.class);
-    }
-
-    @SuppressWarnings("unchecked")
-    private <T> T getField(Object from, String name) {
-        Class<?> clazz = from.getClass();
-        do {
-            try {
-                Field field = clazz.getDeclaredField(name);
-                field.setAccessible(true);
-                return (T) field.get(from);
-            } catch (NoSuchFieldException | IllegalAccessException ignored) {}
-        } while (clazz.getSuperclass() != Object.class
-                && ((clazz = clazz.getSuperclass()) != null));
-
-        return null;
     }
 }
