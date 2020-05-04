@@ -3,6 +3,7 @@ package net.novelmc.commands.loader;
 import net.novelmc.ConversePlugin;
 
 import net.novelmc.commands.Converse;
+import net.novelmc.util.ConverseBase;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -10,8 +11,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class CommandHandler {
-    public static final String COMMAND_PATH = ConversePlugin.reflect.getLocation();
+public class CommandHandler extends ConverseBase {
+    public static final String COMMAND_PATH = plugin.reflect.getLocation();
 
     public static boolean handle(CommandSender sender, Command cmd, String lbl, String[] args) {
         final Player player;
