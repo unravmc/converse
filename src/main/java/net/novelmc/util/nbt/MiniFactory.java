@@ -1,4 +1,4 @@
-package net.novelmc.util;
+package net.novelmc.util.nbt;
 
 import com.comphenix.net.sf.cglib.proxy.Factory;
 import com.comphenix.protocol.events.PacketEvent;
@@ -6,6 +6,8 @@ import com.comphenix.protocol.reflect.StructureModifier;
 import com.comphenix.protocol.wrappers.nbt.NbtBase;
 import com.comphenix.protocol.wrappers.nbt.NbtFactory;
 import com.comphenix.protocol.wrappers.nbt.NbtWrapper;
+import net.novelmc.util.ConverseBase;
+import net.novelmc.util.Reflect;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -16,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class MiniFactory {
+public class MiniFactory extends ConverseBase {
     private static Method m;
     private static boolean fuzzy = false;
 
@@ -29,14 +31,14 @@ public class MiniFactory {
             m = NbtFactory.class.getDeclaredMethod("getStackModifier", ItemStack.class);
             m.setAccessible(true);
         } catch (NoSuchMethodException | SecurityException e) {
-            ConverseBase.plugin.getLogger().severe(ExceptionUtils.getStackTrace(e));
+            plugin.getLogger().severe(ExceptionUtils.getStackTrace(e));
         }
 
         try {
             Class.forName(reflect.getDefClass().getName());
             fuzzy = true;
         } catch (ClassNotFoundException ex) {
-            ConverseBase.plugin.getLogger().severe(ExceptionUtils.getStackTrace(ex));
+            plugin.getLogger().severe(ExceptionUtils.getStackTrace(ex));
         }
     }
 
@@ -45,7 +47,7 @@ public class MiniFactory {
         try {
             modifier = (StructureModifier<NbtBase<?>>) m.invoke(null, stack);
         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-            ConverseBase.plugin.getLogger().severe(ExceptionUtils.getStackTrace(e));
+            plugin.getLogger().severe(ExceptionUtils.getStackTrace(e));
         }
         NbtBase<?> result = modifier.read(0);
         if (result != null && result.toString().contains("{\"name\": \"null\"}")) {
@@ -73,6 +75,10 @@ public class MiniFactory {
         b = Bukkit.getPlayerExact(name);
         if (b == null || !b.isOnline() || (b instanceof Factory)) return null;
         return b;
+    }
+
+    public static Reflect reflector() {
+        return reflect;
     }
 
 

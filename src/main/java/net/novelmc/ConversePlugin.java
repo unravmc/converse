@@ -1,5 +1,7 @@
 package net.novelmc;
 
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
 import me.lucko.luckperms.api.LuckPermsApi;
 import net.novelmc.bans.BanManager;
 import net.novelmc.bridge.LuckPermsBridge;
@@ -17,6 +19,9 @@ import net.novelmc.util.AprilFools;
 import net.novelmc.util.PlayerOrganizer;
 import net.novelmc.util.Reflect;
 import net.novelmc.util.Util;
+import net.novelmc.util.nbt.ItemFixer;
+import net.novelmc.util.nbt.NBTListener;
+import net.novelmc.util.nbt.PlibListener;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.command.Command;
@@ -64,6 +69,10 @@ public class ConversePlugin extends JavaPlugin {
     public PlayerDataManager playerDataManager;
     // Reflections
     public Reflect reflect;
+    // NBT Stuff
+    public static ItemFixer fixer;
+    public static ProtocolManager manager;
+    public static NBTListener listener;
 
 
     @Override
@@ -81,6 +90,11 @@ public class ConversePlugin extends JavaPlugin {
         af = new AprilFools(this);
         // BuildProperties
         build.load(this);
+        // NBT
+        fixer = new ItemFixer();
+        listener = new NBTListener(this);
+        manager = ProtocolLibrary.getProtocolManager();
+        manager.addPacketListener(new PlibListener(this));
         // LuckPerms
         getLuckPermsAPI();
         lp = new LuckPermsBridge(this);
