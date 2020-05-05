@@ -10,6 +10,7 @@ import net.novelmc.util.ConverseBase;
 import net.novelmc.util.Reflect;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -46,6 +47,26 @@ public class MiniFactory extends ConverseBase {
         StructureModifier<NbtBase<?>> modifier = null;
         try {
             modifier = (StructureModifier<NbtBase<?>>) m.invoke(null, stack);
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            plugin.getLogger().severe(ExceptionUtils.getStackTrace(e));
+        }
+        NbtBase<?> result = modifier.read(0);
+        if (result != null && result.toString().contains("{\"name\": \"null\"}")) {
+            modifier.write(0, null);
+            result = modifier.read(0);
+        }
+
+        if (result == null) {
+            return null;
+        }
+
+        return NbtFactory.fromBase(result);
+    }
+
+    public static NbtWrapper<?> fromBlockTag(Block block) {
+        StructureModifier<NbtBase<?>> modifier = null;
+        try {
+            modifier = (StructureModifier<NbtBase<?>>) m.invoke(null, block);
         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             plugin.getLogger().severe(ExceptionUtils.getStackTrace(e));
         }

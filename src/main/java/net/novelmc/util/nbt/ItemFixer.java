@@ -4,17 +4,15 @@ import com.comphenix.protocol.wrappers.nbt.NbtBase;
 import com.comphenix.protocol.wrappers.nbt.NbtCompound;
 import com.comphenix.protocol.wrappers.nbt.NbtList;
 import net.novelmc.util.ConverseBase;
-import net.novelmc.util.Reflect;
-import org.bukkit.Color;
-import org.bukkit.FireworkEffect;
-import org.bukkit.Material;
-import org.bukkit.block.ShulkerBox;
+import org.bukkit.*;
+import org.bukkit.block.*;
 import org.bukkit.block.banner.Pattern;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.*;
+import org.bukkit.material.MaterialData;
 import org.bukkit.potion.PotionEffect;
 
 import java.util.*;
@@ -121,10 +119,42 @@ public class ItemFixer extends ConverseBase {
         return cheat;
     }
 
+    public boolean checkChunk(Chunk c) throws MalformedStateException {
+        List<Block> blocks = new ArrayList<>();
+        World world = c.getWorld();
+        if (world == null) {
+            throw new MalformedStateException("World provided returned null!");
+        }
+        int x = 16*c.getX(); // The chunk's first block.
+        int z = 16*c.getZ(); // The chunk's first block.
+        int maxX = x+16; // The chunk's end block.
+        int maxZ = z+16; // The chunk's end block.
+        while (x < maxX) {
+            while (z < maxZ) {
+                for (int y = 0; y <= 255; y++) {
+                    blocks.add(world.getBlockAt(x,y,z));
+                }
+                z++;
+            }
+            x++;
+        }
+        if (blocks.isEmpty() || blocks == null) {
+            throw new MalformedStateException("A list which should not be empty or null has returned either empty or null.");
+        }
+        for (Block block : blocks) {
+            for (Material mat : tiles) {
+                if (block.getType().equals(mat)) {
+                    clearBlock(block);
+                }
+            }
+        }
+        return false;
+    }
+
     private boolean checkNbt(ItemStack stack, Player p) {
         boolean cheat = false;
         try {
-            if (p.hasPermission("itemfixer.bypass.nbt")) return false;
+            if (p.hasPermission("converse.bypass.nbt")) return false;
             Material mat = stack.getType();
             NbtCompound tag = (NbtCompound) MiniFactory.fromItemTag(stack);
             if (tag == null) return false;
@@ -289,6 +319,61 @@ public class ItemFixer extends ConverseBase {
             stack.setItemMeta(meta);
         }
         return changed;
+    }
+
+    public void clearBlock(Block block) {
+        if (assignable(Chest.class, block.getClass())) {
+            Chest chest = (Chest) block;
+            ItemStack[] stacks = chest.getBlockInventory().getContents();
+            for (ItemStack stack : stacks) {
+                Material m = stack.getType();
+                NbtCompound compound = (NbtCompound) MiniFactory.fromItemTag(stack);
+                if (this.isCrashItem(stack, compound, m)) {
+                    chest.getBlockInventory().clear();
+                    chest.update(true);
+                }
+            }
+        }
+        if (assignable(Furnace.class, block.getClass())) {
+            Furnace furnace = (Furnace) block;
+            ItemStack[] stacks = furnace.getInventory().getContents();
+            for (ItemStack stack : stacks) {
+                Material m = stack.getType();
+                NbtCompound compound = (NbtCompound) MiniFactory.fromItemTag(stack);
+                if (this.isCrashItem(stack, compound, m)) {
+                    furnace.getInventory().clear();
+                    furnace.update(true);
+                }
+            }
+        }
+        if (assignable(Dropper.class, block.getClass())) {
+            Dropper dropper = (Dropper) block;
+            ItemStack[] stacks = dropper.getInventory().getContents();
+            for (ItemStack stack : stacks) {
+                Material m = stack.getType();
+                NbtCompound compound = (NbtCompound) MiniFactory.fromItemTag(stack);
+                if (this.isCrashItem(stack, compound, m)) {
+                    dropper.getInventory().clear();
+                    dropper.update(true);
+                }
+            }
+        }
+        if (assignable(Hopper.class, block.getClass())) {
+            Hopper hopper = (Hopper) block;
+            ItemStack[] stacks = hopper.getInventory().getContents();
+            for (ItemStack stack : stacks) {
+                Material m = stack.getType();
+                NbtCompound compound = (NbtCompound) MiniFactory.fromItemTag(stack);
+                if (this.isCrashItem(stack, compound, m)) {
+                    hopper.getInventory().clear();
+                    hopper.update(true);
+                }
+            }
+        }
+    }
+
+    private boolean assignable(Class<?> c1, Class<?> c2) {
+        return c2.isAssignableFrom(c1);
     }
 
     private boolean isCrashItem(ItemStack stack, NbtCompound tag, Material mat) {

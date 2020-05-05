@@ -15,10 +15,7 @@ import net.novelmc.playerdata.PlayerDataManager;
 import net.novelmc.shop.MainMenu;
 import net.novelmc.shop.PlayersMenu;
 import net.novelmc.shop.TrailsMenu;
-import net.novelmc.util.AprilFools;
-import net.novelmc.util.PlayerOrganizer;
-import net.novelmc.util.Reflect;
-import net.novelmc.util.Util;
+import net.novelmc.util.*;
 import net.novelmc.util.nbt.ItemFixer;
 import net.novelmc.util.nbt.NBTListener;
 import net.novelmc.util.nbt.PlibListener;
@@ -74,7 +71,6 @@ public class ConversePlugin extends JavaPlugin {
     public static ProtocolManager manager;
     public static NBTListener listener;
 
-
     @Override
     public void onLoad() {
         plugin = this;
@@ -95,6 +91,7 @@ public class ConversePlugin extends JavaPlugin {
         listener = new NBTListener(this);
         manager = ProtocolLibrary.getProtocolManager();
         manager.addPacketListener(new PlibListener(this));
+        new Recurrent(this).runTaskTimer(this, 20L * 60L, 20L * 60L);
         // LuckPerms
         getLuckPermsAPI();
         lp = new LuckPermsBridge(this);
@@ -122,6 +119,7 @@ public class ConversePlugin extends JavaPlugin {
     public void onDisable() {
         // Unregister configs
         unregisterConfigs();
+        Bukkit.getScheduler().cancelTasks(this);
 
         // Undo cages
         for (UUID u : cgl.cages.keySet()) {
