@@ -125,16 +125,19 @@ public class ItemFixer extends ConverseBase {
         if (world == null) {
             throw new MalformedStateException("World provided returned null!");
         }
-        int x = 16*c.getX(); // The chunk's first block.
-        int z = 16*c.getZ(); // The chunk's first block.
-        int maxX = x+16; // The chunk's end block.
-        int maxZ = z+16; // The chunk's end block.
+        int x = 0; // The chunk's first block.
+        int y = 0; // The lowest possible block.
+        int z = 0; // The chunk's first block.
+        int maxX = 15; // The chunk's end block.
+        int maxZ = 15; // The chunk's end block.
+        int maxY = world.getMaxHeight() - 1;
         while (x < maxX) {
-            while (z < maxZ) {
-                for (int y = 0; y <= 255; y++) {
-                    blocks.add(world.getBlockAt(x,y,z));
+            while (y < maxY) {
+                while (z <= maxZ) {
+                    blocks.add(c.getBlock(x,y,z));
+                    z++;
                 }
-                z++;
+                y++;
             }
             x++;
         }
@@ -322,51 +325,15 @@ public class ItemFixer extends ConverseBase {
     }
 
     public void clearBlock(Block block) {
-        if (assignable(Chest.class, block.getClass())) {
-            Chest chest = (Chest) block;
-            ItemStack[] stacks = chest.getBlockInventory().getContents();
+        if (assignable(Container.class, block.getClass())) {
+            Container chest = (Container) block;
+            ItemStack[] stacks = chest.getInventory().getContents();
             for (ItemStack stack : stacks) {
                 Material m = stack.getType();
                 NbtCompound compound = (NbtCompound) MiniFactory.fromItemTag(stack);
                 if (this.isCrashItem(stack, compound, m)) {
-                    chest.getBlockInventory().clear();
+                    chest.getInventory().clear();
                     chest.update(true);
-                }
-            }
-        }
-        if (assignable(Furnace.class, block.getClass())) {
-            Furnace furnace = (Furnace) block;
-            ItemStack[] stacks = furnace.getInventory().getContents();
-            for (ItemStack stack : stacks) {
-                Material m = stack.getType();
-                NbtCompound compound = (NbtCompound) MiniFactory.fromItemTag(stack);
-                if (this.isCrashItem(stack, compound, m)) {
-                    furnace.getInventory().clear();
-                    furnace.update(true);
-                }
-            }
-        }
-        if (assignable(Dropper.class, block.getClass())) {
-            Dropper dropper = (Dropper) block;
-            ItemStack[] stacks = dropper.getInventory().getContents();
-            for (ItemStack stack : stacks) {
-                Material m = stack.getType();
-                NbtCompound compound = (NbtCompound) MiniFactory.fromItemTag(stack);
-                if (this.isCrashItem(stack, compound, m)) {
-                    dropper.getInventory().clear();
-                    dropper.update(true);
-                }
-            }
-        }
-        if (assignable(Hopper.class, block.getClass())) {
-            Hopper hopper = (Hopper) block;
-            ItemStack[] stacks = hopper.getInventory().getContents();
-            for (ItemStack stack : stacks) {
-                Material m = stack.getType();
-                NbtCompound compound = (NbtCompound) MiniFactory.fromItemTag(stack);
-                if (this.isCrashItem(stack, compound, m)) {
-                    hopper.getInventory().clear();
-                    hopper.update(true);
                 }
             }
         }
@@ -376,7 +343,7 @@ public class ItemFixer extends ConverseBase {
         return c2.isAssignableFrom(c1);
     }
 
-    private boolean isCrashItem(ItemStack stack, NbtCompound tag, Material mat) {
+    public boolean isCrashItem(ItemStack stack, NbtCompound tag, Material mat) {
         if (stack.getAmount() <1 || stack.getAmount() > 64 || tag.getKeys().size() > 20) {
             return true;
         }

@@ -24,7 +24,10 @@ public class PlibListener extends PacketAdapter {
     public static Cache<Player, Object> c;
 
     public PlibListener(Plugin plugin) {
-        super(plugin, ListenerPriority.HIGHEST, PacketType.Play.Client.SET_CREATIVE_SLOT, PacketType.Play.Client.CUSTOM_PAYLOAD);
+        super(plugin,
+                ListenerPriority.HIGHEST,
+                PacketType.Play.Client.SET_CREATIVE_SLOT,
+                PacketType.Play.Client.CUSTOM_PAYLOAD);
         c = CacheBuilder.newBuilder()
                 .concurrencyLevel(2)
                 .initialCapacity(20)
@@ -50,7 +53,6 @@ public class PlibListener extends PacketAdapter {
         } else if (event.getPacketType() == b && !d() && !player.hasPermission("converse.bypass.packet")) {
             this.f(event, player);
         }
-
     }
 
     public boolean c(Player p) {

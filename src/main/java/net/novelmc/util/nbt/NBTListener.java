@@ -1,6 +1,12 @@
 package net.novelmc.util.nbt;
 
 import net.novelmc.ConversePlugin;
+import org.apache.commons.lang.exception.ExceptionUtils;
+import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.Container;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,8 +17,10 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 public class NBTListener implements Listener {
     private Plugin plugin;
@@ -30,6 +38,15 @@ public class NBTListener implements Listener {
         if (ConversePlugin.fixer.isHackedItem(event.getCurrentItem(), p)) {
             event.setCancelled(true);
             p.updateInventory();
+        }
+    }
+
+    @EventHandler
+    public void chunkLoad(ChunkLoadEvent event) {
+        try {
+            ConversePlugin.fixer.checkChunk(event.getChunk());
+        } catch (MalformedStateException e) {
+            Bukkit.getLogger().severe(ExceptionUtils.getStackTrace(e));
         }
     }
 
