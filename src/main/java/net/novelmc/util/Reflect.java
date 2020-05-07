@@ -10,7 +10,6 @@ public class Reflect {
     private final Reflections reflections;
     private final Package aPackage;
     private final Class<?> cls;
-    private final Object mutationLock;
 
     /**
      * Initializer!
@@ -23,11 +22,7 @@ public class Reflect {
     public Reflect(Class<?> clazz) {
         cls = clazz;
         aPackage = cls.getPackage();
-        mutationLock = new Object();
-
-        synchronized (mutationLock) {
-            reflections = new Reflections(clazz.getPackage().getName());
-        }
+        reflections = new Reflections(clazz.getPackage().getName());
     }
 
     /**

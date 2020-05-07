@@ -49,7 +49,7 @@ public class ConversePlugin extends JavaPlugin {
     public TrailsMenu trails;
     public PlayersMenu players;
     public ShopListener shl;
-    public AprilFools af;
+    public Punisher af;
     // Listeners
     public BanListener bl;
     public ChatListener cl;
@@ -83,7 +83,7 @@ public class ConversePlugin extends JavaPlugin {
     public void onEnable() {
         // Config
         registerConfigs();
-        af = new AprilFools(this);
+        af = new Punisher(this);
         // BuildProperties
         build.load(this);
         // NBT
