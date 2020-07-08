@@ -16,9 +16,6 @@ import net.novelmc.shop.MainMenu;
 import net.novelmc.shop.PlayersMenu;
 import net.novelmc.shop.TrailsMenu;
 import net.novelmc.util.*;
-import net.novelmc.util.nbt.ItemFixer;
-import net.novelmc.util.nbt.NBTListener;
-import net.novelmc.util.nbt.PlibListener;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.command.Command;
@@ -66,10 +63,6 @@ public class ConversePlugin extends JavaPlugin {
     public PlayerDataManager playerDataManager;
     // Reflections
     public Reflect reflect;
-    // NBT Stuff
-    public static ItemFixer fixer;
-    public static ProtocolManager manager;
-    public static NBTListener listener;
 
     @Override
     public void onLoad() {
@@ -86,11 +79,6 @@ public class ConversePlugin extends JavaPlugin {
         af = new Punisher(this);
         // BuildProperties
         build.load(this);
-        // NBT
-        fixer = new ItemFixer();
-        listener = new NBTListener(this);
-        manager = ProtocolLibrary.getProtocolManager();
-        manager.addPacketListener(new PlibListener(this));
         new Recurrent(this).runTaskTimer(this, 20L * 60L, 20L * 60L);
         // LuckPerms
         getLuckPermsAPI();

@@ -54,3 +54,4 @@ config:
   item_drops: false
   fluid_place: false
   fire_place: false
+  secret: false
